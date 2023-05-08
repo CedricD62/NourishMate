@@ -60,22 +60,11 @@ public class ProductRequestResult {
                 productRequestResult = new ProductRequestResult(json.getString("code"),json.getInt("status"),json.getString("status_verbose"));
                 JSONObject p = json.getJSONObject("product");
                 productRequestResult.product = Product.populateProduct(p);
-                String id = p.getString("_id");
-
             }
-
-
-
-
         } catch (JSONException e) {
             String error = "";
         }
-
-
-        // p = new Product(httpHandler.makeServiceCall(url));
-
         return productRequestResult;
-
     }
 
 

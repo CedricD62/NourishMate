@@ -5,8 +5,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.example.nourishmate.Models.CaptureAct;
@@ -16,10 +20,20 @@ import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanIntentResult;
 import com.journeyapps.barcodescanner.ScanOptions;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Map;
+
+import javax.net.ssl.HttpsURLConnection;
+
 public class ScanActivity extends AppCompatActivity {
 
     Button scanButton;
-    private TextView barCode;
+    private TableLayout table;
+    private TextView productName;
+    private ImageView productImage;
+    private Map<String, String> imageMapped;
 
     ActivityResultLauncher<ScanOptions> activityResultLauncher = registerForActivityResult(new ScanContract(), result -> {
         /*if(result.getContents() != null){
@@ -42,14 +56,21 @@ public class ScanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
 
-        scanButton = findViewById(R.id.Scanbutton);
-        barCode = findViewById(R.id.BarCode);
+        initControls();
+
 
         scanButton.setOnClickListener(v ->
         {
             scanCode();
         });
 
+    }
+
+    private void initControls() {
+        scanButton = findViewById(R.id.Scanbutton);
+        table = findViewById(R.id.tableLayout);
+        productName = findViewById(R.id.ProductName);
+        productImage = findViewById(R.id.ProductImage);
     }
 
     private void scanCode() {
@@ -73,9 +94,52 @@ public class ScanActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                barCode.setText(productRequestResult.getCode());
+
+                                productName.setText(productRequestResult.getProduct().getProductName());
+
                             }
                         });
+                    }
+                    if (productRequestResult.getProduct().getSelectedImages().getFront().getSmall().getMappedImageLinkedByLangage().containsKey("fr")) {
+                        String link = productRequestResult.getProduct().getSelectedImages().getFront().getSmall().getMappedImageLinkedByLangage().get("fr");
+                        if (link != null) {
+                            try {
+                                URL url = new URL(link);
+                                HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
+                                httpsURLConnection.setDoInput(true);
+                                Bitmap bmp = BitmapFactory.decodeStream(httpsURLConnection.getInputStream());
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        productImage.setImageBitmap(bmp);
+                                    }
+                                });
+                            } catch (MalformedURLException e) {
+                                throw new RuntimeException(e);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        } else {
+                            if (productRequestResult.getProduct().getSelectedImages().getFront().getSmall().getMappedImageLinkedByLangage().containsKey("en")) {
+                                link = productRequestResult.getProduct().getSelectedImages().getFront().getSmall().getMappedImageLinkedByLangage().get("en");
+                                if (link != null) {
+                                    try {
+                                        URL url = new URL(link);
+                                        Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                productImage.setImageBitmap(bmp);
+                                            }
+                                        });
+                                    } catch (MalformedURLException e) {
+                                        throw new RuntimeException(e);
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             });
