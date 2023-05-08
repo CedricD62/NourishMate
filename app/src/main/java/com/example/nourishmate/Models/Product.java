@@ -1,5 +1,6 @@
 package com.example.nourishmate.Models;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -209,6 +210,798 @@ public class Product {
     private ArrayList<String> vitaminsPrevTags;
     private ArrayList<String> vitaminsTags;
 
+    public Images getImages() {
+        return images;
+    }
+
+    public ArrayList<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public LanguagesCodes getLanguagesCodes() {
+        return languagesCodes;
+    }
+
+    public NutrientLevels getNutrientLevels() {
+        return nutrientLevels;
+    }
+
+    public Nutriments getNutriments() {
+        return nutriments;
+    }
+
+    public SelectedImages getSelectedImages() {
+        return selectedImages;
+    }
+
+    public ArrayList<Source> getSources() {
+        return sources;
+    }
+
+    public int getAdditivesN() {
+        return additivesN;
+    }
+
+    public int getAdditivesOldN() {
+        return additivesOldN;
+    }
+
+    public ArrayList<String> getAdditivesOriginalTags() {
+        return additivesOriginalTags;
+    }
+
+    public ArrayList<String> getAdditivesOldTags() {
+        return additivesOldTags;
+    }
+
+    public ArrayList<String> getAdditivesPrevOriginalTags() {
+        return additivesPrevOriginalTags;
+    }
+
+    public ArrayList<String> getAdditivesDebugTags() {
+        return additivesDebugTags;
+    }
+
+    public ArrayList<String> getAdditivesTags() {
+        return additivesTags;
+    }
+
+    public String getAllergens() {
+        return allergens;
+    }
+
+    public String getAllergensFromIngredients() {
+        return allergensFromIngredients;
+    }
+
+    public String getAllergensFromUser() {
+        return allergensFromUser;
+    }
+
+    public ArrayList<String> getAllergensHierarchy() {
+        return allergensHierarchy;
+    }
+
+    public String getAllergensLc() {
+        return allergensLc;
+    }
+
+    public ArrayList<String> getAllergensTags() {
+        return allergensTags;
+    }
+
+    public ArrayList<String> getAminoAcidsPrevTags() {
+        return aminoAcidsPrevTags;
+    }
+
+    public ArrayList<String> getAminoAcidsTags() {
+        return aminoAcidsTags;
+    }
+
+    public String getBrands() {
+        return brands;
+    }
+
+    public ArrayList<String> getBrandsDebugTags() {
+        return brandsDebugTags;
+    }
+
+    public ArrayList<String> getBrandsTags() {
+        return brandsTags;
+    }
+
+    public String getCarbonFootprintPercentOfKnownIngredients() {
+        return carbonFootprintPercentOfKnownIngredients;
+    }
+
+    public String getCarbonFootprintFromKnownIngredientsDebug() {
+        return carbonFootprintFromKnownIngredientsDebug;
+    }
+
+    public String getCategories() {
+        return categories;
+    }
+
+    public ArrayList<String> getCategoriesHierarchy() {
+        return categoriesHierarchy;
+    }
+
+    public String getCategoriesLc() {
+        return categoriesLc;
+    }
+
+    public ArrayList<String> getCategoriesPropertiesTags() {
+        return categoriesPropertiesTags;
+    }
+
+    public ArrayList<String> getCategoriesTags() {
+        return categoriesTags;
+    }
+
+    public ArrayList<String> getCheckersTags() {
+        return checkersTags;
+    }
+
+    public ArrayList<String> getCitiesTags() {
+        return citiesTags;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public ArrayList<String> getCodesTags() {
+        return codesTags;
+    }
+
+    public String getComparedToCategory() {
+        return comparedToCategory;
+    }
+
+    public int getComplete() {
+        return complete;
+    }
+
+    public long getCompletedT() {
+        return completedT;
+    }
+
+    public float getCompleteness() {
+        return completeness;
+    }
+
+    public String getConservationConditions() {
+        return conservationConditions;
+    }
+
+    public String getCountries() {
+        return countries;
+    }
+
+    public ArrayList<String> getCountriesHierarchy() {
+        return countriesHierarchy;
+    }
+
+    public String getCountriesLc() {
+        return countriesLc;
+    }
+
+    public ArrayList<String> getCountriesDebugTags() {
+        return countriesDebugTags;
+    }
+
+    public ArrayList<String> getCountriesTags() {
+        return countriesTags;
+    }
+
+    public ArrayList<String> getCorrectorsTags() {
+        return correctorsTags;
+    }
+
+    public long getCreatedT() {
+        return createdT;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public ArrayList<String> getDataQualityBugsTags() {
+        return dataQualityBugsTags;
+    }
+
+    public ArrayList<String> getDataQualityErrorsTags() {
+        return dataQualityErrorsTags;
+    }
+
+    public ArrayList<String> getDataQualityInfoTags() {
+        return dataQualityInfoTags;
+    }
+
+    public ArrayList<String> getDataQualityTags() {
+        return dataQualityTags;
+    }
+
+    public ArrayList<String> getDataQualityWarningsTags() {
+        return dataQualityWarningsTags;
+    }
+
+    public String getDataSources() {
+        return dataSources;
+    }
+
+    public ArrayList<String> getDataSourcesTags() {
+        return dataSourcesTags;
+    }
+
+    public ArrayList<String> getDebugParamSortedLangs() {
+        return debugParamSortedLangs;
+    }
+
+    public ArrayList<String> getEditorsTags() {
+        return editorsTags;
+    }
+
+    public String getEmbCodes() {
+        return embCodes;
+    }
+
+    public ArrayList<String> getEmbCodesDebugTags() {
+        return embCodesDebugTags;
+    }
+
+    public String getEmbCodesOrig() {
+        return embCodesOrig;
+    }
+
+    public ArrayList<String> getEmbCodesTags() {
+        return embCodesTags;
+    }
+
+    public ArrayList<String> getEntryDatesTags() {
+        return entryDatesTags;
+    }
+
+    public String getExpirationDate() {
+        return expirationDate;
+    }
+
+    public ArrayList<String> getExpirationDateDebugTags() {
+        return expirationDateDebugTags;
+    }
+
+    public int getFruitsVegetablesNuts100GEstimate() {
+        return fruitsVegetablesNuts100GEstimate;
+    }
+
+    public String getGenericName() {
+        return genericName;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public String getImageFrontSmallUrl() {
+        return imageFrontSmallUrl;
+    }
+
+    public String getImageFrontThumbUrl() {
+        return imageFrontThumbUrl;
+    }
+
+    public String getImageFrontUrl() {
+        return imageFrontUrl;
+    }
+
+    public String getImageIngredientsUrl() {
+        return imageIngredientsUrl;
+    }
+
+    public String getImageIngredientsSmallUrl() {
+        return imageIngredientsSmallUrl;
+    }
+
+    public String getImageIngredientsThumbUrl() {
+        return imageIngredientsThumbUrl;
+    }
+
+    public String getImageNutritionSmallUrl() {
+        return imageNutritionSmallUrl;
+    }
+
+    public String getImageNutritionThumbUrl() {
+        return imageNutritionThumbUrl;
+    }
+
+    public String getImageNutritionUrl() {
+        return imageNutritionUrl;
+    }
+
+    public String getImageSmallUrl() {
+        return imageSmallUrl;
+    }
+
+    public String getImageThumbUrl() {
+        return imageThumbUrl;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public ArrayList<String> getInformersTags() {
+        return informersTags;
+    }
+
+    public ArrayList<String> getIngredientsAnalysisTags() {
+        return ingredientsAnalysisTags;
+    }
+
+    public ArrayList<String> getIngredientsDebug() {
+        return ingredientsDebug;
+    }
+
+    public int getIngredientsFromOrThatMayBeFromPalmOilN() {
+        return ingredientsFromOrThatMayBeFromPalmOilN;
+    }
+
+    public ArrayList<String> getIngredientsFromPalmOilTags() {
+        return ingredientsFromPalmOilTags;
+    }
+
+    public int getIngredientsFromPalmOilN() {
+        return ingredientsFromPalmOilN;
+    }
+
+    public ArrayList<String> getIngredientsHierarchy() {
+        return ingredientsHierarchy;
+    }
+
+    public ArrayList<String> getIngredientsIdsDebug() {
+        return ingredientsIdsDebug;
+    }
+
+    public int getIngredientsN() {
+        return ingredientsN;
+    }
+
+    public ArrayList<String> getIngredientsNTags() {
+        return ingredientsNTags;
+    }
+
+    public ArrayList<String> getIngredientsOriginalTags() {
+        return ingredientsOriginalTags;
+    }
+
+    public ArrayList<String> getIngredientsTags() {
+        return ingredientsTags;
+    }
+
+    public String getIngredientsText() {
+        return ingredientsText;
+    }
+
+    public String getIngredientsTextDebug() {
+        return ingredientsTextDebug;
+    }
+
+    public String getIngredientsTextWithAllergens() {
+        return ingredientsTextWithAllergens;
+    }
+
+    public int getIngredientsThatMayBeFromPalmOilN() {
+        return ingredientsThatMayBeFromPalmOilN;
+    }
+
+    public ArrayList<String> getIngredientsThatMayBeFromPalmOilTags() {
+        return ingredientsThatMayBeFromPalmOilTags;
+    }
+
+    public String getInterfaceVersionCreated() {
+        return interfaceVersionCreated;
+    }
+
+    public String getInterfaceVersionModified() {
+        return interfaceVersionModified;
+    }
+
+    public ArrayList<String> getKeywords() {
+        return keywords;
+    }
+
+    public int getKnownIngredientsN() {
+        return knownIngredientsN;
+    }
+
+    public String getLabels() {
+        return labels;
+    }
+
+    public ArrayList<String> getLabelsHierarchy() {
+        return labelsHierarchy;
+    }
+
+    public String getLabelsLc() {
+        return labelsLc;
+    }
+
+    public ArrayList<String> getLabelsPrevHierarchy() {
+        return labelsPrevHierarchy;
+    }
+
+    public ArrayList<String> getLabelsPrevTags() {
+        return labelsPrevTags;
+    }
+
+    public ArrayList<String> getLabelsTags() {
+        return labelsTags;
+    }
+
+    public ArrayList<String> getLabelsDebugTags() {
+        return labelsDebugTags;
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public ArrayList<String> getLangDebugTags() {
+        return langDebugTags;
+    }
+
+    public ArrayList<String> getLanguagesHierarchy() {
+        return languagesHierarchy;
+    }
+
+    public ArrayList<String> getLanguagesTags() {
+        return languagesTags;
+    }
+
+    public ArrayList<String> getLastEditDatesTags() {
+        return lastEditDatesTags;
+    }
+
+    public String getLastEditor() {
+        return lastEditor;
+    }
+
+    public ArrayList<String> getLastImageDatesTags() {
+        return lastImageDatesTags;
+    }
+
+    public long getLastImageT() {
+        return lastImageT;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public long getLastModifiedT() {
+        return lastModifiedT;
+    }
+
+    public String getLc() {
+        return lc;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public ArrayList<String> getLinkDebugTags() {
+        return linkDebugTags;
+    }
+
+    public String getManufacturingPlaces() {
+        return manufacturingPlaces;
+    }
+
+    public ArrayList<String> getManufacturingPlacesDebugTags() {
+        return manufacturingPlacesDebugTags;
+    }
+
+    public ArrayList<String> getManufacturingPlacesTags() {
+        return manufacturingPlacesTags;
+    }
+
+    public String getMaxImgid() {
+        return maxImgid;
+    }
+
+    public ArrayList<String> getMineralsPrevTags() {
+        return mineralsPrevTags;
+    }
+
+    public ArrayList<String> getMineralsTags() {
+        return mineralsTags;
+    }
+
+    public ArrayList<String> getMiscTags() {
+        return miscTags;
+    }
+
+    public String getNetWeightUnit() {
+        return netWeightUnit;
+    }
+
+    public String getNetWeightValue() {
+        return netWeightValue;
+    }
+
+    public String getNutritionDataPer() {
+        return nutritionDataPer;
+    }
+
+    public int getNutritionScoreWarningNoFruitsVegetablesNuts() {
+        return nutritionScoreWarningNoFruitsVegetablesNuts;
+    }
+
+    public String getNoNutritionData() {
+        return noNutritionData;
+    }
+
+    public String getNovaGroup() {
+        return novaGroup;
+    }
+
+    public String getNovaGroups() {
+        return novaGroups;
+    }
+
+    public String getNovaGroupDebug() {
+        return novaGroupDebug;
+    }
+
+    public ArrayList<String> getNovaGroupTags() {
+        return novaGroupTags;
+    }
+
+    public ArrayList<String> getNovaGroupsTags() {
+        return novaGroupsTags;
+    }
+
+    public ArrayList<String> getNucleotidesPrevTags() {
+        return nucleotidesPrevTags;
+    }
+
+    public ArrayList<String> getNucleotidesTags() {
+        return nucleotidesTags;
+    }
+
+    public ArrayList<String> getNutrientLevelsTags() {
+        return nutrientLevelsTags;
+    }
+
+    public String getNutritionData() {
+        return nutritionData;
+    }
+
+    public ArrayList<String> getNutritionDataPerDebugTags() {
+        return nutritionDataPerDebugTags;
+    }
+
+    public String getNutritionDataPrepared() {
+        return nutritionDataPrepared;
+    }
+
+    public String getNutritionDataPreparedPer() {
+        return nutritionDataPreparedPer;
+    }
+
+    public String getNutritionGrades() {
+        return nutritionGrades;
+    }
+
+    public int getNutritionScoreBeverage() {
+        return nutritionScoreBeverage;
+    }
+
+    public String getNutritionScoreDebug() {
+        return nutritionScoreDebug;
+    }
+
+    public int getNutritionScoreWarningNoFiber() {
+        return nutritionScoreWarningNoFiber;
+    }
+
+    public ArrayList<String> getNutritionGradesTags() {
+        return nutritionGradesTags;
+    }
+
+    public String getOrigins() {
+        return origins;
+    }
+
+    public ArrayList<String> getOriginsDebugTags() {
+        return originsDebugTags;
+    }
+
+    public ArrayList<String> getOriginsTags() {
+        return originsTags;
+    }
+
+    public String getOtherInformation() {
+        return otherInformation;
+    }
+
+    public ArrayList<String> getOtherNutritionalSubstancesTags() {
+        return otherNutritionalSubstancesTags;
+    }
+
+    public String getPackaging() {
+        return packaging;
+    }
+
+    public ArrayList<String> getPackagingDebugTags() {
+        return packagingDebugTags;
+    }
+
+    public ArrayList<String> getPackagingTags() {
+        return packagingTags;
+    }
+
+    public ArrayList<String> getPhotographersTags() {
+        return photographersTags;
+    }
+
+    public String getPnnsGroups1() {
+        return pnnsGroups1;
+    }
+
+    public String getPnnsGroups2() {
+        return pnnsGroups2;
+    }
+
+    public ArrayList<String> getPnnsGroups1Tags() {
+        return pnnsGroups1Tags;
+    }
+
+    public ArrayList<String> getPnnsGroups2Tags() {
+        return pnnsGroups2Tags;
+    }
+
+    public long getPopularityKey() {
+        return popularityKey;
+    }
+
+    public String getProducerVersionId() {
+        return producerVersionId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public String getProductQuantity() {
+        return productQuantity;
+    }
+
+    public String getPurchasePlaces() {
+        return purchasePlaces;
+    }
+
+    public ArrayList<String> getPurchasePlacesDebugTags() {
+        return purchasePlacesDebugTags;
+    }
+
+    public ArrayList<String> getPurchasePlacesTags() {
+        return purchasePlacesTags;
+    }
+
+    public ArrayList<String> getQualityTags() {
+        return qualityTags;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public ArrayList<String> getQuantityDebugTags() {
+        return quantityDebugTags;
+    }
+
+    public String getRecyclingInstructionsToDiscard() {
+        return recyclingInstructionsToDiscard;
+    }
+
+    public int getRev() {
+        return rev;
+    }
+
+    public String getServingQuantity() {
+        return servingQuantity;
+    }
+
+    public String getServingSize() {
+        return servingSize;
+    }
+
+    public ArrayList<String> getServingSizeDebugTags() {
+        return servingSizeDebugTags;
+    }
+
+    public long getSortkey() {
+        return sortkey;
+    }
+
+    public String getStates() {
+        return states;
+    }
+
+    public ArrayList<String> getStatesHierarchy() {
+        return statesHierarchy;
+    }
+
+    public ArrayList<String> getStatesTags() {
+        return statesTags;
+    }
+
+    public String getStores() {
+        return stores;
+    }
+
+    public ArrayList<String> getStoresDebugTags() {
+        return storesDebugTags;
+    }
+
+    public ArrayList<String> getStoresTags() {
+        return storesTags;
+    }
+
+    public String getTraces() {
+        return traces;
+    }
+
+    public String getTracesFromIngredients() {
+        return tracesFromIngredients;
+    }
+
+    public ArrayList<String> getTracesHierarchy() {
+        return tracesHierarchy;
+    }
+
+    public ArrayList<String> getTracesDebugTags() {
+        return tracesDebugTags;
+    }
+
+    public String getTracesFromUser() {
+        return tracesFromUser;
+    }
+
+    public String getTracesLc() {
+        return tracesLc;
+    }
+
+    public ArrayList<String> getTracesTags() {
+        return tracesTags;
+    }
+
+    public int getUnknownIngredientsN() {
+        return unknownIngredientsN;
+    }
+
+    public ArrayList<String> getUnknownNutrientsTags() {
+        return unknownNutrientsTags;
+    }
+
+    public String getUpdateKey() {
+        return updateKey;
+    }
+
+    public ArrayList<String> getVitaminsPrevTags() {
+        return vitaminsPrevTags;
+    }
+
+    public ArrayList<String> getVitaminsTags() {
+        return vitaminsTags;
+    }
+
     public static Product populateProduct(JSONObject obj) {
 
         Product product = new Product();
@@ -232,15 +1025,15 @@ public class Product {
             if (obj.has("additives_old_n"))
                 product.additivesOldN = obj.getInt("additives_old_n");
             if (obj.has("additives_original_tags"))
-                product.additivesOriginalTags = new ArrayList<>((Collection) obj.getJSONArray("additives_original_tags"));
+                product.additivesOriginalTags = pupolateCollection(obj.getJSONArray("additives_original_tags"));
             if (obj.has("additives_old_tags"))
-                product.additivesOldTags = new ArrayList<>((Collection) obj.getJSONArray("additives_old_tags"));
+                product.additivesOldTags = pupolateCollection(obj.getJSONArray("additives_old_tags"));
             if (obj.has("additives_prev_original_tags"))
-                product.additivesPrevOriginalTags = new ArrayList<>((Collection) obj.getJSONArray("additives_prev_original_tags"));
+                product.additivesPrevOriginalTags = pupolateCollection(obj.getJSONArray("additives_prev_original_tags"));
             if (obj.has("additives_debug_tags"))
-                product.additivesDebugTags = new ArrayList<>((Collection) obj.getJSONArray("additives_debug_tags"));
+                product.additivesDebugTags = pupolateCollection(obj.getJSONArray("additives_debug_tags"));
             if (obj.has("additives_tags"))
-                product.additivesTags = new ArrayList<>((Collection) obj.getJSONArray("additives_tags"));
+                product.additivesTags = pupolateCollection(obj.getJSONArray("additives_tags"));
             if (obj.has("allergens"))
                 product.allergens = obj.getString("allergens");
             if (obj.has("allergens_from_ingredients"))
@@ -248,21 +1041,21 @@ public class Product {
             if (obj.has("allergens_from_user"))
                 product.allergensFromUser = obj.getString("allergens_from_user");
             if (obj.has("allergens_hierarchy"))
-                product.allergensHierarchy = new ArrayList<>((Collection) obj.getJSONArray("allergens_hierarchy"));
+                product.allergensHierarchy = pupolateCollection(obj.getJSONArray("allergens_hierarchy"));
             if (obj.has("allergens_lc"))
                 product.allergensLc = obj.getString("allergens_lc");
             if (obj.has("allergens_tags"))
-                product.allergensTags = new ArrayList<>((Collection) obj.getJSONArray("allergens_tags"));
+                product.allergensTags = pupolateCollection(obj.getJSONArray("allergens_tags"));
             if (obj.has("amino_acids_prev_tags"))
-                product.aminoAcidsPrevTags = new ArrayList<>((Collection) obj.getJSONArray("amino_acids_prev_tags"));
+                product.aminoAcidsPrevTags = pupolateCollection(obj.getJSONArray("amino_acids_prev_tags"));
             if (obj.has("amino_acids_tags"))
-                product.aminoAcidsTags = new ArrayList<>((Collection) obj.getJSONArray("amino_acids_tags"));
+                product.aminoAcidsTags = pupolateCollection(obj.getJSONArray("amino_acids_tags"));
             if (obj.has("brands"))
                 product.brands = obj.getString("brands");
             if (obj.has("brands_debug_tags"))
-                product.brandsDebugTags = new ArrayList<>((Collection) obj.getJSONArray("brands_debug_tags"));
+                product.brandsDebugTags = pupolateCollection(obj.getJSONArray("brands_debug_tags"));
             if (obj.has("brands_tags"))
-                product.brandsTags = new ArrayList<>((Collection) obj.getJSONArray("brands_tags"));
+                product.brandsTags = pupolateCollection(obj.getJSONArray("brands_tags"));
             if (obj.has("carbon_footprint_percent_of_known_ingredients"))
                 product.carbonFootprintPercentOfKnownIngredients = obj.getString("carbon_footprint_percent_of_known_ingredients");
             if (obj.has("carbon_footprint_from_known_ingredients_debug"))
@@ -270,21 +1063,21 @@ public class Product {
             if (obj.has("categories"))
                 product.categories = obj.getString("categories");
             if (obj.has("categories_hierarchy"))
-                product.categoriesHierarchy = new ArrayList<>((Collection) obj.getJSONArray("categories_hierarchy"));
+                product.categoriesHierarchy = pupolateCollection(obj.getJSONArray("categories_hierarchy"));
             if (obj.has("categories_lc"))
                 product.categoriesLc = obj.getString("categories_lc");
             if (obj.has("categories_properties_tags"))
-                product.categoriesPropertiesTags = new ArrayList<>((Collection) obj.getJSONArray("categories_properties_tags"));
+                product.categoriesPropertiesTags = pupolateCollection(obj.getJSONArray("categories_properties_tags"));
             if (obj.has("categories_tags"))
-                product.categoriesTags = new ArrayList<>((Collection) obj.getJSONArray("categories_tags"));
+                product.categoriesTags = pupolateCollection(obj.getJSONArray("categories_tags"));
             if (obj.has("checkers_tags"))
-                product.checkersTags = new ArrayList<>((Collection) obj.getJSONArray("checkers_tags"));
+                product.checkersTags = pupolateCollection(obj.getJSONArray("checkers_tags"));
             if (obj.has("cities_tags"))
-                product.citiesTags = new ArrayList<>((Collection) obj.getJSONArray("cities_tags"));
+                product.citiesTags = pupolateCollection(obj.getJSONArray("cities_tags"));
             if (obj.has("code"))
                 product.code = obj.getString("code");
             if (obj.has("codes_tags"))
-                product.codesTags = new ArrayList<>((Collection) obj.getJSONArray("codes_tags"));
+                product.codesTags = pupolateCollection(obj.getJSONArray("codes_tags"));
             if (obj.has("compared_to_category"))
                 product.comparedToCategory = obj.getString("compared_to_category");
             if (obj.has("complete"))
@@ -298,51 +1091,51 @@ public class Product {
             if (obj.has("countries"))
                 product.countries = obj.getString("countries");
             if (obj.has("countries_hierarchy"))
-                product.countriesHierarchy = new ArrayList<>((Collection) obj.getJSONArray("countries_hierarchy"));
+                product.countriesHierarchy = pupolateCollection(obj.getJSONArray("countries_hierarchy"));
             if (obj.has("countries_lc"))
                 product.countriesLc = obj.getString("countries_lc");
             if (obj.has("countries_debug_tags"))
-                product.countriesDebugTags = new ArrayList<>((Collection) obj.getJSONArray("countries_debug_tags"));
+                product.countriesDebugTags = pupolateCollection(obj.getJSONArray("countries_debug_tags"));
             if (obj.has("countries_tags"))
-                product.countriesTags = new ArrayList<>((Collection) obj.getJSONArray("countries_tags"));
+                product.countriesTags = pupolateCollection(obj.getJSONArray("countries_tags"));
             if (obj.has("correctors_tags"))
-                product.correctorsTags = new ArrayList<>((Collection) obj.getJSONArray("correctors_tags"));
+                product.correctorsTags = pupolateCollection(obj.getJSONArray("correctors_tags"));
             if (obj.has("created_t"))
                 product.createdT = obj.getLong("created_t");
             if (obj.has("creator"))
                 product.creator = obj.getString("creator");
             if (obj.has("data_quality_bugs_tags"))
-                product.dataQualityBugsTags = new ArrayList<>((Collection) obj.getJSONArray("data_quality_bugs_tags"));
+                product.dataQualityBugsTags = pupolateCollection(obj.getJSONArray("data_quality_bugs_tags"));
             if (obj.has("data_quality_errors_tags"))
-                product.dataQualityErrorsTags = new ArrayList<>((Collection) obj.getJSONArray("data_quality_errors_tags"));
+                product.dataQualityErrorsTags = pupolateCollection(obj.getJSONArray("data_quality_errors_tags"));
             if (obj.has("data_quality_info_tags"))
-                product.dataQualityInfoTags = new ArrayList<>((Collection) obj.getJSONArray("data_quality_info_tags"));
+                product.dataQualityInfoTags = pupolateCollection(obj.getJSONArray("data_quality_info_tags"));
             if (obj.has("data_quality_tags"))
-                product.dataQualityTags = new ArrayList<>((Collection) obj.getJSONArray("data_quality_tags"));
+                product.dataQualityTags = pupolateCollection(obj.getJSONArray("data_quality_tags"));
             if (obj.has("data_quality_warnings_tags"))
-                product.dataQualityWarningsTags = new ArrayList<>((Collection) obj.getJSONArray("data_quality_warnings_tags"));
+                product.dataQualityWarningsTags = pupolateCollection(obj.getJSONArray("data_quality_warnings_tags"));
             if (obj.has("data_sources"))
                 product.dataSources = obj.getString("data_sources");
             if (obj.has("data_sources_tags"))
-                product.dataSourcesTags = new ArrayList<>((Collection) obj.getJSONArray("data_sources_tags"));
+                product.dataSourcesTags = pupolateCollection(obj.getJSONArray("data_sources_tags"));
             if (obj.has("debug_param_sorted_langs"))
-                product.debugParamSortedLangs = new ArrayList<>((Collection) obj.getJSONArray("debug_param_sorted_langs"));
+                product.debugParamSortedLangs = pupolateCollection(obj.getJSONArray("debug_param_sorted_langs"));
             if (obj.has("editors_tags"))
-                product.editorsTags = new ArrayList<>((Collection) obj.getJSONArray("editors_tags"));
+                product.editorsTags = pupolateCollection(obj.getJSONArray("editors_tags"));
             if (obj.has("emb_codes"))
                 product.embCodes = obj.getString("emb_codes");
             if (obj.has("emb_codes_debug_tags"))
-                product.embCodesDebugTags = new ArrayList<>((Collection) obj.getJSONArray("emb_codes_debug_tags"));
+                product.embCodesDebugTags = pupolateCollection(obj.getJSONArray("emb_codes_debug_tags"));
             if (obj.has("emb_codes_orig"))
                 product.embCodesOrig = obj.getString("emb_codes_orig");
             if (obj.has("emb_codes_tags"))
-                product.embCodesTags = new ArrayList<>((Collection) obj.getJSONArray("emb_codes_tags"));
+                product.embCodesTags = pupolateCollection(obj.getJSONArray("emb_codes_tags"));
             if (obj.has("entry_dates_tags"))
-                product.entryDatesTags = new ArrayList<>((Collection) obj.getJSONArray("entry_dates_tags"));
+                product.entryDatesTags = pupolateCollection(obj.getJSONArray("entry_dates_tags"));
             if (obj.has("expiration_date"))
                 product.expirationDate = obj.getString("expiration_date");
             if (obj.has("expiration_date_debug_tags"))
-                product.expirationDateDebugTags = new ArrayList<>((Collection) obj.getJSONArray("expiration_date_debug_tags"));
+                product.expirationDateDebugTags = pupolateCollection(obj.getJSONArray("expiration_date_debug_tags"));
             if (obj.has("fruits-vegetables-nuts_100g_estimate"))
                 product.fruitsVegetablesNuts100GEstimate = obj.getInt("fruits-vegetables-nuts_100g_estimate");
             if (obj.has("generic_name"))
@@ -376,29 +1169,29 @@ public class Product {
             if (obj.has("image_url"))
                 product.imageUrl = obj.getString("image_url");
             if (obj.has("informers_tags"))
-                product.informersTags = new ArrayList<>((Collection) obj.getJSONArray("informers_tags"));
+                product.informersTags = pupolateCollection(obj.getJSONArray("informers_tags"));
             if (obj.has("ingredients_analysis_tags"))
-                product.ingredientsAnalysisTags = new ArrayList<>((Collection) obj.getJSONArray("ingredients_analysis_tags"));
+                product.ingredientsAnalysisTags = pupolateCollection(obj.getJSONArray("ingredients_analysis_tags"));
             if (obj.has("ingredients_debug"))
-                product.ingredientsDebug = new ArrayList<>((Collection) obj.getJSONArray("ingredients_debug"));
+                product.ingredientsDebug = pupolateCollection(obj.getJSONArray("ingredients_debug"));
             if (obj.has("ingredients_from_or_that_may_be_from_palm_oil_n"))
                 product.ingredientsFromOrThatMayBeFromPalmOilN = obj.getInt("ingredients_from_or_that_may_be_from_palm_oil_n");
             if (obj.has("ingredients_from_palm_oil_tags"))
-                product.ingredientsFromPalmOilTags = new ArrayList<>((Collection) obj.getJSONArray("ingredients_from_palm_oil_tags"));
+                product.ingredientsFromPalmOilTags = pupolateCollection(obj.getJSONArray("ingredients_from_palm_oil_tags"));
             if (obj.has("ingredients_from_palm_oil_n"))
                 product.ingredientsFromPalmOilN = obj.getInt("ingredients_from_palm_oil_n");
             if (obj.has("ingredients_hierarchy"))
-                product.ingredientsHierarchy = new ArrayList<>((Collection) obj.getJSONArray("ingredients_hierarchy"));
+                product.ingredientsHierarchy = pupolateCollection(obj.getJSONArray("ingredients_hierarchy"));
             if (obj.has("ingredients_ids_debug"))
-                product.ingredientsIdsDebug = new ArrayList<>((Collection) obj.getJSONArray("ingredients_ids_debug"));
+                product.ingredientsIdsDebug = pupolateCollection(obj.getJSONArray("ingredients_ids_debug"));
             if (obj.has("ingredients_n"))
                 product.ingredientsN = obj.getInt("ingredients_n");
             if (obj.has("ingredients_n_tags"))
-                product.ingredientsNTags = new ArrayList<>((Collection) obj.getJSONArray("ingredients_n_tags"));
+                product.ingredientsNTags = pupolateCollection(obj.getJSONArray("ingredients_n_tags"));
             if (obj.has("ingredients_original_tags"))
-                product.ingredientsOriginalTags = new ArrayList<>((Collection) obj.getJSONArray("ingredients_original_tags"));
+                product.ingredientsOriginalTags = pupolateCollection(obj.getJSONArray("ingredients_original_tags"));
             if (obj.has("ingredients_tags"))
-                product.ingredientsTags = new ArrayList<>((Collection) obj.getJSONArray("ingredients_tags"));
+                product.ingredientsTags = pupolateCollection(obj.getJSONArray("ingredients_tags"));
             if (obj.has("ingredients_text"))
                 product.ingredientsText = obj.getString("ingredients_text");
             if (obj.has("ingredients_text_debug"))
@@ -408,43 +1201,43 @@ public class Product {
             if (obj.has("ingredients_that_may_be_from_palm_oil_n"))
                 product.ingredientsThatMayBeFromPalmOilN = obj.getInt("ingredients_that_may_be_from_palm_oil_n");
             if (obj.has("ingredients_that_may_be_from_palm_oil_tags"))
-                product.ingredientsThatMayBeFromPalmOilTags = new ArrayList<>((Collection) obj.getJSONArray("ingredients_that_may_be_from_palm_oil_tags"));
+                product.ingredientsThatMayBeFromPalmOilTags = pupolateCollection(obj.getJSONArray("ingredients_that_may_be_from_palm_oil_tags"));
             if (obj.has("interface_version_created"))
                 product.interfaceVersionCreated = obj.getString("interface_version_created");
             if (obj.has("interface_version_modified"))
                 product.interfaceVersionModified = obj.getString("interface_version_modified");
             if (obj.has("_keywords"))
-                product.keywords = new ArrayList<>((Collection) obj.getJSONArray("_keywords"));
+                product.keywords = pupolateCollection(obj.getJSONArray("_keywords"));
             if (obj.has("known_ingredients_n"))
                 product.knownIngredientsN = obj.getInt("known_ingredients_n");
             if (obj.has("labels"))
                 product.labels = obj.getString("labels");
             if (obj.has("labels_hierarchy"))
-                product.labelsHierarchy = new ArrayList<>((Collection) obj.getJSONArray("labels_hierarchy"));
+                product.labelsHierarchy = pupolateCollection(obj.getJSONArray("labels_hierarchy"));
             if (obj.has("labels_lc"))
                 product.labelsLc = obj.getString("labels_lc");
             if (obj.has("labels_prev_hierarchy"))
-                product.labelsPrevHierarchy = new ArrayList<>((Collection) obj.getJSONArray("labels_prev_hierarchy"));
+                product.labelsPrevHierarchy = pupolateCollection(obj.getJSONArray("labels_prev_hierarchy"));
             if (obj.has("labels_prev_tags"))
-                product.labelsPrevTags = new ArrayList<>((Collection) obj.getJSONArray("labels_prev_tags"));
+                product.labelsPrevTags = pupolateCollection(obj.getJSONArray("labels_prev_tags"));
             if (obj.has("labels_tags"))
-                product.labelsTags = new ArrayList<>((Collection) obj.getJSONArray("labels_tags"));
+                product.labelsTags = pupolateCollection(obj.getJSONArray("labels_tags"));
             if (obj.has("labels_debug_tags"))
-                product.labelsDebugTags = new ArrayList<>((Collection) obj.getJSONArray("labels_debug_tags"));
+                product.labelsDebugTags = pupolateCollection(obj.getJSONArray("labels_debug_tags"));
             if (obj.has("lang"))
                 product.lang = obj.getString("lang");
             if (obj.has("lang_debug_tags"))
-                product.langDebugTags = new ArrayList<>((Collection) obj.getJSONArray("lang_debug_tags"));
+                product.langDebugTags = pupolateCollection(obj.getJSONArray("lang_debug_tags"));
             if (obj.has("languages_hierarchy"))
-                product.languagesHierarchy = new ArrayList<>((Collection) obj.getJSONArray("languages_hierarchy"));
+                product.languagesHierarchy = pupolateCollection(obj.getJSONArray("languages_hierarchy"));
             if (obj.has("languages_tags"))
-                product.languagesTags = new ArrayList<>((Collection) obj.getJSONArray("languages_tags"));
+                product.languagesTags = pupolateCollection(obj.getJSONArray("languages_tags"));
             if (obj.has("last_edit_dates_tags"))
-                product.lastEditDatesTags = new ArrayList<>((Collection) obj.getJSONArray("last_edit_dates_tags"));
+                product.lastEditDatesTags = pupolateCollection(obj.getJSONArray("last_edit_dates_tags"));
             if (obj.has("last_editor"))
                 product.lastEditor = obj.getString("last_editor");
             if (obj.has("last_image_dates_tags"))
-                product.lastImageDatesTags = new ArrayList<>((Collection) obj.getJSONArray("last_image_dates_tags"));
+                product.lastImageDatesTags = pupolateCollection(obj.getJSONArray("last_image_dates_tags"));
             if (obj.has("last_image_t"))
                 product.lastImageT = obj.getLong("last_image_t");
             if (obj.has("last_modified_by"))
@@ -456,21 +1249,21 @@ public class Product {
             if (obj.has("link"))
                 product.link = obj.getString("link");
             if (obj.has("link_debug_tags"))
-                product.linkDebugTags = new ArrayList<>((Collection) obj.getJSONArray("link_debug_tags"));
+                product.linkDebugTags = pupolateCollection(obj.getJSONArray("link_debug_tags"));
             if (obj.has("manufacturing_places"))
                 product.manufacturingPlaces = obj.getString("manufacturing_places");
             if (obj.has("manufacturing_places_debug_tags"))
-                product.manufacturingPlacesDebugTags = new ArrayList<>((Collection) obj.getJSONArray("manufacturing_places_debug_tags"));
+                product.manufacturingPlacesDebugTags = pupolateCollection(obj.getJSONArray("manufacturing_places_debug_tags"));
             if (obj.has("manufacturing_places_tags"))
-                product.manufacturingPlacesTags = new ArrayList<>((Collection) obj.getJSONArray("manufacturing_places_tags"));
+                product.manufacturingPlacesTags = pupolateCollection(obj.getJSONArray("manufacturing_places_tags"));
             if (obj.has("max_imgid"))
                 product.maxImgid = obj.getString("max_imgid");
             if (obj.has("minerals_prev_tags"))
-                product.mineralsPrevTags = new ArrayList<>((Collection) obj.getJSONArray("minerals_prev_tags"));
+                product.mineralsPrevTags = pupolateCollection(obj.getJSONArray("minerals_prev_tags"));
             if (obj.has("minerals_tags"))
-                product.mineralsTags = new ArrayList<>((Collection) obj.getJSONArray("minerals_tags"));
+                product.mineralsTags = pupolateCollection(obj.getJSONArray("minerals_tags"));
             if (obj.has("misc_tags"))
-                product.miscTags = new ArrayList<>((Collection) obj.getJSONArray("misc_tags"));
+                product.miscTags = pupolateCollection(obj.getJSONArray("misc_tags"));
             if (obj.has("net_weight_unit"))
                 product.netWeightUnit = obj.getString("net_weight_unit");
             if (obj.has("net_weight_value"))
@@ -488,19 +1281,19 @@ public class Product {
             if (obj.has("nova_group_debug"))
                 product.novaGroupDebug = obj.getString("nova_group_debug");
             if (obj.has("nova_group_tags"))
-                product.novaGroupTags = new ArrayList<>((Collection) obj.getJSONArray("nova_group_tags"));
+                product.novaGroupTags = pupolateCollection(obj.getJSONArray("nova_group_tags"));
             if (obj.has("nova_groups_tags"))
-                product.novaGroupsTags = new ArrayList<>((Collection) obj.getJSONArray("nova_groups_tags"));
+                product.novaGroupsTags = pupolateCollection(obj.getJSONArray("nova_groups_tags"));
             if (obj.has("nucleotides_prev_tags"))
-                product.nucleotidesPrevTags = new ArrayList<>((Collection) obj.getJSONArray("nucleotides_prev_tags"));
+                product.nucleotidesPrevTags = pupolateCollection(obj.getJSONArray("nucleotides_prev_tags"));
             if (obj.has("nucleotides_tags"))
-                product.nucleotidesTags = new ArrayList<>((Collection) obj.getJSONArray("nucleotides_tags"));
+                product.nucleotidesTags = pupolateCollection(obj.getJSONArray("nucleotides_tags"));
             if (obj.has("nutrient_levels_tags"))
-                product.nutrientLevelsTags = new ArrayList<>((Collection) obj.getJSONArray("nutrient_levels_tags"));
+                product.nutrientLevelsTags = pupolateCollection(obj.getJSONArray("nutrient_levels_tags"));
             if (obj.has("nutrition_data"))
                 product.nutritionData = obj.getString("nutrition_data");
             if (obj.has("nutrition_data_per_debug_tags"))
-                product.nutritionDataPerDebugTags = new ArrayList<>((Collection) obj.getJSONArray("nutrition_data_per_debug_tags"));
+                product.nutritionDataPerDebugTags = pupolateCollection(obj.getJSONArray("nutrition_data_per_debug_tags"));
             if (obj.has("nutrition_data_prepared"))
                 product.nutritionDataPrepared = obj.getString("nutrition_data_prepared");
             if (obj.has("nutrition_data_prepared_per"))
@@ -514,33 +1307,33 @@ public class Product {
             if (obj.has("nutrition_score_warning_no_fiber"))
                 product.nutritionScoreWarningNoFiber = obj.getInt("nutrition_score_warning_no_fiber");
             if (obj.has("nutrition_grades_tags"))
-                product.nutritionGradesTags = new ArrayList<>((Collection) obj.getJSONArray("nutrition_grades_tags"));
+                product.nutritionGradesTags = pupolateCollection(obj.getJSONArray("nutrition_grades_tags"));
             if (obj.has("origins"))
                 product.origins = obj.getString("origins");
             if (obj.has("origins_debug_tags"))
-                product.originsDebugTags = new ArrayList<>((Collection) obj.getJSONArray("origins_debug_tags"));
+                product.originsDebugTags = pupolateCollection(obj.getJSONArray("origins_debug_tags"));
             if (obj.has("origins_tags"))
-                product.originsTags = new ArrayList<>((Collection) obj.getJSONArray("origins_tags"));
+                product.originsTags = pupolateCollection(obj.getJSONArray("origins_tags"));
             if (obj.has("other_information"))
                 product.otherInformation = obj.getString("other_information");
             if (obj.has("other_nutritional_substances_tags"))
-                product.otherNutritionalSubstancesTags = new ArrayList<>((Collection) obj.getJSONArray("other_nutritional_substances_tags"));
+                product.otherNutritionalSubstancesTags = pupolateCollection(obj.getJSONArray("other_nutritional_substances_tags"));
             if (obj.has("packaging"))
                 product.packaging = obj.getString("packaging");
             if (obj.has("packaging_debug_tags"))
-                product.packagingDebugTags = new ArrayList<>((Collection) obj.getJSONArray("packaging_debug_tags"));
+                product.packagingDebugTags = pupolateCollection(obj.getJSONArray("packaging_debug_tags"));
             if (obj.has("packaging_tags"))
-                product.packagingTags = new ArrayList<>((Collection) obj.getJSONArray("packaging_tags"));
+                product.packagingTags = pupolateCollection(obj.getJSONArray("packaging_tags"));
             if (obj.has("photographers_tags"))
-                product.photographersTags = new ArrayList<>((Collection) obj.getJSONArray("photographers_tags"));
+                product.photographersTags = pupolateCollection(obj.getJSONArray("photographers_tags"));
             if (obj.has("pnns_groups_1"))
                 product.pnnsGroups1 = obj.getString("pnns_groups_1");
             if (obj.has("pnns_groups_2"))
                 product.pnnsGroups2 = obj.getString("pnns_groups_2");
             if (obj.has("pnns_groups_1_tags"))
-                product.pnnsGroups1Tags = new ArrayList<>((Collection) obj.getJSONArray("pnns_groups_1_tags"));
+                product.pnnsGroups1Tags = pupolateCollection(obj.getJSONArray("pnns_groups_1_tags"));
             if (obj.has("pnns_groups_2_tags"))
-                product.pnnsGroups2Tags = new ArrayList<>((Collection) obj.getJSONArray("pnns_groups_2_tags"));
+                product.pnnsGroups2Tags = pupolateCollection(obj.getJSONArray("pnns_groups_2_tags"));
             if (obj.has("popularity_key"))
                 product.popularityKey = obj.getLong("popularity_key");
             if (obj.has("producer_version_id"))
@@ -552,15 +1345,15 @@ public class Product {
             if (obj.has("purchase_places"))
                 product.purchasePlaces = obj.getString("purchase_places");
             if (obj.has("purchase_places_debug_tags"))
-                product.purchasePlacesDebugTags = new ArrayList<>((Collection) obj.getJSONArray("purchase_places_debug_tags"));
+                product.purchasePlacesDebugTags = pupolateCollection(obj.getJSONArray("purchase_places_debug_tags"));
             if (obj.has("purchase_places_tags"))
-                product.purchasePlacesTags = new ArrayList<>((Collection) obj.getJSONArray("purchase_places_tags"));
+                product.purchasePlacesTags = pupolateCollection(obj.getJSONArray("purchase_places_tags"));
             if (obj.has("quality_tags"))
-                product.qualityTags = new ArrayList<>((Collection) obj.getJSONArray("quality_tags"));
+                product.qualityTags = pupolateCollection(obj.getJSONArray("quality_tags"));
             if (obj.has("quantity"))
                 product.quantity = obj.getString("quantity");
             if (obj.has("quantity_debug_tags"))
-                product.quantityDebugTags = new ArrayList<>((Collection) obj.getJSONArray("quantity_debug_tags"));
+                product.quantityDebugTags = pupolateCollection(obj.getJSONArray("quantity_debug_tags"));
             if (obj.has("recycling_instructions_to_discard"))
                 product.recyclingInstructionsToDiscard = obj.getString("recycling_instructions_to_discard");
             if (obj.has("rev"))
@@ -570,49 +1363,60 @@ public class Product {
             if (obj.has("serving_size"))
                 product.servingSize = obj.getString("serving_size");
             if (obj.has("serving_size_debug_tags"))
-                product.servingSizeDebugTags = new ArrayList<>((Collection) obj.getJSONArray("serving_size_debug_tags"));
+                product.servingSizeDebugTags = pupolateCollection(obj.getJSONArray("serving_size_debug_tags"));
             if (obj.has("sortkey"))
                 product.sortkey = obj.getLong("sortkey");
             if (obj.has("states"))
                 product.states = obj.getString("states");
             if (obj.has("states_hierarchy"))
-                product.statesHierarchy = new ArrayList<>((Collection) obj.getJSONArray("states_hierarchy"));
+                product.statesHierarchy = pupolateCollection(obj.getJSONArray("states_hierarchy"));
             if (obj.has("states_tags"))
-                product.statesTags = new ArrayList<>((Collection) obj.getJSONArray("states_tags"));
+                product.statesTags = pupolateCollection(obj.getJSONArray("states_tags"));
             if (obj.has("stores"))
                 product.stores = obj.getString("stores");
             if (obj.has("stores_debug_tags"))
-                product.storesDebugTags = new ArrayList<>((Collection) obj.getJSONArray("stores_debug_tags"));
+                product.storesDebugTags = pupolateCollection(obj.getJSONArray("stores_debug_tags"));
             if (obj.has("stores_tags"))
-                product.storesTags = new ArrayList<>((Collection) obj.getJSONArray("stores_tags"));
+                product.storesTags = pupolateCollection(obj.getJSONArray("stores_tags"));
             if (obj.has("traces"))
                 product.traces = obj.getString("traces");
             if (obj.has("traces_from_ingredients"))
                 product.tracesFromIngredients = obj.getString("traces_from_ingredients");
             if (obj.has("traces_hierarchy"))
-                product.tracesHierarchy = new ArrayList<>((Collection) obj.getJSONArray("traces_hierarchy"));
+                product.tracesHierarchy = pupolateCollection(obj.getJSONArray("traces_hierarchy"));
             if (obj.has("traces_debug_tags"))
-                product.tracesDebugTags = new ArrayList<>((Collection) obj.getJSONArray("traces_debug_tags"));
+                product.tracesDebugTags = pupolateCollection(obj.getJSONArray("traces_debug_tags"));
             if (obj.has("traces_from_user"))
                 product.tracesFromUser = obj.getString("traces_from_user");
             if (obj.has("traces_lc"))
                 product.tracesLc = obj.getString("traces_lc");
             if (obj.has("traces_tags"))
-                product.tracesTags = new ArrayList<>((Collection) obj.getJSONArray("traces_tags"));
+                product.tracesTags = pupolateCollection(obj.getJSONArray("traces_tags"));
             if (obj.has("unknown_ingredients_n"))
                 product.unknownIngredientsN = obj.getInt("unknown_ingredients_n");
             if (obj.has("unknown_nutrients_tags"))
-                product.unknownNutrientsTags = new ArrayList<>((Collection) obj.getJSONArray("unknown_nutrients_tags"));
+                product.unknownNutrientsTags = pupolateCollection(obj.getJSONArray("unknown_nutrients_tags"));
             if (obj.has("update_key"))
                 product.updateKey = obj.getString("update_key");
             if (obj.has("vitamins_prev_tags"))
-                product.vitaminsPrevTags = new ArrayList<>((Collection) obj.getJSONArray("vitamins_prev_tags"));
+                product.vitaminsPrevTags = pupolateCollection(obj.getJSONArray("vitamins_prev_tags"));
             if (obj.has("vitamins_tags"))
-                product.vitaminsTags = new ArrayList<>((Collection) obj.getJSONArray("vitamins_tags"));
+                product.vitaminsTags = pupolateCollection(obj.getJSONArray("vitamins_tags"));
         } catch (JSONException e) {
             String error = "";
         }
         return product;
+    }
 
+    private static ArrayList<String> pupolateCollection(JSONArray fields) {
+        ArrayList<String> values = new ArrayList<>();
+        for (int i = 0; i < fields.length(); i++) {
+            try {
+                values.add(fields.get(i).toString());
+            } catch (JSONException exception) {
+
+            }
+        }
+        return values;
     }
 }

@@ -1,6 +1,10 @@
 package com.example.nourishmate.Models;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Iterator;
 
 public class LanguagesCodes {
 
@@ -21,7 +25,29 @@ public class LanguagesCodes {
     }
 
     public static LanguagesCodes populateLanguagesCodes(JSONObject languages_codes) {
-        String error = "";
-        return new LanguagesCodes();
+
+        Iterator<String> keys = languages_codes.keys();
+        LanguagesCodes languagesCodes = new LanguagesCodes();
+        while(keys.hasNext()){
+            String key = keys.next();
+            try{
+                switch (key){
+                    case "fr":
+                        languagesCodes.fr =  languages_codes.get(key).toString();
+                        break;
+                    case "en":
+                        languagesCodes.en =  languages_codes.get(key).toString();
+                        break;
+                    case "pl":
+                        languagesCodes.pl =  languages_codes.get(key).toString();
+                        break;
+                    default:
+                        break;
+                }
+            }catch (JSONException exception){
+                String error = "";
+            }
+        }
+        return languagesCodes;
     }
 }

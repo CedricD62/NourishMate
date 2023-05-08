@@ -25,11 +25,11 @@ public class Source {
                 Source src = new Source();
 
                 if (obj.has("fields"))
-                    src.fields = new ArrayList<>((Collection) obj.getJSONArray("fields"));
+                    src.fields = pupolateCollection(obj.getJSONArray("fields"));
                 if (obj.has("id"))
                     src.id = obj.getString("id");
                 if (obj.has("images"))
-                    src.images = new ArrayList<>((Collection) obj.getJSONArray("images"));
+                    src.images = pupolateCollection(obj.getJSONArray("images"));
                 if (obj.has("import_t"))
                     src.importT = obj.getLong("import_t");
                 if (obj.has("manufacturer"))
@@ -44,5 +44,17 @@ public class Source {
             }
         }
         return s;
+    }
+
+    private static ArrayList<String> pupolateCollection(JSONArray fields) {
+        ArrayList<String> values = new ArrayList<>();
+        for (int i = 0; i < fields.length(); i++) {
+            try {
+                values.add(fields.get(i).toString());
+            } catch (JSONException exception) {
+
+            }
+        }
+        return values;
     }
 }

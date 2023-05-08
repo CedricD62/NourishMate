@@ -1,23 +1,54 @@
 package com.example.nourishmate.Models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Iterator;
+
 public class SelectedImageItem {
-    private String en;
+    private SelectedImageItemLink  display;
 
-    private String fr;
+    private SelectedImageItemLink  small;
 
-    private String pl;
+    private SelectedImageItemLink  thumb;
 
-    public String getEn() {
-        return en;
+    public SelectedImageItemLink getDisplay() {
+        return display;
     }
 
-    public String getFr() {
-        return fr;
+    public SelectedImageItemLink getSmall() {
+        return small;
     }
 
-    public String getPl() {
-        return pl;
+    public SelectedImageItemLink getThumb() {
+        return thumb;
     }
 
+    public static SelectedImageItem getSelectedImageItemFromJSONObject(JSONObject jsonObject){
+        SelectedImageItem selectedImageItem = new SelectedImageItem();
 
+        Iterator<String> keysSelectedImage = jsonObject.keys();
+        LanguagesCodes languagesCodes = new LanguagesCodes();
+        while (keysSelectedImage.hasNext()) {
+            String key = keysSelectedImage.next();
+            try {
+                switch (key) {
+                    case "display":
+                        selectedImageItem.display = SelectedImageItemLink.getSelectedImageItemLinkFromJSONObject((JSONObject) jsonObject.get(key));
+                        break;
+                    case "small":
+                        selectedImageItem.small = SelectedImageItemLink.getSelectedImageItemLinkFromJSONObject((JSONObject) jsonObject.get(key));
+                        break;
+                    case "thumb":
+                        selectedImageItem.thumb = SelectedImageItemLink.getSelectedImageItemLinkFromJSONObject((JSONObject) jsonObject.get(key));
+                        break;
+                    default:
+                        break;
+                }
+            } catch (JSONException exception) {
+                String error = "";
+            }
+        }
+        return selectedImageItem;
+    }
 }
