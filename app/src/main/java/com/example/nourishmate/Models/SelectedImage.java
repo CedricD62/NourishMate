@@ -1,5 +1,8 @@
 package com.example.nourishmate.Models;
 
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable
 public class SelectedImage {
 
     private SelectedImageItem display;

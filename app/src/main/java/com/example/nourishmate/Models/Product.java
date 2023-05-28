@@ -1,5 +1,8 @@
 package com.example.nourishmate.Models;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -7,7 +10,7 @@ import org.json.JSONObject;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Collection;
-
+@DatabaseTable
 public class Product {
 
 
@@ -79,6 +82,7 @@ public class Product {
     private int fruitsVegetablesNuts100GEstimate;
     private String genericName;
     private String id;
+    @DatabaseField(generatedId = false)
     private String _id;
     private String imageFrontSmallUrl;
     private String imageFrontThumbUrl;

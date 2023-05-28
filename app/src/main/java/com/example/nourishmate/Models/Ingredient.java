@@ -1,12 +1,14 @@
 package com.example.nourishmate.Models;
 
+import com.j256.ormlite.table.DatabaseTable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
+@DatabaseTable
 public class Ingredient {
 
     private String fromPalmOil;

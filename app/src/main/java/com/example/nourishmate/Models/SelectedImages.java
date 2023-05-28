@@ -2,13 +2,15 @@ package com.example.nourishmate.Models;
 
 import androidx.annotation.NonNull;
 
+import com.j256.ormlite.table.DatabaseTable;
+
 import org.jetbrains.annotations.Contract;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Iterator;
 
-
+@DatabaseTable
 public class SelectedImages {
 
     private SelectedImageItem front;

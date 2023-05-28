@@ -1,11 +1,13 @@
 package com.example.nourishmate.Models;
 
+import com.j256.ormlite.table.DatabaseTable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Iterator;
-
+@DatabaseTable
 public class LanguagesCodes {
 
     private String en;

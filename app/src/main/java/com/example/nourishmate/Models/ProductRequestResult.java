@@ -1,9 +1,11 @@
 package com.example.nourishmate.Models;
 
+import com.j256.ormlite.table.DatabaseTable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+@DatabaseTable
 public class ProductRequestResult {
 
     public ProductRequestResult(String code, int status, String status_verbose) {
@@ -56,7 +58,7 @@ public class ProductRequestResult {
         String url = "https://world.openfoodfacts.org/api/v2/product/" + code;
         try {
             JSONObject json = new JSONObject(httpHandler.makeServiceCall(url));
-            if(json != null){
+             if(json != null){
                 productRequestResult = new ProductRequestResult(json.getString("code"),json.getInt("status"),json.getString("status_verbose"));
                 JSONObject p = json.getJSONObject("product");
                 productRequestResult.product = Product.populateProduct(p);

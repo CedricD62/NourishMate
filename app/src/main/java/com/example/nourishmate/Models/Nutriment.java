@@ -1,5 +1,8 @@
 package com.example.nourishmate.Models;
 
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable
 public class Nutriment {
     private String nutrimentName;
     private float purcentage;
