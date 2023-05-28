@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = IntentFactory.getIntentFactory(item, MainActivity.this);
         if(intent != null)
             startActivity(intent);
-
         return true;
     }
 }

@@ -13,4 +13,6 @@
     <string name="login_failed">"Login failed"</string>
     <string name="comparer">Comparer</string>
     <string name="historique">historique</string>
+    <string name="accueil">Accueil</string>
+    <string name="Accueil">Accueil</string>
 </resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/Accueil"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:title="@string/Accueil"/>
+    <item android:id="@+id/ScanProduct"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:title="@string/scan"/>
+    <item android:id="@+id/HistoryProduct"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:title="@string/historique"/>
+    <item android:id="@+id/CreacteAccount"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        android:title="@string/compte"/>
+
+</menu>
