@@ -1,5 +1,6 @@
 package com.example.nourishmate.Models;
 
+import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import org.json.JSONException;
@@ -10,11 +11,25 @@ import java.util.Collection;
 @DatabaseTable
 public class NutrientLevels {
 
+
+    @DatabaseField(generatedId = true)
+    private int id;
+    @DatabaseField
     private String fat;
+    @DatabaseField
     private String salt;
+    @DatabaseField
     private String saturatedFat;
+    @DatabaseField
     private String sugars;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     public String getFat() {
         return fat;
     }

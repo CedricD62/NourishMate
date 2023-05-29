@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,6 +23,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.nourishmate.DatabaseHelper.DatabaseManager;
 import com.example.nourishmate.Factory.IntentFactory;
 import com.example.nourishmate.Models.CaptureAct;
 import com.example.nourishmate.Models.Nutriments;
@@ -37,6 +39,7 @@ import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -85,7 +88,7 @@ public class ScanActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent = IntentFactory.getIntentFactory(item, ScanActivity.this);
-        if(intent != null)
+        if (intent != null)
             startActivity(intent);
 
         return true;
@@ -128,7 +131,11 @@ public class ScanActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 displayProductInformation(productRequestResult);
-                            }});}}});
+                            }
+                        });
+                    }
+                }
+            });
             t.start();
         }
     }
@@ -154,6 +161,9 @@ public class ScanActivity extends AppCompatActivity {
         if (productRequestResult.getProduct().getNutriments() != null)
             setNutrimentsRows(productRequestResult);
 
+        DatabaseManager databaseManager = new DatabaseManager(this);
+        boolean result = productRequestResult.getProduct().create(databaseManager);
+
     }
 
     private TextView setHeaderRow(String headerName) {
@@ -166,6 +176,7 @@ public class ScanActivity extends AppCompatActivity {
         return textView;
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private TableRow setAdditifRow(ProductRequestResult productRequestResult) {
         TableRow row = new TableRow(this);
         table.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -175,10 +186,14 @@ public class ScanActivity extends AppCompatActivity {
         data = productRequestResult.getProduct().getAdditivesN() > 0 ? productRequestResult.getProduct().getAdditivesN() + " additifs" : "Pas d'additifs";
         row.addView(setColumnValues(data));
         data = "";
-        for (int i = 0; i < productRequestResult.getProduct().getAdditivesTags().size(); i++) {
-            if (productRequestResult.getProduct().getAdditivesTags().get(i).startsWith("fr:") || productRequestResult.getProduct().getAdditivesTags().get(i).startsWith("en:"))
-                data += productRequestResult.getProduct().getAdditivesTags().get(i).split(":")[1] + "\n";
+        for (String ingredient : productRequestResult.getProduct().getAdditivesTags()) {
+            if (ingredient.startsWith("fr:") || ingredient.startsWith("en:"))
+                data += ingredient.split(":")[1] + "\n";
         }
+        /*for (int i = 0; i < productRequestResult.getProduct().getAdditivesTags().size(); i++) {
+            if (productRequestResult.getProduct().getAdditivesTags().(i).startsWith("fr:") || productRequestResult.getProduct().getAdditivesTags().get(i).startsWith("en:"))
+                data += productRequestResult.getProduct().getAdditivesTags().get(i).split(":")[1] + "\n";
+        }*/
         row.addView(setColumnValues(data));
         return row;
     }

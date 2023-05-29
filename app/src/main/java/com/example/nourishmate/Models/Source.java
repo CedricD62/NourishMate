@@ -1,5 +1,6 @@
 package com.example.nourishmate.Models;
 
+import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import org.json.JSONArray;
@@ -8,7 +9,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collection;
-@DatabaseTable
 public class Source {
 
     private ArrayList<String> fields;
@@ -19,6 +19,7 @@ public class Source {
     private String name;
     private String url;
 
+    private Product product;
     public static ArrayList<Source> populateSource(JSONArray sources) {
         ArrayList<Source> s = new ArrayList<>();
         for (int i = 0; i < sources.length(); i++) {

@@ -1,6 +1,9 @@
 package com.example.nourishmate.Models;
 
+import com.example.nourishmate.DatabaseHelper.DatabaseManager;
+import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import org.json.JSONArray;
@@ -8,1002 +11,2009 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Array;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collection;
 @DatabaseTable
 public class Product {
 
-
+    @DatabaseField(generatedId = true)
+    private int primayKey;
     private Images images;
-    private ArrayList<Ingredient> ingredients;
+    @ForeignCollectionField(eager = true)
+    private Collection<Ingredient> ingredients;
+    @DatabaseField(canBeNull = false, foreign = true, foreignColumnName = "id", foreignAutoCreate = true)
     private LanguagesCodes languagesCodes;
+    @DatabaseField(canBeNull = false, foreign = true, foreignColumnName = "id", foreignAutoCreate = true)
     private NutrientLevels nutrientLevels;
+    @DatabaseField(canBeNull = false, foreign = true, foreignColumnName = "id", foreignAutoCreate = true)
     private Nutriments nutriments;
     private SelectedImages selectedImages;
-    private ArrayList<Source> sources;
+    private Collection<Source> sources;
+    @DatabaseField
     private int additivesN;
+    @DatabaseField
     private int additivesOldN;
-    private ArrayList<String> additivesOriginalTags;
-    private ArrayList<String> additivesOldTags;
-    private ArrayList<String> additivesPrevOriginalTags;
-    private ArrayList<String> additivesDebugTags;
-    private ArrayList<String> additivesTags;
+    @DatabaseField
+    private Collection<AdditivesOriginalTags> additivesOriginalTags;
+    @DatabaseField
+    private Collection<AdditivesOldTags> additivesOldTags;
+    @DatabaseField
+    private Collection<AdditivesPrevOriginalTags> additivesPrevOriginalTags;
+    @DatabaseField
+    private Collection<AdditivesDebugTags> additivesDebugTags;
+    @DatabaseField
+    private Collection<AdditivesTags> additivesTags;
+    @DatabaseField
     private String allergens;
+    @DatabaseField
     private String allergensFromIngredients;
+    @DatabaseField
     private String allergensFromUser;
-    private ArrayList<String> allergensHierarchy;
+    @DatabaseField
+    private Collection<AllergensHierarchy> allergensHierarchy;
+    @DatabaseField
     private String allergensLc;
-    private ArrayList<String> allergensTags;
-    private ArrayList<String> aminoAcidsPrevTags;
-    private ArrayList<String> aminoAcidsTags;
+    @DatabaseField
+    private Collection<AllergensTags> allergensTags;
+    @DatabaseField
+    private Collection<AminoAcidsPrevTags> aminoAcidsPrevTags;
+    @DatabaseField
+    private Collection<AminoAcidsTags> aminoAcidsTags;
+    @DatabaseField
     private String brands;
-    private ArrayList<String> brandsDebugTags;
-    private ArrayList<String> brandsTags;
+    @DatabaseField
+    private Collection<BrandsDebugTags> brandsDebugTags;
+    @DatabaseField
+    private Collection<BrandsTags> brandsTags;
+    @DatabaseField
     private String carbonFootprintPercentOfKnownIngredients;
+    @DatabaseField
     private String carbonFootprintFromKnownIngredientsDebug;
+    @DatabaseField
     private String categories;
-    private ArrayList<String> categoriesHierarchy;
+    @DatabaseField
+    private Collection<CategoriesHierarchy> categoriesHierarchy;
+    @DatabaseField
     private String categoriesLc;
-    private ArrayList<String> categoriesPropertiesTags;
-    private ArrayList<String> categoriesTags;
-    private ArrayList<String> checkersTags;
-    private ArrayList<String> citiesTags;
+    @DatabaseField
+    private Collection<CategoriesPropertiesTags> categoriesPropertiesTags;
+    @DatabaseField
+    private Collection<CategoriesTags> categoriesTags;
+    @DatabaseField
+    private Collection<CheckersTags> checkersTags;
+    @DatabaseField
+    private Collection<CitiesTags> citiesTags;
+    @DatabaseField
     private String code;
-    private ArrayList<String> codesTags;
+    @DatabaseField
+    private Collection<CodesTags> codesTags;
+    @DatabaseField
     private String comparedToCategory;
+    @DatabaseField
     private int complete;
+    @DatabaseField
     private long completedT;
+    @DatabaseField
     private float completeness;
+    @DatabaseField
     private String conservationConditions;
+    @DatabaseField
     private String countries;
-    private ArrayList<String> countriesHierarchy;
+    @DatabaseField
+    private Collection<CountriesHierarchy> countriesHierarchy;
+    @DatabaseField
     private String countriesLc;
-    private ArrayList<String> countriesDebugTags;
-    private ArrayList<String> countriesTags;
-    private ArrayList<String> correctorsTags;
+    @DatabaseField
+    private Collection<CountriesDebugTags> countriesDebugTags;
+    @DatabaseField
+    private Collection<CountriesTags> countriesTags;
+    @DatabaseField
+    private Collection<CorrectorsTags> correctorsTags;
+    @DatabaseField
     private long createdT;
+    @DatabaseField
     private String creator;
-    private ArrayList<String> dataQualityBugsTags;
-    private ArrayList<String> dataQualityErrorsTags;
-    private ArrayList<String> dataQualityInfoTags;
-    private ArrayList<String> dataQualityTags;
-    private ArrayList<String> dataQualityWarningsTags;
+    @DatabaseField
+    private Collection<DataQualityBugsTags> dataQualityBugsTags;
+    @DatabaseField
+    private Collection<DataQualityErrorsTags> dataQualityErrorsTags;
+    @DatabaseField
+    private Collection<DataQualityInfoTags> dataQualityInfoTags;
+    @DatabaseField
+    private Collection<DataQualityTags> dataQualityTags;
+    @DatabaseField
+    private Collection<DataQualityWarningsTags> dataQualityWarningsTags;
+    @DatabaseField
     private String dataSources;
-    private ArrayList<String> dataSourcesTags;
-    private ArrayList<String> debugParamSortedLangs;
-    private ArrayList<String> editorsTags;
+    @DatabaseField
+    private Collection<DataSourcesTags> dataSourcesTags;
+    @DatabaseField
+    private Collection<DebugParamSortedLangs> debugParamSortedLangs;
+    @DatabaseField
+    private Collection<EditorsTags> editorsTags;
+    @DatabaseField
     private String embCodes;
-    private ArrayList<String> embCodesDebugTags;
+    @DatabaseField
+    private Collection<EmbCodesDebugTags> embCodesDebugTags;
+    @DatabaseField
     private String embCodesOrig;
-    private ArrayList<String> embCodesTags;
-    private ArrayList<String> entryDatesTags;
+    @DatabaseField
+    private Collection<EmbCodesTags> embCodesTags;
+    @DatabaseField
+    private Collection<EntryDatesTags> entryDatesTags;
+    @DatabaseField
     private String expirationDate;
-    private ArrayList<String> expirationDateDebugTags;
+    @DatabaseField
+    private Collection<ExpirationDateDebugTags> expirationDateDebugTags;
+    @DatabaseField
     private int fruitsVegetablesNuts100GEstimate;
+    @DatabaseField
     private String genericName;
+    @DatabaseField
     private String id;
-    @DatabaseField(generatedId = false)
+    @DatabaseField
     private String _id;
+    @DatabaseField
     private String imageFrontSmallUrl;
+    @DatabaseField
     private String imageFrontThumbUrl;
+    @DatabaseField
     private String imageFrontUrl;
+    @DatabaseField
     private String imageIngredientsUrl;
+    @DatabaseField
     private String imageIngredientsSmallUrl;
+    @DatabaseField
     private String imageIngredientsThumbUrl;
+    @DatabaseField
     private String imageNutritionSmallUrl;
+    @DatabaseField
     private String imageNutritionThumbUrl;
+    @DatabaseField
     private String imageNutritionUrl;
+    @DatabaseField
     private String imageSmallUrl;
+    @DatabaseField
     private String imageThumbUrl;
+    @DatabaseField
     private String imageUrl;
-    private ArrayList<String> informersTags;
-    private ArrayList<String> ingredientsAnalysisTags;
-    private ArrayList<String> ingredientsDebug;
+    @DatabaseField
+    private Collection<InformersTags> informersTags;
+    @DatabaseField
+    private Collection<IngredientsAnalysisTags> ingredientsAnalysisTags;
+    @DatabaseField
+    private Collection<IngredientsDebug> ingredientsDebug;
+    @DatabaseField
     private int ingredientsFromOrThatMayBeFromPalmOilN;
-    private ArrayList<String> ingredientsFromPalmOilTags;
+    @DatabaseField
+    private Collection<IngredientsFromPalmOilTags> ingredientsFromPalmOilTags;
+    @DatabaseField
     private int ingredientsFromPalmOilN;
-    private ArrayList<String> ingredientsHierarchy;
-    private ArrayList<String> ingredientsIdsDebug;
+    @DatabaseField
+    private Collection<IngredientsHierarchy> ingredientsHierarchy;
+    @DatabaseField
+    private Collection<IngredientsIdsDebug> ingredientsIdsDebug;
+    @DatabaseField
     private int ingredientsN;
-    private ArrayList<String> ingredientsNTags;
-    private ArrayList<String> ingredientsOriginalTags;
-    private ArrayList<String> ingredientsTags;
+    @DatabaseField
+    private Collection<IngredientsNTags> ingredientsNTags;
+    @DatabaseField
+    private Collection<IngredientsOriginalTags> ingredientsOriginalTags;
+    @DatabaseField
+    private Collection<IngredientsTags> ingredientsTags;
+    @DatabaseField
     private String ingredientsText;
+    @DatabaseField
     private String ingredientsTextDebug;
+    @DatabaseField
     private String ingredientsTextWithAllergens;
+    @DatabaseField
     private int ingredientsThatMayBeFromPalmOilN;
-    private ArrayList<String> ingredientsThatMayBeFromPalmOilTags;
+    @DatabaseField
+    private Collection<IngredientsThatMayBeFromPalmOilTags> ingredientsThatMayBeFromPalmOilTags;
+    @DatabaseField
     private String interfaceVersionCreated;
+    @DatabaseField
     private String interfaceVersionModified;
-    private ArrayList<String> keywords;
+    @DatabaseField
+    private Collection<Keywords> keywords;
+    @DatabaseField
     private int knownIngredientsN;
+    @DatabaseField
     private String labels;
-    private ArrayList<String> labelsHierarchy;
+    @DatabaseField
+    private Collection<LabelsHierarchy> labelsHierarchy;
+    @DatabaseField
     private String labelsLc;
-    private ArrayList<String> labelsPrevHierarchy;
-    private ArrayList<String> labelsPrevTags;
-    private ArrayList<String> labelsTags;
-    private ArrayList<String> labelsDebugTags;
+    @DatabaseField
+    private Collection<LabelsPrevHierarchy> labelsPrevHierarchy;
+    @DatabaseField
+    private Collection<LabelsPrevTags> labelsPrevTags;
+    @DatabaseField
+    private Collection<LabelsTags> labelsTags;
+    @DatabaseField
+    private Collection<LabelsDebugTags> labelsDebugTags;
+    @DatabaseField
     private String lang;
-    private ArrayList<String> langDebugTags;
-    private ArrayList<String> languagesHierarchy;
-    private ArrayList<String> languagesTags;
-    private ArrayList<String> lastEditDatesTags;
+    @DatabaseField
+    private Collection<LangDebugTags> langDebugTags;
+    @DatabaseField
+    private Collection<LanguagesHierarchy> languagesHierarchy;
+    @DatabaseField
+    private Collection<LanguagesTags> languagesTags;
+    @DatabaseField
+    private Collection<LastEditDatesTags> lastEditDatesTags;
+    @DatabaseField
     private String lastEditor;
-    private ArrayList<String> lastImageDatesTags;
+    @DatabaseField
+    private Collection<LastImageDatesTags> lastImageDatesTags;
+    @DatabaseField
     private long lastImageT;
+    @DatabaseField
     private String lastModifiedBy;
+    @DatabaseField
     private long lastModifiedT;
+    @DatabaseField
     private String lc;
+    @DatabaseField
     private String link;
-    private ArrayList<String> linkDebugTags;
+    @DatabaseField
+    private Collection<LinkDebugTags> linkDebugTags;
+    @DatabaseField
     private String manufacturingPlaces;
-    private ArrayList<String> manufacturingPlacesDebugTags;
-    private ArrayList<String> manufacturingPlacesTags;
+    @DatabaseField
+    private Collection<ManufacturingPlacesDebugTags> manufacturingPlacesDebugTags;
+    @DatabaseField
+    private Collection<ManufacturingPlacesTags> manufacturingPlacesTags;
+    @DatabaseField
     private String maxImgid;
-    private ArrayList<String> mineralsPrevTags;
-    private ArrayList<String> mineralsTags;
-    private ArrayList<String> miscTags;
+    @DatabaseField
+    private Collection<MineralsPrevTags> mineralsPrevTags;
+    @DatabaseField
+    private Collection<MineralsTags> mineralsTags;
+    @DatabaseField
+    private Collection<MiscTags> miscTags;
+    @DatabaseField
     private String netWeightUnit;
+    @DatabaseField
     private String netWeightValue;
+    @DatabaseField
     private String nutritionDataPer;
+    @DatabaseField
     private int nutritionScoreWarningNoFruitsVegetablesNuts;
+    @DatabaseField
     private String noNutritionData;
+    @DatabaseField
     private String novaGroup;
+    @DatabaseField
     private String novaGroups;
+    @DatabaseField
     private String novaGroupDebug;
-    private ArrayList<String> novaGroupTags;
-    private ArrayList<String> novaGroupsTags;
-    private ArrayList<String> nucleotidesPrevTags;
-    private ArrayList<String> nucleotidesTags;
-    private ArrayList<String> nutrientLevelsTags;
+    @DatabaseField
+    private Collection<NovaGroupTags> novaGroupTags;
+    @DatabaseField
+    private Collection<NovaGroupsTags> novaGroupsTags;
+    @DatabaseField
+    private Collection<NucleotidesPrevTags> nucleotidesPrevTags;
+    @DatabaseField
+    private Collection<NucleotidesTags> nucleotidesTags;
+    @DatabaseField
+    private Collection<NutrientLevelsTags> nutrientLevelsTags;
+    @DatabaseField
     private String nutritionData;
-    private ArrayList<String> nutritionDataPerDebugTags;
+    @DatabaseField
+    private Collection<NutritionDataPerDebugTags> nutritionDataPerDebugTags;
+    @DatabaseField
     private String nutritionDataPrepared;
+    @DatabaseField
     private String nutritionDataPreparedPer;
+    @DatabaseField
     private String nutritionGrades;
+    @DatabaseField
     private int nutritionScoreBeverage;
+    @DatabaseField
     private String nutritionScoreDebug;
+    @DatabaseField
     private int nutritionScoreWarningNoFiber;
-    private ArrayList<String> nutritionGradesTags;
+    @DatabaseField
+    private Collection<NutritionGradesTags> nutritionGradesTags;
+    @DatabaseField
     private String origins;
-    private ArrayList<String> originsDebugTags;
-    private ArrayList<String> originsTags;
+    @DatabaseField
+    private Collection<OriginsDebugTags> originsDebugTags;
+    @DatabaseField
+    private Collection<OriginsTags> originsTags;
+    @DatabaseField
     private String otherInformation;
-    private ArrayList<String> otherNutritionalSubstancesTags;
+    @DatabaseField
+    private Collection<OtherNutritionalSubstancesTags> otherNutritionalSubstancesTags;
+    @DatabaseField
     private String packaging;
-    private ArrayList<String> packagingDebugTags;
-    private ArrayList<String> packagingTags;
-    private ArrayList<String> photographersTags;
+    @DatabaseField
+    private Collection<PackagingDebugTags> packagingDebugTags;
+    @DatabaseField
+    private Collection<PackagingTags> packagingTags;
+    @DatabaseField
+    private Collection<PhotographersTags> photographersTags;
+    @DatabaseField
     private String pnnsGroups1;
+    @DatabaseField
     private String pnnsGroups2;
-    private ArrayList<String> pnnsGroups1Tags;
-    private ArrayList<String> pnnsGroups2Tags;
+    @DatabaseField
+    private Collection<PnnsGroups1Tags> pnnsGroups1Tags;
+    @DatabaseField
+    private Collection<PnnsGroups2Tags> pnnsGroups2Tags;
+    @DatabaseField
     private long popularityKey;
+    @DatabaseField
     private String producerVersionId;
+    @DatabaseField
     private String productName;
+    @DatabaseField
     private String productQuantity;
+    @DatabaseField
     private String purchasePlaces;
-    private ArrayList<String> purchasePlacesDebugTags;
-    private ArrayList<String> purchasePlacesTags;
-    private ArrayList<String> qualityTags;
+    @DatabaseField
+    private Collection<PurchasePlacesDebugTags> purchasePlacesDebugTags;
+    @DatabaseField
+    private Collection<PurchasePlacesTags> purchasePlacesTags;
+    @DatabaseField
+    private Collection<QualityTags> qualityTags;
+    @DatabaseField
     private String quantity;
-    private ArrayList<String> quantityDebugTags;
+    @DatabaseField
+    private Collection<QuantityDebugTags> quantityDebugTags;
+    @DatabaseField
     private String recyclingInstructionsToDiscard;
+    @DatabaseField
     private int rev;
+    @DatabaseField
     private String servingQuantity;
+    @DatabaseField
     private String servingSize;
-    private ArrayList<String> servingSizeDebugTags;
+    @DatabaseField
+    private Collection<ServingSizeDebugTags> servingSizeDebugTags;
+    @DatabaseField
     private long sortkey;
+    @DatabaseField
     private String states;
-    private ArrayList<String> statesHierarchy;
-    private ArrayList<String> statesTags;
+    @DatabaseField
+    private Collection<StatesHierarchy> statesHierarchy;
+    @DatabaseField
+    private Collection<StatesTags> statesTags;
+    @DatabaseField
     private String stores;
-    private ArrayList<String> storesDebugTags;
-    private ArrayList<String> storesTags;
+    @DatabaseField
+    private Collection<StoresDebugTags> storesDebugTags;
+    @DatabaseField
+    private Collection<StoresTags> storesTags;
+    @DatabaseField
     private String traces;
+    @DatabaseField
     private String tracesFromIngredients;
-    private ArrayList<String> tracesHierarchy;
-    private ArrayList<String> tracesDebugTags;
+    @DatabaseField
+    private Collection<TracesHierarchy> tracesHierarchy;
+    @DatabaseField
+    private Collection<TracesDebugTags> tracesDebugTags;
+    @DatabaseField
     private String tracesFromUser;
+    @DatabaseField
     private String tracesLc;
-    private ArrayList<String> tracesTags;
+    @DatabaseField
+    private Collection<TracesTags> tracesTags;
+    @DatabaseField
     private int unknownIngredientsN;
-    private ArrayList<String> unknownNutrientsTags;
+    @DatabaseField
+    private Collection<UnknownNutrientsTags> unknownNutrientsTags;
+    @DatabaseField
     private String updateKey;
-    private ArrayList<String> vitaminsPrevTags;
-    private ArrayList<String> vitaminsTags;
+    @DatabaseField
+    private Collection<VitaminsPrevTags> vitaminsPrevTags;
+    @DatabaseField
+    private Collection<VitaminsTags> vitaminsTags;
+    @DatabaseField( canBeNull = false, foreign = true, foreignColumnName = "id", foreignAutoCreate = true )
+    private User user;
+
+    public int getPrimayKey() {
+        return primayKey;
+    }
+
+    public void setPrimayKey(int primayKey) {
+        this.primayKey = primayKey;
+    }
 
     public Images getImages() {
         return images;
     }
 
-    public ArrayList<Ingredient> getIngredients() {
+    public void setImages(Images images) {
+        this.images = images;
+    }
+
+    public Collection<Ingredient> getIngredients() {
         return ingredients;
+    }
+
+    public void setIngredients(Collection<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
     public LanguagesCodes getLanguagesCodes() {
         return languagesCodes;
     }
 
+    public void setLanguagesCodes(LanguagesCodes languagesCodes) {
+        this.languagesCodes = languagesCodes;
+    }
+
     public NutrientLevels getNutrientLevels() {
         return nutrientLevels;
+    }
+
+    public void setNutrientLevels(NutrientLevels nutrientLevels) {
+        this.nutrientLevels = nutrientLevels;
     }
 
     public Nutriments getNutriments() {
         return nutriments;
     }
 
+    public void setNutriments(Nutriments nutriments) {
+        this.nutriments = nutriments;
+    }
+
     public SelectedImages getSelectedImages() {
         return selectedImages;
     }
 
-    public ArrayList<Source> getSources() {
+    public void setSelectedImages(SelectedImages selectedImages) {
+        this.selectedImages = selectedImages;
+    }
+
+    public Collection<Source> getSources() {
         return sources;
+    }
+
+    public void setSources(Collection<Source> sources) {
+        this.sources = sources;
     }
 
     public int getAdditivesN() {
         return additivesN;
     }
 
+    public void setAdditivesN(int additivesN) {
+        this.additivesN = additivesN;
+    }
+
     public int getAdditivesOldN() {
         return additivesOldN;
     }
 
-    public ArrayList<String> getAdditivesOriginalTags() {
+    public void setAdditivesOldN(int additivesOldN) {
+        this.additivesOldN = additivesOldN;
+    }
+
+    public Collection<AdditivesOriginalTags> getAdditivesOriginalTags() {
         return additivesOriginalTags;
     }
 
-    public ArrayList<String> getAdditivesOldTags() {
+    public void setAdditivesOriginalTags(Collection<AdditivesOriginalTags> additivesOriginalTags) {
+        this.additivesOriginalTags = additivesOriginalTags;
+    }
+
+    public Collection<AdditivesOldTags> getAdditivesOldTags() {
         return additivesOldTags;
     }
 
-    public ArrayList<String> getAdditivesPrevOriginalTags() {
+    public void setAdditivesOldTags(Collection<AdditivesOldTags> additivesOldTags) {
+        this.additivesOldTags = additivesOldTags;
+    }
+
+    public Collection<AdditivesPrevOriginalTags> getAdditivesPrevOriginalTags() {
         return additivesPrevOriginalTags;
     }
 
-    public ArrayList<String> getAdditivesDebugTags() {
+    public void setAdditivesPrevOriginalTags(Collection<AdditivesPrevOriginalTags> additivesPrevOriginalTags) {
+        this.additivesPrevOriginalTags = additivesPrevOriginalTags;
+    }
+
+    public Collection<AdditivesDebugTags> getAdditivesDebugTags() {
         return additivesDebugTags;
     }
 
-    public ArrayList<String> getAdditivesTags() {
+    public void setAdditivesDebugTags(Collection<AdditivesDebugTags> additivesDebugTags) {
+        this.additivesDebugTags = additivesDebugTags;
+    }
+
+    public Collection<AdditivesTags> getAdditivesTags() {
         return additivesTags;
+    }
+
+    public void setAdditivesTags(Collection<AdditivesTags> additivesTags) {
+        this.additivesTags = additivesTags;
     }
 
     public String getAllergens() {
         return allergens;
     }
 
+    public void setAllergens(String allergens) {
+        this.allergens = allergens;
+    }
+
     public String getAllergensFromIngredients() {
         return allergensFromIngredients;
+    }
+
+    public void setAllergensFromIngredients(String allergensFromIngredients) {
+        this.allergensFromIngredients = allergensFromIngredients;
     }
 
     public String getAllergensFromUser() {
         return allergensFromUser;
     }
 
-    public ArrayList<String> getAllergensHierarchy() {
+    public void setAllergensFromUser(String allergensFromUser) {
+        this.allergensFromUser = allergensFromUser;
+    }
+
+    public Collection<AllergensHierarchy> getAllergensHierarchy() {
         return allergensHierarchy;
+    }
+
+    public void setAllergensHierarchy(Collection<AllergensHierarchy> allergensHierarchy) {
+        this.allergensHierarchy = allergensHierarchy;
     }
 
     public String getAllergensLc() {
         return allergensLc;
     }
 
-    public ArrayList<String> getAllergensTags() {
+    public void setAllergensLc(String allergensLc) {
+        this.allergensLc = allergensLc;
+    }
+
+    public Collection<AllergensTags> getAllergensTags() {
         return allergensTags;
     }
 
-    public ArrayList<String> getAminoAcidsPrevTags() {
+    public void setAllergensTags(Collection<AllergensTags> allergensTags) {
+        this.allergensTags = allergensTags;
+    }
+
+    public Collection<AminoAcidsPrevTags> getAminoAcidsPrevTags() {
         return aminoAcidsPrevTags;
     }
 
-    public ArrayList<String> getAminoAcidsTags() {
+    public void setAminoAcidsPrevTags(Collection<AminoAcidsPrevTags> aminoAcidsPrevTags) {
+        this.aminoAcidsPrevTags = aminoAcidsPrevTags;
+    }
+
+    public Collection<AminoAcidsTags> getAminoAcidsTags() {
         return aminoAcidsTags;
+    }
+
+    public void setAminoAcidsTags(Collection<AminoAcidsTags> aminoAcidsTags) {
+        this.aminoAcidsTags = aminoAcidsTags;
     }
 
     public String getBrands() {
         return brands;
     }
 
-    public ArrayList<String> getBrandsDebugTags() {
+    public void setBrands(String brands) {
+        this.brands = brands;
+    }
+
+    public Collection<BrandsDebugTags> getBrandsDebugTags() {
         return brandsDebugTags;
     }
 
-    public ArrayList<String> getBrandsTags() {
+    public void setBrandsDebugTags(Collection<BrandsDebugTags> brandsDebugTags) {
+        this.brandsDebugTags = brandsDebugTags;
+    }
+
+    public Collection<BrandsTags> getBrandsTags() {
         return brandsTags;
+    }
+
+    public void setBrandsTags(Collection<BrandsTags> brandsTags) {
+        this.brandsTags = brandsTags;
     }
 
     public String getCarbonFootprintPercentOfKnownIngredients() {
         return carbonFootprintPercentOfKnownIngredients;
     }
 
+    public void setCarbonFootprintPercentOfKnownIngredients(String carbonFootprintPercentOfKnownIngredients) {
+        this.carbonFootprintPercentOfKnownIngredients = carbonFootprintPercentOfKnownIngredients;
+    }
+
     public String getCarbonFootprintFromKnownIngredientsDebug() {
         return carbonFootprintFromKnownIngredientsDebug;
+    }
+
+    public void setCarbonFootprintFromKnownIngredientsDebug(String carbonFootprintFromKnownIngredientsDebug) {
+        this.carbonFootprintFromKnownIngredientsDebug = carbonFootprintFromKnownIngredientsDebug;
     }
 
     public String getCategories() {
         return categories;
     }
 
-    public ArrayList<String> getCategoriesHierarchy() {
+    public void setCategories(String categories) {
+        this.categories = categories;
+    }
+
+    public Collection<CategoriesHierarchy> getCategoriesHierarchy() {
         return categoriesHierarchy;
+    }
+
+    public void setCategoriesHierarchy(Collection<CategoriesHierarchy> categoriesHierarchy) {
+        this.categoriesHierarchy = categoriesHierarchy;
     }
 
     public String getCategoriesLc() {
         return categoriesLc;
     }
 
-    public ArrayList<String> getCategoriesPropertiesTags() {
+    public void setCategoriesLc(String categoriesLc) {
+        this.categoriesLc = categoriesLc;
+    }
+
+    public Collection<CategoriesPropertiesTags> getCategoriesPropertiesTags() {
         return categoriesPropertiesTags;
     }
 
-    public ArrayList<String> getCategoriesTags() {
+    public void setCategoriesPropertiesTags(Collection<CategoriesPropertiesTags> categoriesPropertiesTags) {
+        this.categoriesPropertiesTags = categoriesPropertiesTags;
+    }
+
+    public Collection<CategoriesTags> getCategoriesTags() {
         return categoriesTags;
     }
 
-    public ArrayList<String> getCheckersTags() {
+    public void setCategoriesTags(Collection<CategoriesTags> categoriesTags) {
+        this.categoriesTags = categoriesTags;
+    }
+
+    public Collection<CheckersTags> getCheckersTags() {
         return checkersTags;
     }
 
-    public ArrayList<String> getCitiesTags() {
+    public void setCheckersTags(Collection<CheckersTags> checkersTags) {
+        this.checkersTags = checkersTags;
+    }
+
+    public Collection<CitiesTags> getCitiesTags() {
         return citiesTags;
+    }
+
+    public void setCitiesTags(Collection<CitiesTags> citiesTags) {
+        this.citiesTags = citiesTags;
     }
 
     public String getCode() {
         return code;
     }
 
-    public ArrayList<String> getCodesTags() {
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Collection<CodesTags> getCodesTags() {
         return codesTags;
+    }
+
+    public void setCodesTags(Collection<CodesTags> codesTags) {
+        this.codesTags = codesTags;
     }
 
     public String getComparedToCategory() {
         return comparedToCategory;
     }
 
+    public void setComparedToCategory(String comparedToCategory) {
+        this.comparedToCategory = comparedToCategory;
+    }
+
     public int getComplete() {
         return complete;
+    }
+
+    public void setComplete(int complete) {
+        this.complete = complete;
     }
 
     public long getCompletedT() {
         return completedT;
     }
 
+    public void setCompletedT(long completedT) {
+        this.completedT = completedT;
+    }
+
     public float getCompleteness() {
         return completeness;
+    }
+
+    public void setCompleteness(float completeness) {
+        this.completeness = completeness;
     }
 
     public String getConservationConditions() {
         return conservationConditions;
     }
 
+    public void setConservationConditions(String conservationConditions) {
+        this.conservationConditions = conservationConditions;
+    }
+
     public String getCountries() {
         return countries;
     }
 
-    public ArrayList<String> getCountriesHierarchy() {
+    public void setCountries(String countries) {
+        this.countries = countries;
+    }
+
+    public Collection<CountriesHierarchy> getCountriesHierarchy() {
         return countriesHierarchy;
+    }
+
+    public void setCountriesHierarchy(Collection<CountriesHierarchy> countriesHierarchy) {
+        this.countriesHierarchy = countriesHierarchy;
     }
 
     public String getCountriesLc() {
         return countriesLc;
     }
 
-    public ArrayList<String> getCountriesDebugTags() {
+    public void setCountriesLc(String countriesLc) {
+        this.countriesLc = countriesLc;
+    }
+
+    public Collection<CountriesDebugTags> getCountriesDebugTags() {
         return countriesDebugTags;
     }
 
-    public ArrayList<String> getCountriesTags() {
+    public void setCountriesDebugTags(Collection<CountriesDebugTags> countriesDebugTags) {
+        this.countriesDebugTags = countriesDebugTags;
+    }
+
+    public Collection<CountriesTags> getCountriesTags() {
         return countriesTags;
     }
 
-    public ArrayList<String> getCorrectorsTags() {
+    public void setCountriesTags(Collection<CountriesTags> countriesTags) {
+        this.countriesTags = countriesTags;
+    }
+
+    public Collection<CorrectorsTags> getCorrectorsTags() {
         return correctorsTags;
+    }
+
+    public void setCorrectorsTags(Collection<CorrectorsTags> correctorsTags) {
+        this.correctorsTags = correctorsTags;
     }
 
     public long getCreatedT() {
         return createdT;
     }
 
+    public void setCreatedT(long createdT) {
+        this.createdT = createdT;
+    }
+
     public String getCreator() {
         return creator;
     }
 
-    public ArrayList<String> getDataQualityBugsTags() {
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public Collection<DataQualityBugsTags> getDataQualityBugsTags() {
         return dataQualityBugsTags;
     }
 
-    public ArrayList<String> getDataQualityErrorsTags() {
+    public void setDataQualityBugsTags(Collection<DataQualityBugsTags> dataQualityBugsTags) {
+        this.dataQualityBugsTags = dataQualityBugsTags;
+    }
+
+    public Collection<DataQualityErrorsTags> getDataQualityErrorsTags() {
         return dataQualityErrorsTags;
     }
 
-    public ArrayList<String> getDataQualityInfoTags() {
+    public void setDataQualityErrorsTags(Collection<DataQualityErrorsTags> dataQualityErrorsTags) {
+        this.dataQualityErrorsTags = dataQualityErrorsTags;
+    }
+
+    public Collection<DataQualityInfoTags> getDataQualityInfoTags() {
         return dataQualityInfoTags;
     }
 
-    public ArrayList<String> getDataQualityTags() {
+    public void setDataQualityInfoTags(Collection<DataQualityInfoTags> dataQualityInfoTags) {
+        this.dataQualityInfoTags = dataQualityInfoTags;
+    }
+
+    public Collection<DataQualityTags> getDataQualityTags() {
         return dataQualityTags;
     }
 
-    public ArrayList<String> getDataQualityWarningsTags() {
+    public void setDataQualityTags(Collection<DataQualityTags> dataQualityTags) {
+        this.dataQualityTags = dataQualityTags;
+    }
+
+    public Collection<DataQualityWarningsTags> getDataQualityWarningsTags() {
         return dataQualityWarningsTags;
+    }
+
+    public void setDataQualityWarningsTags(Collection<DataQualityWarningsTags> dataQualityWarningsTags) {
+        this.dataQualityWarningsTags = dataQualityWarningsTags;
     }
 
     public String getDataSources() {
         return dataSources;
     }
 
-    public ArrayList<String> getDataSourcesTags() {
+    public void setDataSources(String dataSources) {
+        this.dataSources = dataSources;
+    }
+
+    public Collection<DataSourcesTags> getDataSourcesTags() {
         return dataSourcesTags;
     }
 
-    public ArrayList<String> getDebugParamSortedLangs() {
+    public void setDataSourcesTags(Collection<DataSourcesTags> dataSourcesTags) {
+        this.dataSourcesTags = dataSourcesTags;
+    }
+
+    public Collection<DebugParamSortedLangs> getDebugParamSortedLangs() {
         return debugParamSortedLangs;
     }
 
-    public ArrayList<String> getEditorsTags() {
+    public void setDebugParamSortedLangs(Collection<DebugParamSortedLangs> debugParamSortedLangs) {
+        this.debugParamSortedLangs = debugParamSortedLangs;
+    }
+
+    public Collection<EditorsTags> getEditorsTags() {
         return editorsTags;
+    }
+
+    public void setEditorsTags(Collection<EditorsTags> editorsTags) {
+        this.editorsTags = editorsTags;
     }
 
     public String getEmbCodes() {
         return embCodes;
     }
 
-    public ArrayList<String> getEmbCodesDebugTags() {
+    public void setEmbCodes(String embCodes) {
+        this.embCodes = embCodes;
+    }
+
+    public Collection<EmbCodesDebugTags> getEmbCodesDebugTags() {
         return embCodesDebugTags;
+    }
+
+    public void setEmbCodesDebugTags(Collection<EmbCodesDebugTags> embCodesDebugTags) {
+        this.embCodesDebugTags = embCodesDebugTags;
     }
 
     public String getEmbCodesOrig() {
         return embCodesOrig;
     }
 
-    public ArrayList<String> getEmbCodesTags() {
+    public void setEmbCodesOrig(String embCodesOrig) {
+        this.embCodesOrig = embCodesOrig;
+    }
+
+    public Collection<EmbCodesTags> getEmbCodesTags() {
         return embCodesTags;
     }
 
-    public ArrayList<String> getEntryDatesTags() {
+    public void setEmbCodesTags(Collection<EmbCodesTags> embCodesTags) {
+        this.embCodesTags = embCodesTags;
+    }
+
+    public Collection<EntryDatesTags> getEntryDatesTags() {
         return entryDatesTags;
+    }
+
+    public void setEntryDatesTags(Collection<EntryDatesTags> entryDatesTags) {
+        this.entryDatesTags = entryDatesTags;
     }
 
     public String getExpirationDate() {
         return expirationDate;
     }
 
-    public ArrayList<String> getExpirationDateDebugTags() {
+    public void setExpirationDate(String expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public Collection<ExpirationDateDebugTags> getExpirationDateDebugTags() {
         return expirationDateDebugTags;
+    }
+
+    public void setExpirationDateDebugTags(Collection<ExpirationDateDebugTags> expirationDateDebugTags) {
+        this.expirationDateDebugTags = expirationDateDebugTags;
     }
 
     public int getFruitsVegetablesNuts100GEstimate() {
         return fruitsVegetablesNuts100GEstimate;
     }
 
+    public void setFruitsVegetablesNuts100GEstimate(int fruitsVegetablesNuts100GEstimate) {
+        this.fruitsVegetablesNuts100GEstimate = fruitsVegetablesNuts100GEstimate;
+    }
+
     public String getGenericName() {
         return genericName;
+    }
+
+    public void setGenericName(String genericName) {
+        this.genericName = genericName;
     }
 
     public String getId() {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String get_id() {
         return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public String getImageFrontSmallUrl() {
         return imageFrontSmallUrl;
     }
 
+    public void setImageFrontSmallUrl(String imageFrontSmallUrl) {
+        this.imageFrontSmallUrl = imageFrontSmallUrl;
+    }
+
     public String getImageFrontThumbUrl() {
         return imageFrontThumbUrl;
+    }
+
+    public void setImageFrontThumbUrl(String imageFrontThumbUrl) {
+        this.imageFrontThumbUrl = imageFrontThumbUrl;
     }
 
     public String getImageFrontUrl() {
         return imageFrontUrl;
     }
 
+    public void setImageFrontUrl(String imageFrontUrl) {
+        this.imageFrontUrl = imageFrontUrl;
+    }
+
     public String getImageIngredientsUrl() {
         return imageIngredientsUrl;
+    }
+
+    public void setImageIngredientsUrl(String imageIngredientsUrl) {
+        this.imageIngredientsUrl = imageIngredientsUrl;
     }
 
     public String getImageIngredientsSmallUrl() {
         return imageIngredientsSmallUrl;
     }
 
+    public void setImageIngredientsSmallUrl(String imageIngredientsSmallUrl) {
+        this.imageIngredientsSmallUrl = imageIngredientsSmallUrl;
+    }
+
     public String getImageIngredientsThumbUrl() {
         return imageIngredientsThumbUrl;
+    }
+
+    public void setImageIngredientsThumbUrl(String imageIngredientsThumbUrl) {
+        this.imageIngredientsThumbUrl = imageIngredientsThumbUrl;
     }
 
     public String getImageNutritionSmallUrl() {
         return imageNutritionSmallUrl;
     }
 
+    public void setImageNutritionSmallUrl(String imageNutritionSmallUrl) {
+        this.imageNutritionSmallUrl = imageNutritionSmallUrl;
+    }
+
     public String getImageNutritionThumbUrl() {
         return imageNutritionThumbUrl;
+    }
+
+    public void setImageNutritionThumbUrl(String imageNutritionThumbUrl) {
+        this.imageNutritionThumbUrl = imageNutritionThumbUrl;
     }
 
     public String getImageNutritionUrl() {
         return imageNutritionUrl;
     }
 
+    public void setImageNutritionUrl(String imageNutritionUrl) {
+        this.imageNutritionUrl = imageNutritionUrl;
+    }
+
     public String getImageSmallUrl() {
         return imageSmallUrl;
+    }
+
+    public void setImageSmallUrl(String imageSmallUrl) {
+        this.imageSmallUrl = imageSmallUrl;
     }
 
     public String getImageThumbUrl() {
         return imageThumbUrl;
     }
 
+    public void setImageThumbUrl(String imageThumbUrl) {
+        this.imageThumbUrl = imageThumbUrl;
+    }
+
     public String getImageUrl() {
         return imageUrl;
     }
 
-    public ArrayList<String> getInformersTags() {
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public Collection<InformersTags> getInformersTags() {
         return informersTags;
     }
 
-    public ArrayList<String> getIngredientsAnalysisTags() {
+    public void setInformersTags(Collection<InformersTags> informersTags) {
+        this.informersTags = informersTags;
+    }
+
+    public Collection<IngredientsAnalysisTags> getIngredientsAnalysisTags() {
         return ingredientsAnalysisTags;
     }
 
-    public ArrayList<String> getIngredientsDebug() {
+    public void setIngredientsAnalysisTags(Collection<IngredientsAnalysisTags> ingredientsAnalysisTags) {
+        this.ingredientsAnalysisTags = ingredientsAnalysisTags;
+    }
+
+    public Collection<IngredientsDebug> getIngredientsDebug() {
         return ingredientsDebug;
+    }
+
+    public void setIngredientsDebug(Collection<IngredientsDebug> ingredientsDebug) {
+        this.ingredientsDebug = ingredientsDebug;
     }
 
     public int getIngredientsFromOrThatMayBeFromPalmOilN() {
         return ingredientsFromOrThatMayBeFromPalmOilN;
     }
 
-    public ArrayList<String> getIngredientsFromPalmOilTags() {
+    public void setIngredientsFromOrThatMayBeFromPalmOilN(int ingredientsFromOrThatMayBeFromPalmOilN) {
+        this.ingredientsFromOrThatMayBeFromPalmOilN = ingredientsFromOrThatMayBeFromPalmOilN;
+    }
+
+    public Collection<IngredientsFromPalmOilTags> getIngredientsFromPalmOilTags() {
         return ingredientsFromPalmOilTags;
+    }
+
+    public void setIngredientsFromPalmOilTags(Collection<IngredientsFromPalmOilTags> ingredientsFromPalmOilTags) {
+        this.ingredientsFromPalmOilTags = ingredientsFromPalmOilTags;
     }
 
     public int getIngredientsFromPalmOilN() {
         return ingredientsFromPalmOilN;
     }
 
-    public ArrayList<String> getIngredientsHierarchy() {
+    public void setIngredientsFromPalmOilN(int ingredientsFromPalmOilN) {
+        this.ingredientsFromPalmOilN = ingredientsFromPalmOilN;
+    }
+
+    public Collection<IngredientsHierarchy> getIngredientsHierarchy() {
         return ingredientsHierarchy;
     }
 
-    public ArrayList<String> getIngredientsIdsDebug() {
+    public void setIngredientsHierarchy(Collection<IngredientsHierarchy> ingredientsHierarchy) {
+        this.ingredientsHierarchy = ingredientsHierarchy;
+    }
+
+    public Collection<IngredientsIdsDebug> getIngredientsIdsDebug() {
         return ingredientsIdsDebug;
+    }
+
+    public void setIngredientsIdsDebug(Collection<IngredientsIdsDebug> ingredientsIdsDebug) {
+        this.ingredientsIdsDebug = ingredientsIdsDebug;
     }
 
     public int getIngredientsN() {
         return ingredientsN;
     }
 
-    public ArrayList<String> getIngredientsNTags() {
+    public void setIngredientsN(int ingredientsN) {
+        this.ingredientsN = ingredientsN;
+    }
+
+    public Collection<IngredientsNTags> getIngredientsNTags() {
         return ingredientsNTags;
     }
 
-    public ArrayList<String> getIngredientsOriginalTags() {
+    public void setIngredientsNTags(Collection<IngredientsNTags> ingredientsNTags) {
+        this.ingredientsNTags = ingredientsNTags;
+    }
+
+    public Collection<IngredientsOriginalTags> getIngredientsOriginalTags() {
         return ingredientsOriginalTags;
     }
 
-    public ArrayList<String> getIngredientsTags() {
+    public void setIngredientsOriginalTags(Collection<IngredientsOriginalTags> ingredientsOriginalTags) {
+        this.ingredientsOriginalTags = ingredientsOriginalTags;
+    }
+
+    public Collection<IngredientsTags> getIngredientsTags() {
         return ingredientsTags;
+    }
+
+    public void setIngredientsTags(Collection<IngredientsTags> ingredientsTags) {
+        this.ingredientsTags = ingredientsTags;
     }
 
     public String getIngredientsText() {
         return ingredientsText;
     }
 
+    public void setIngredientsText(String ingredientsText) {
+        this.ingredientsText = ingredientsText;
+    }
+
     public String getIngredientsTextDebug() {
         return ingredientsTextDebug;
+    }
+
+    public void setIngredientsTextDebug(String ingredientsTextDebug) {
+        this.ingredientsTextDebug = ingredientsTextDebug;
     }
 
     public String getIngredientsTextWithAllergens() {
         return ingredientsTextWithAllergens;
     }
 
+    public void setIngredientsTextWithAllergens(String ingredientsTextWithAllergens) {
+        this.ingredientsTextWithAllergens = ingredientsTextWithAllergens;
+    }
+
     public int getIngredientsThatMayBeFromPalmOilN() {
         return ingredientsThatMayBeFromPalmOilN;
     }
 
-    public ArrayList<String> getIngredientsThatMayBeFromPalmOilTags() {
+    public void setIngredientsThatMayBeFromPalmOilN(int ingredientsThatMayBeFromPalmOilN) {
+        this.ingredientsThatMayBeFromPalmOilN = ingredientsThatMayBeFromPalmOilN;
+    }
+
+    public Collection<IngredientsThatMayBeFromPalmOilTags> getIngredientsThatMayBeFromPalmOilTags() {
         return ingredientsThatMayBeFromPalmOilTags;
+    }
+
+    public void setIngredientsThatMayBeFromPalmOilTags(Collection<IngredientsThatMayBeFromPalmOilTags> ingredientsThatMayBeFromPalmOilTags) {
+        this.ingredientsThatMayBeFromPalmOilTags = ingredientsThatMayBeFromPalmOilTags;
     }
 
     public String getInterfaceVersionCreated() {
         return interfaceVersionCreated;
     }
 
+    public void setInterfaceVersionCreated(String interfaceVersionCreated) {
+        this.interfaceVersionCreated = interfaceVersionCreated;
+    }
+
     public String getInterfaceVersionModified() {
         return interfaceVersionModified;
     }
 
-    public ArrayList<String> getKeywords() {
+    public void setInterfaceVersionModified(String interfaceVersionModified) {
+        this.interfaceVersionModified = interfaceVersionModified;
+    }
+
+    public Collection<Keywords> getKeywords() {
         return keywords;
+    }
+
+    public void setKeywords(Collection<Keywords> keywords) {
+        this.keywords = keywords;
     }
 
     public int getKnownIngredientsN() {
         return knownIngredientsN;
     }
 
+    public void setKnownIngredientsN(int knownIngredientsN) {
+        this.knownIngredientsN = knownIngredientsN;
+    }
+
     public String getLabels() {
         return labels;
     }
 
-    public ArrayList<String> getLabelsHierarchy() {
+    public void setLabels(String labels) {
+        this.labels = labels;
+    }
+
+    public Collection<LabelsHierarchy> getLabelsHierarchy() {
         return labelsHierarchy;
+    }
+
+    public void setLabelsHierarchy(Collection<LabelsHierarchy> labelsHierarchy) {
+        this.labelsHierarchy = labelsHierarchy;
     }
 
     public String getLabelsLc() {
         return labelsLc;
     }
 
-    public ArrayList<String> getLabelsPrevHierarchy() {
+    public void setLabelsLc(String labelsLc) {
+        this.labelsLc = labelsLc;
+    }
+
+    public Collection<LabelsPrevHierarchy> getLabelsPrevHierarchy() {
         return labelsPrevHierarchy;
     }
 
-    public ArrayList<String> getLabelsPrevTags() {
+    public void setLabelsPrevHierarchy(Collection<LabelsPrevHierarchy> labelsPrevHierarchy) {
+        this.labelsPrevHierarchy = labelsPrevHierarchy;
+    }
+
+    public Collection<LabelsPrevTags> getLabelsPrevTags() {
         return labelsPrevTags;
     }
 
-    public ArrayList<String> getLabelsTags() {
+    public void setLabelsPrevTags(Collection<LabelsPrevTags> labelsPrevTags) {
+        this.labelsPrevTags = labelsPrevTags;
+    }
+
+    public Collection<LabelsTags> getLabelsTags() {
         return labelsTags;
     }
 
-    public ArrayList<String> getLabelsDebugTags() {
+    public void setLabelsTags(Collection<LabelsTags> labelsTags) {
+        this.labelsTags = labelsTags;
+    }
+
+    public Collection<LabelsDebugTags> getLabelsDebugTags() {
         return labelsDebugTags;
+    }
+
+    public void setLabelsDebugTags(Collection<LabelsDebugTags> labelsDebugTags) {
+        this.labelsDebugTags = labelsDebugTags;
     }
 
     public String getLang() {
         return lang;
     }
 
-    public ArrayList<String> getLangDebugTags() {
+    public void setLang(String lang) {
+        this.lang = lang;
+    }
+
+    public Collection<LangDebugTags> getLangDebugTags() {
         return langDebugTags;
     }
 
-    public ArrayList<String> getLanguagesHierarchy() {
+    public void setLangDebugTags(Collection<LangDebugTags> langDebugTags) {
+        this.langDebugTags = langDebugTags;
+    }
+
+    public Collection<LanguagesHierarchy> getLanguagesHierarchy() {
         return languagesHierarchy;
     }
 
-    public ArrayList<String> getLanguagesTags() {
+    public void setLanguagesHierarchy(Collection<LanguagesHierarchy> languagesHierarchy) {
+        this.languagesHierarchy = languagesHierarchy;
+    }
+
+    public Collection<LanguagesTags> getLanguagesTags() {
         return languagesTags;
     }
 
-    public ArrayList<String> getLastEditDatesTags() {
+    public void setLanguagesTags(Collection<LanguagesTags> languagesTags) {
+        this.languagesTags = languagesTags;
+    }
+
+    public Collection<LastEditDatesTags> getLastEditDatesTags() {
         return lastEditDatesTags;
+    }
+
+    public void setLastEditDatesTags(Collection<LastEditDatesTags> lastEditDatesTags) {
+        this.lastEditDatesTags = lastEditDatesTags;
     }
 
     public String getLastEditor() {
         return lastEditor;
     }
 
-    public ArrayList<String> getLastImageDatesTags() {
+    public void setLastEditor(String lastEditor) {
+        this.lastEditor = lastEditor;
+    }
+
+    public Collection<LastImageDatesTags> getLastImageDatesTags() {
         return lastImageDatesTags;
+    }
+
+    public void setLastImageDatesTags(Collection<LastImageDatesTags> lastImageDatesTags) {
+        this.lastImageDatesTags = lastImageDatesTags;
     }
 
     public long getLastImageT() {
         return lastImageT;
     }
 
+    public void setLastImageT(long lastImageT) {
+        this.lastImageT = lastImageT;
+    }
+
     public String getLastModifiedBy() {
         return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
     }
 
     public long getLastModifiedT() {
         return lastModifiedT;
     }
 
+    public void setLastModifiedT(long lastModifiedT) {
+        this.lastModifiedT = lastModifiedT;
+    }
+
     public String getLc() {
         return lc;
+    }
+
+    public void setLc(String lc) {
+        this.lc = lc;
     }
 
     public String getLink() {
         return link;
     }
 
-    public ArrayList<String> getLinkDebugTags() {
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public Collection<LinkDebugTags> getLinkDebugTags() {
         return linkDebugTags;
+    }
+
+    public void setLinkDebugTags(Collection<LinkDebugTags> linkDebugTags) {
+        this.linkDebugTags = linkDebugTags;
     }
 
     public String getManufacturingPlaces() {
         return manufacturingPlaces;
     }
 
-    public ArrayList<String> getManufacturingPlacesDebugTags() {
+    public void setManufacturingPlaces(String manufacturingPlaces) {
+        this.manufacturingPlaces = manufacturingPlaces;
+    }
+
+    public Collection<ManufacturingPlacesDebugTags> getManufacturingPlacesDebugTags() {
         return manufacturingPlacesDebugTags;
     }
 
-    public ArrayList<String> getManufacturingPlacesTags() {
+    public void setManufacturingPlacesDebugTags(Collection<ManufacturingPlacesDebugTags> manufacturingPlacesDebugTags) {
+        this.manufacturingPlacesDebugTags = manufacturingPlacesDebugTags;
+    }
+
+    public Collection<ManufacturingPlacesTags> getManufacturingPlacesTags() {
         return manufacturingPlacesTags;
+    }
+
+    public void setManufacturingPlacesTags(Collection<ManufacturingPlacesTags> manufacturingPlacesTags) {
+        this.manufacturingPlacesTags = manufacturingPlacesTags;
     }
 
     public String getMaxImgid() {
         return maxImgid;
     }
 
-    public ArrayList<String> getMineralsPrevTags() {
+    public void setMaxImgid(String maxImgid) {
+        this.maxImgid = maxImgid;
+    }
+
+    public Collection<MineralsPrevTags> getMineralsPrevTags() {
         return mineralsPrevTags;
     }
 
-    public ArrayList<String> getMineralsTags() {
+    public void setMineralsPrevTags(Collection<MineralsPrevTags> mineralsPrevTags) {
+        this.mineralsPrevTags = mineralsPrevTags;
+    }
+
+    public Collection<MineralsTags> getMineralsTags() {
         return mineralsTags;
     }
 
-    public ArrayList<String> getMiscTags() {
+    public void setMineralsTags(Collection<MineralsTags> mineralsTags) {
+        this.mineralsTags = mineralsTags;
+    }
+
+    public Collection<MiscTags> getMiscTags() {
         return miscTags;
+    }
+
+    public void setMiscTags(Collection<MiscTags> miscTags) {
+        this.miscTags = miscTags;
     }
 
     public String getNetWeightUnit() {
         return netWeightUnit;
     }
 
+    public void setNetWeightUnit(String netWeightUnit) {
+        this.netWeightUnit = netWeightUnit;
+    }
+
     public String getNetWeightValue() {
         return netWeightValue;
+    }
+
+    public void setNetWeightValue(String netWeightValue) {
+        this.netWeightValue = netWeightValue;
     }
 
     public String getNutritionDataPer() {
         return nutritionDataPer;
     }
 
+    public void setNutritionDataPer(String nutritionDataPer) {
+        this.nutritionDataPer = nutritionDataPer;
+    }
+
     public int getNutritionScoreWarningNoFruitsVegetablesNuts() {
         return nutritionScoreWarningNoFruitsVegetablesNuts;
+    }
+
+    public void setNutritionScoreWarningNoFruitsVegetablesNuts(int nutritionScoreWarningNoFruitsVegetablesNuts) {
+        this.nutritionScoreWarningNoFruitsVegetablesNuts = nutritionScoreWarningNoFruitsVegetablesNuts;
     }
 
     public String getNoNutritionData() {
         return noNutritionData;
     }
 
+    public void setNoNutritionData(String noNutritionData) {
+        this.noNutritionData = noNutritionData;
+    }
+
     public String getNovaGroup() {
         return novaGroup;
+    }
+
+    public void setNovaGroup(String novaGroup) {
+        this.novaGroup = novaGroup;
     }
 
     public String getNovaGroups() {
         return novaGroups;
     }
 
+    public void setNovaGroups(String novaGroups) {
+        this.novaGroups = novaGroups;
+    }
+
     public String getNovaGroupDebug() {
         return novaGroupDebug;
     }
 
-    public ArrayList<String> getNovaGroupTags() {
+    public void setNovaGroupDebug(String novaGroupDebug) {
+        this.novaGroupDebug = novaGroupDebug;
+    }
+
+    public Collection<NovaGroupTags> getNovaGroupTags() {
         return novaGroupTags;
     }
 
-    public ArrayList<String> getNovaGroupsTags() {
+    public void setNovaGroupTags(Collection<NovaGroupTags> novaGroupTags) {
+        this.novaGroupTags = novaGroupTags;
+    }
+
+    public Collection<NovaGroupsTags> getNovaGroupsTags() {
         return novaGroupsTags;
     }
 
-    public ArrayList<String> getNucleotidesPrevTags() {
+    public void setNovaGroupsTags(Collection<NovaGroupsTags> novaGroupsTags) {
+        this.novaGroupsTags = novaGroupsTags;
+    }
+
+    public Collection<NucleotidesPrevTags> getNucleotidesPrevTags() {
         return nucleotidesPrevTags;
     }
 
-    public ArrayList<String> getNucleotidesTags() {
+    public void setNucleotidesPrevTags(Collection<NucleotidesPrevTags> nucleotidesPrevTags) {
+        this.nucleotidesPrevTags = nucleotidesPrevTags;
+    }
+
+    public Collection<NucleotidesTags> getNucleotidesTags() {
         return nucleotidesTags;
     }
 
-    public ArrayList<String> getNutrientLevelsTags() {
+    public void setNucleotidesTags(Collection<NucleotidesTags> nucleotidesTags) {
+        this.nucleotidesTags = nucleotidesTags;
+    }
+
+    public Collection<NutrientLevelsTags> getNutrientLevelsTags() {
         return nutrientLevelsTags;
+    }
+
+    public void setNutrientLevelsTags(Collection<NutrientLevelsTags> nutrientLevelsTags) {
+        this.nutrientLevelsTags = nutrientLevelsTags;
     }
 
     public String getNutritionData() {
         return nutritionData;
     }
 
-    public ArrayList<String> getNutritionDataPerDebugTags() {
+    public void setNutritionData(String nutritionData) {
+        this.nutritionData = nutritionData;
+    }
+
+    public Collection<NutritionDataPerDebugTags> getNutritionDataPerDebugTags() {
         return nutritionDataPerDebugTags;
+    }
+
+    public void setNutritionDataPerDebugTags(Collection<NutritionDataPerDebugTags> nutritionDataPerDebugTags) {
+        this.nutritionDataPerDebugTags = nutritionDataPerDebugTags;
     }
 
     public String getNutritionDataPrepared() {
         return nutritionDataPrepared;
     }
 
+    public void setNutritionDataPrepared(String nutritionDataPrepared) {
+        this.nutritionDataPrepared = nutritionDataPrepared;
+    }
+
     public String getNutritionDataPreparedPer() {
         return nutritionDataPreparedPer;
+    }
+
+    public void setNutritionDataPreparedPer(String nutritionDataPreparedPer) {
+        this.nutritionDataPreparedPer = nutritionDataPreparedPer;
     }
 
     public String getNutritionGrades() {
         return nutritionGrades;
     }
 
+    public void setNutritionGrades(String nutritionGrades) {
+        this.nutritionGrades = nutritionGrades;
+    }
+
     public int getNutritionScoreBeverage() {
         return nutritionScoreBeverage;
+    }
+
+    public void setNutritionScoreBeverage(int nutritionScoreBeverage) {
+        this.nutritionScoreBeverage = nutritionScoreBeverage;
     }
 
     public String getNutritionScoreDebug() {
         return nutritionScoreDebug;
     }
 
+    public void setNutritionScoreDebug(String nutritionScoreDebug) {
+        this.nutritionScoreDebug = nutritionScoreDebug;
+    }
+
     public int getNutritionScoreWarningNoFiber() {
         return nutritionScoreWarningNoFiber;
     }
 
-    public ArrayList<String> getNutritionGradesTags() {
+    public void setNutritionScoreWarningNoFiber(int nutritionScoreWarningNoFiber) {
+        this.nutritionScoreWarningNoFiber = nutritionScoreWarningNoFiber;
+    }
+
+    public Collection<NutritionGradesTags> getNutritionGradesTags() {
         return nutritionGradesTags;
+    }
+
+    public void setNutritionGradesTags(Collection<NutritionGradesTags> nutritionGradesTags) {
+        this.nutritionGradesTags = nutritionGradesTags;
     }
 
     public String getOrigins() {
         return origins;
     }
 
-    public ArrayList<String> getOriginsDebugTags() {
+    public void setOrigins(String origins) {
+        this.origins = origins;
+    }
+
+    public Collection<OriginsDebugTags> getOriginsDebugTags() {
         return originsDebugTags;
     }
 
-    public ArrayList<String> getOriginsTags() {
+    public void setOriginsDebugTags(Collection<OriginsDebugTags> originsDebugTags) {
+        this.originsDebugTags = originsDebugTags;
+    }
+
+    public Collection<OriginsTags> getOriginsTags() {
         return originsTags;
+    }
+
+    public void setOriginsTags(Collection<OriginsTags> originsTags) {
+        this.originsTags = originsTags;
     }
 
     public String getOtherInformation() {
         return otherInformation;
     }
 
-    public ArrayList<String> getOtherNutritionalSubstancesTags() {
+    public void setOtherInformation(String otherInformation) {
+        this.otherInformation = otherInformation;
+    }
+
+    public Collection<OtherNutritionalSubstancesTags> getOtherNutritionalSubstancesTags() {
         return otherNutritionalSubstancesTags;
+    }
+
+    public void setOtherNutritionalSubstancesTags(Collection<OtherNutritionalSubstancesTags> otherNutritionalSubstancesTags) {
+        this.otherNutritionalSubstancesTags = otherNutritionalSubstancesTags;
     }
 
     public String getPackaging() {
         return packaging;
     }
 
-    public ArrayList<String> getPackagingDebugTags() {
+    public void setPackaging(String packaging) {
+        this.packaging = packaging;
+    }
+
+    public Collection<PackagingDebugTags> getPackagingDebugTags() {
         return packagingDebugTags;
     }
 
-    public ArrayList<String> getPackagingTags() {
+    public void setPackagingDebugTags(Collection<PackagingDebugTags> packagingDebugTags) {
+        this.packagingDebugTags = packagingDebugTags;
+    }
+
+    public Collection<PackagingTags> getPackagingTags() {
         return packagingTags;
     }
 
-    public ArrayList<String> getPhotographersTags() {
+    public void setPackagingTags(Collection<PackagingTags> packagingTags) {
+        this.packagingTags = packagingTags;
+    }
+
+    public Collection<PhotographersTags> getPhotographersTags() {
         return photographersTags;
+    }
+
+    public void setPhotographersTags(Collection<PhotographersTags> photographersTags) {
+        this.photographersTags = photographersTags;
     }
 
     public String getPnnsGroups1() {
         return pnnsGroups1;
     }
 
+    public void setPnnsGroups1(String pnnsGroups1) {
+        this.pnnsGroups1 = pnnsGroups1;
+    }
+
     public String getPnnsGroups2() {
         return pnnsGroups2;
     }
 
-    public ArrayList<String> getPnnsGroups1Tags() {
+    public void setPnnsGroups2(String pnnsGroups2) {
+        this.pnnsGroups2 = pnnsGroups2;
+    }
+
+    public Collection<PnnsGroups1Tags> getPnnsGroups1Tags() {
         return pnnsGroups1Tags;
     }
 
-    public ArrayList<String> getPnnsGroups2Tags() {
+    public void setPnnsGroups1Tags(Collection<PnnsGroups1Tags> pnnsGroups1Tags) {
+        this.pnnsGroups1Tags = pnnsGroups1Tags;
+    }
+
+    public Collection<PnnsGroups2Tags> getPnnsGroups2Tags() {
         return pnnsGroups2Tags;
+    }
+
+    public void setPnnsGroups2Tags(Collection<PnnsGroups2Tags> pnnsGroups2Tags) {
+        this.pnnsGroups2Tags = pnnsGroups2Tags;
     }
 
     public long getPopularityKey() {
         return popularityKey;
     }
 
+    public void setPopularityKey(long popularityKey) {
+        this.popularityKey = popularityKey;
+    }
+
     public String getProducerVersionId() {
         return producerVersionId;
+    }
+
+    public void setProducerVersionId(String producerVersionId) {
+        this.producerVersionId = producerVersionId;
     }
 
     public String getProductName() {
         return productName;
     }
 
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
     public String getProductQuantity() {
         return productQuantity;
+    }
+
+    public void setProductQuantity(String productQuantity) {
+        this.productQuantity = productQuantity;
     }
 
     public String getPurchasePlaces() {
         return purchasePlaces;
     }
 
-    public ArrayList<String> getPurchasePlacesDebugTags() {
+    public void setPurchasePlaces(String purchasePlaces) {
+        this.purchasePlaces = purchasePlaces;
+    }
+
+    public Collection<PurchasePlacesDebugTags> getPurchasePlacesDebugTags() {
         return purchasePlacesDebugTags;
     }
 
-    public ArrayList<String> getPurchasePlacesTags() {
+    public void setPurchasePlacesDebugTags(Collection<PurchasePlacesDebugTags> purchasePlacesDebugTags) {
+        this.purchasePlacesDebugTags = purchasePlacesDebugTags;
+    }
+
+    public Collection<PurchasePlacesTags> getPurchasePlacesTags() {
         return purchasePlacesTags;
     }
 
-    public ArrayList<String> getQualityTags() {
+    public void setPurchasePlacesTags(Collection<PurchasePlacesTags> purchasePlacesTags) {
+        this.purchasePlacesTags = purchasePlacesTags;
+    }
+
+    public Collection<QualityTags> getQualityTags() {
         return qualityTags;
+    }
+
+    public void setQualityTags(Collection<QualityTags> qualityTags) {
+        this.qualityTags = qualityTags;
     }
 
     public String getQuantity() {
         return quantity;
     }
 
-    public ArrayList<String> getQuantityDebugTags() {
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+    public Collection<QuantityDebugTags> getQuantityDebugTags() {
         return quantityDebugTags;
+    }
+
+    public void setQuantityDebugTags(Collection<QuantityDebugTags> quantityDebugTags) {
+        this.quantityDebugTags = quantityDebugTags;
     }
 
     public String getRecyclingInstructionsToDiscard() {
         return recyclingInstructionsToDiscard;
     }
 
+    public void setRecyclingInstructionsToDiscard(String recyclingInstructionsToDiscard) {
+        this.recyclingInstructionsToDiscard = recyclingInstructionsToDiscard;
+    }
+
     public int getRev() {
         return rev;
+    }
+
+    public void setRev(int rev) {
+        this.rev = rev;
     }
 
     public String getServingQuantity() {
         return servingQuantity;
     }
 
+    public void setServingQuantity(String servingQuantity) {
+        this.servingQuantity = servingQuantity;
+    }
+
     public String getServingSize() {
         return servingSize;
     }
 
-    public ArrayList<String> getServingSizeDebugTags() {
+    public void setServingSize(String servingSize) {
+        this.servingSize = servingSize;
+    }
+
+    public Collection<ServingSizeDebugTags> getServingSizeDebugTags() {
         return servingSizeDebugTags;
+    }
+
+    public void setServingSizeDebugTags(Collection<ServingSizeDebugTags> servingSizeDebugTags) {
+        this.servingSizeDebugTags = servingSizeDebugTags;
     }
 
     public long getSortkey() {
         return sortkey;
     }
 
+    public void setSortkey(long sortkey) {
+        this.sortkey = sortkey;
+    }
+
     public String getStates() {
         return states;
     }
 
-    public ArrayList<String> getStatesHierarchy() {
+    public void setStates(String states) {
+        this.states = states;
+    }
+
+    public Collection<StatesHierarchy> getStatesHierarchy() {
         return statesHierarchy;
     }
 
-    public ArrayList<String> getStatesTags() {
+    public void setStatesHierarchy(Collection<StatesHierarchy> statesHierarchy) {
+        this.statesHierarchy = statesHierarchy;
+    }
+
+    public Collection<StatesTags> getStatesTags() {
         return statesTags;
+    }
+
+    public void setStatesTags(Collection<StatesTags> statesTags) {
+        this.statesTags = statesTags;
     }
 
     public String getStores() {
         return stores;
     }
 
-    public ArrayList<String> getStoresDebugTags() {
+    public void setStores(String stores) {
+        this.stores = stores;
+    }
+
+    public Collection<StoresDebugTags> getStoresDebugTags() {
         return storesDebugTags;
     }
 
-    public ArrayList<String> getStoresTags() {
+    public void setStoresDebugTags(Collection<StoresDebugTags> storesDebugTags) {
+        this.storesDebugTags = storesDebugTags;
+    }
+
+    public Collection<StoresTags> getStoresTags() {
         return storesTags;
+    }
+
+    public void setStoresTags(Collection<StoresTags> storesTags) {
+        this.storesTags = storesTags;
     }
 
     public String getTraces() {
         return traces;
     }
 
+    public void setTraces(String traces) {
+        this.traces = traces;
+    }
+
     public String getTracesFromIngredients() {
         return tracesFromIngredients;
     }
 
-    public ArrayList<String> getTracesHierarchy() {
+    public void setTracesFromIngredients(String tracesFromIngredients) {
+        this.tracesFromIngredients = tracesFromIngredients;
+    }
+
+    public Collection<TracesHierarchy> getTracesHierarchy() {
         return tracesHierarchy;
     }
 
-    public ArrayList<String> getTracesDebugTags() {
+    public void setTracesHierarchy(Collection<TracesHierarchy> tracesHierarchy) {
+        this.tracesHierarchy = tracesHierarchy;
+    }
+
+    public Collection<TracesDebugTags> getTracesDebugTags() {
         return tracesDebugTags;
+    }
+
+    public void setTracesDebugTags(Collection<TracesDebugTags> tracesDebugTags) {
+        this.tracesDebugTags = tracesDebugTags;
     }
 
     public String getTracesFromUser() {
         return tracesFromUser;
     }
 
+    public void setTracesFromUser(String tracesFromUser) {
+        this.tracesFromUser = tracesFromUser;
+    }
+
     public String getTracesLc() {
         return tracesLc;
     }
 
-    public ArrayList<String> getTracesTags() {
+    public void setTracesLc(String tracesLc) {
+        this.tracesLc = tracesLc;
+    }
+
+    public Collection<TracesTags> getTracesTags() {
         return tracesTags;
+    }
+
+    public void setTracesTags(Collection<TracesTags> tracesTags) {
+        this.tracesTags = tracesTags;
     }
 
     public int getUnknownIngredientsN() {
         return unknownIngredientsN;
     }
 
-    public ArrayList<String> getUnknownNutrientsTags() {
+    public void setUnknownIngredientsN(int unknownIngredientsN) {
+        this.unknownIngredientsN = unknownIngredientsN;
+    }
+
+    public Collection<UnknownNutrientsTags> getUnknownNutrientsTags() {
         return unknownNutrientsTags;
+    }
+
+    public void setUnknownNutrientsTags(Collection<UnknownNutrientsTags> unknownNutrientsTags) {
+        this.unknownNutrientsTags = unknownNutrientsTags;
     }
 
     public String getUpdateKey() {
         return updateKey;
     }
 
-    public ArrayList<String> getVitaminsPrevTags() {
+    public void setUpdateKey(String updateKey) {
+        this.updateKey = updateKey;
+    }
+
+    public Collection<VitaminsPrevTags> getVitaminsPrevTags() {
         return vitaminsPrevTags;
     }
 
-    public ArrayList<String> getVitaminsTags() {
+    public void setVitaminsPrevTags(Collection<VitaminsPrevTags> vitaminsPrevTags) {
+        this.vitaminsPrevTags = vitaminsPrevTags;
+    }
+
+    public Collection<VitaminsTags> getVitaminsTags() {
         return vitaminsTags;
+    }
+
+    public void setVitaminsTags(Collection<VitaminsTags> vitaminsTags) {
+        this.vitaminsTags = vitaminsTags;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public static Product populateProduct(JSONObject obj) {
@@ -1029,15 +2039,15 @@ public class Product {
             if (obj.has("additives_old_n"))
                 product.additivesOldN = obj.getInt("additives_old_n");
             if (obj.has("additives_original_tags"))
-                product.additivesOriginalTags = pupolateCollection(obj.getJSONArray("additives_original_tags"));
+                product.additivesOriginalTags = AdditivesOriginalTags.populateCollection(obj.getJSONArray("additives_original_tags"), product);
             if (obj.has("additives_old_tags"))
-                product.additivesOldTags = pupolateCollection(obj.getJSONArray("additives_old_tags"));
+                product.additivesOldTags = AdditivesOldTags.populateCollection(obj.getJSONArray("additives_original_tags"), product);
             if (obj.has("additives_prev_original_tags"))
-                product.additivesPrevOriginalTags = pupolateCollection(obj.getJSONArray("additives_prev_original_tags"));
+                product.additivesPrevOriginalTags = AdditivesPrevOriginalTags.pupolateCollection(obj.getJSONArray("additives_prev_original_tags"), product);
             if (obj.has("additives_debug_tags"))
-                product.additivesDebugTags = pupolateCollection(obj.getJSONArray("additives_debug_tags"));
+                product.additivesDebugTags = AdditivesDebugTags.pupolateCollection(obj.getJSONArray("additives_debug_tags"), product);
             if (obj.has("additives_tags"))
-                product.additivesTags = pupolateCollection(obj.getJSONArray("additives_tags"));
+                product.additivesTags = AdditivesTags.pupolateCollection(obj.getJSONArray("additives_tags"), product);
             if (obj.has("allergens"))
                 product.allergens = obj.getString("allergens");
             if (obj.has("allergens_from_ingredients"))
@@ -1045,21 +2055,21 @@ public class Product {
             if (obj.has("allergens_from_user"))
                 product.allergensFromUser = obj.getString("allergens_from_user");
             if (obj.has("allergens_hierarchy"))
-                product.allergensHierarchy = pupolateCollection(obj.getJSONArray("allergens_hierarchy"));
+                product.allergensHierarchy = AllergensHierarchy.pupolateCollection(obj.getJSONArray("allergens_hierarchy"), product);
             if (obj.has("allergens_lc"))
                 product.allergensLc = obj.getString("allergens_lc");
             if (obj.has("allergens_tags"))
-                product.allergensTags = pupolateCollection(obj.getJSONArray("allergens_tags"));
+                product.allergensTags = AllergensTags.pupolateCollection(obj.getJSONArray("allergens_tags"), product);
             if (obj.has("amino_acids_prev_tags"))
-                product.aminoAcidsPrevTags = pupolateCollection(obj.getJSONArray("amino_acids_prev_tags"));
+                product.aminoAcidsPrevTags = AminoAcidsPrevTags.pupolateCollection(obj.getJSONArray("amino_acids_prev_tags"), product);
             if (obj.has("amino_acids_tags"))
-                product.aminoAcidsTags = pupolateCollection(obj.getJSONArray("amino_acids_tags"));
+                product.aminoAcidsTags = AminoAcidsTags.pupolateCollection(obj.getJSONArray("amino_acids_tags"), product);
             if (obj.has("brands"))
                 product.brands = obj.getString("brands");
             if (obj.has("brands_debug_tags"))
-                product.brandsDebugTags = pupolateCollection(obj.getJSONArray("brands_debug_tags"));
+                product.brandsDebugTags = BrandsDebugTags.pupolateCollection(obj.getJSONArray("brands_debug_tags"), product);
             if (obj.has("brands_tags"))
-                product.brandsTags = pupolateCollection(obj.getJSONArray("brands_tags"));
+                product.brandsTags = BrandsTags.pupolateCollection(obj.getJSONArray("brands_tags"), product);
             if (obj.has("carbon_footprint_percent_of_known_ingredients"))
                 product.carbonFootprintPercentOfKnownIngredients = obj.getString("carbon_footprint_percent_of_known_ingredients");
             if (obj.has("carbon_footprint_from_known_ingredients_debug"))
@@ -1067,21 +2077,21 @@ public class Product {
             if (obj.has("categories"))
                 product.categories = obj.getString("categories");
             if (obj.has("categories_hierarchy"))
-                product.categoriesHierarchy = pupolateCollection(obj.getJSONArray("categories_hierarchy"));
+                product.categoriesHierarchy = CategoriesHierarchy.pupolateCollection(obj.getJSONArray("categories_hierarchy"), product);
             if (obj.has("categories_lc"))
                 product.categoriesLc = obj.getString("categories_lc");
             if (obj.has("categories_properties_tags"))
-                product.categoriesPropertiesTags = pupolateCollection(obj.getJSONArray("categories_properties_tags"));
+                product.categoriesPropertiesTags = CategoriesPropertiesTags.pupolateCollection(obj.getJSONArray("categories_properties_tags"), product);
             if (obj.has("categories_tags"))
-                product.categoriesTags = pupolateCollection(obj.getJSONArray("categories_tags"));
+                product.categoriesTags = CategoriesTags.pupolateCollection(obj.getJSONArray("categories_tags"), product);
             if (obj.has("checkers_tags"))
-                product.checkersTags = pupolateCollection(obj.getJSONArray("checkers_tags"));
+                product.checkersTags = CheckersTags.pupolateCollection(obj.getJSONArray("checkers_tags"), product);
             if (obj.has("cities_tags"))
-                product.citiesTags = pupolateCollection(obj.getJSONArray("cities_tags"));
+                product.citiesTags = CitiesTags.pupolateCollection(obj.getJSONArray("cities_tags"), product);
             if (obj.has("code"))
                 product.code = obj.getString("code");
             if (obj.has("codes_tags"))
-                product.codesTags = pupolateCollection(obj.getJSONArray("codes_tags"));
+                product.codesTags = CodesTags.pupolateCollection(obj.getJSONArray("codes_tags"), product);
             if (obj.has("compared_to_category"))
                 product.comparedToCategory = obj.getString("compared_to_category");
             if (obj.has("complete"))
@@ -1095,15 +2105,15 @@ public class Product {
             if (obj.has("countries"))
                 product.countries = obj.getString("countries");
             if (obj.has("countries_hierarchy"))
-                product.countriesHierarchy = pupolateCollection(obj.getJSONArray("countries_hierarchy"));
+                product.countriesHierarchy = CountriesHierarchy.pupolateCollection(obj.getJSONArray("countries_hierarchy"), product);
             if (obj.has("countries_lc"))
                 product.countriesLc = obj.getString("countries_lc");
             if (obj.has("countries_debug_tags"))
-                product.countriesDebugTags = pupolateCollection(obj.getJSONArray("countries_debug_tags"));
+                product.countriesDebugTags = CountriesDebugTags.pupolateCollection(obj.getJSONArray("countries_debug_tags"), product);
             if (obj.has("countries_tags"))
-                product.countriesTags = pupolateCollection(obj.getJSONArray("countries_tags"));
+                product.countriesTags = CountriesTags.pupolateCollection(obj.getJSONArray("countries_tags"), product);
             if (obj.has("correctors_tags"))
-                product.correctorsTags = pupolateCollection(obj.getJSONArray("correctors_tags"));
+                product.correctorsTags = CorrectorsTags.pupolateCollection(obj.getJSONArray("correctors_tags"), product);
             if (obj.has("created_t"))
                 product.createdT = obj.getLong("created_t");
             if (obj.has("creator"))
@@ -1412,8 +2422,8 @@ public class Product {
         return product;
     }
 
-    private static ArrayList<String> pupolateCollection(JSONArray fields) {
-        ArrayList<String> values = new ArrayList<>();
+    private static Collection<String> pupolateCollection(JSONArray fields) {
+        Collection<String> values = new ArrayList<>();
         for (int i = 0; i < fields.length(); i++) {
             try {
                 values.add(fields.get(i).toString());
@@ -1422,5 +2432,16 @@ public class Product {
             }
         }
         return values;
+    }
+
+    public boolean create(DatabaseManager dm) {
+        try {
+            Dao<Product, Integer> dao = dm.getDao(Product.class);
+            dao.create(this);
+            return true;
+        } catch (SQLException e) {
+            String x = "";
+           return false;
+        }
     }
 }

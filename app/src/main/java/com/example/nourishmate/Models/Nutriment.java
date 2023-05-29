@@ -1,11 +1,16 @@
 package com.example.nourishmate.Models;
 
+import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable
 public class Nutriment {
+    @DatabaseField(generatedId = true)
+    private int id;
     private String nutrimentName;
+    @DatabaseField
     private float purcentage;
+    @DatabaseField
     private String unit;
 
     public String getNutrimentName() {

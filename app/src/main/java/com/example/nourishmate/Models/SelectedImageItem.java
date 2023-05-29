@@ -7,7 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Iterator;
-@DatabaseTable
+
 public class SelectedImageItem {
     private SelectedImageItemLink  display;
 

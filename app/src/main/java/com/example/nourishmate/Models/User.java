@@ -10,9 +10,23 @@ public class User {
         Login = login;
         this.email = email;
     }
-@DatabaseField
-    private String pseudo, Login, email;
 
+    @DatabaseField(generatedId = true)
+    private int id;
+    @DatabaseField
+    private String pseudo;
+    @DatabaseField
+    private String Login;
+    @DatabaseField
+    private String email;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     public String getPseudo() {
         return pseudo;
     }

@@ -1,5 +1,6 @@
 package com.example.nourishmate.Models;
 
+import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import org.json.JSONArray;
@@ -11,6 +12,8 @@ import java.util.Collection;
 @DatabaseTable
 public class Ingredient {
 
+    @DatabaseField(generatedId = true)
+    private int primayKey;
     private String fromPalmOil;
     private String id;
     private String origin;
@@ -19,6 +22,8 @@ public class Ingredient {
     private String text;
     private String vegan;
     private String vegetarian;
+    @DatabaseField(foreign = true, foreignAutoRefresh = true, columnName = "primayKey")
+    private Product product;
 
     public String getFromPalmOil() {
         return fromPalmOil;

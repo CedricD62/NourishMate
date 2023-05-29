@@ -1,5 +1,6 @@
 package com.example.nourishmate.Models;
 
+import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import org.json.JSONException;
@@ -10,104 +11,210 @@ import java.util.Collection;
 @DatabaseTable
 public class Nutriments {
 
+    @DatabaseField(generatedId = true)
+    private int id;
+    @DatabaseField
     private float calcium;
+    @DatabaseField
     private float calciumValue;
+    @DatabaseField
     private float calcium100G;
+    @DatabaseField
     private float calciumServing;
+    @DatabaseField
     private String calciumUnit;
+    @DatabaseField
     private float carbohydrates;
+    @DatabaseField
     private float carbohydratesValue;
+    @DatabaseField
     private float carbohydrates100G;
+    @DatabaseField
     private float carbohydratesServing;
+    @DatabaseField
     private String carbohydratesUnit;
+    @DatabaseField
     private float carbonFootprintFromKnownIngredientsProduct;
+    @DatabaseField
     private float carbonFootprintFromKnownIngredients100G;
+    @DatabaseField
     private float carbonFootprintFromKnownIngredientsServing;
+    @DatabaseField
     private float cholesterol;
+    @DatabaseField
     private float cholesterolValue;
+    @DatabaseField
     private float cholesterol100G;
+    @DatabaseField
     private float cholesterolServing;
+    @DatabaseField
     private String cholesterolUnit;
+    @DatabaseField
     private int energy;
+    @DatabaseField
     private int energyKcal;
+    @DatabaseField
     private int energyKj;
+    @DatabaseField
     private int energyValue;
+    @DatabaseField
     private int energyKcalValue;
+    @DatabaseField
     private int energyKjValue;
+    @DatabaseField
     private int energy100G;
+    @DatabaseField
     private int energyKcal100G;
+    @DatabaseField
     private int energyKj100G;
+    @DatabaseField
     private int energyServing;
+    @DatabaseField
     private int energyKcalServing;
+    @DatabaseField
     private int energyKjServing;
+    @DatabaseField
     private String energyUnit;
+    @DatabaseField
     private String energyKcalUnit;
+    @DatabaseField
     private String energyKjUnit;
+    @DatabaseField
     private float fat;
+    @DatabaseField
     private float fatValue;
+    @DatabaseField
     private float fat100G;
+    @DatabaseField
     private float fatServing;
+    @DatabaseField
     private String fatUnit;
+    @DatabaseField
     private float fiber;
+    @DatabaseField
     private float fiberValue;
     private float fiber100G;
+    @DatabaseField
     private float fiberServing;
+    @DatabaseField
     private String fiberUnit;
+    @DatabaseField
     private float fruitsVegetablesNutsEstimateFromIngredients100G;
+    @DatabaseField
     private float iron;
+    @DatabaseField
     private float ironValue;
+    @DatabaseField
     private float iron100G;
+    @DatabaseField
     private float ironServing;
+    @DatabaseField
     private String ironUnit;
+    @DatabaseField
     private float novaGroup;
+    @DatabaseField
     private float novaGroup100G;
+    @DatabaseField
     private float novaGroupServing;
+    @DatabaseField
     private float proteins;
+    @DatabaseField
     private float proteinsValue;
+    @DatabaseField
     private float proteins100G;
+    @DatabaseField
     private float proteinsServing;
+    @DatabaseField
     private String proteinsUnit;
+    @DatabaseField
     private float salt;
+    @DatabaseField
     private float saltValue;
+    @DatabaseField
     private float salt100G;
+    @DatabaseField
     private float saltServing;
+    @DatabaseField
     private String saltUnit;
+    @DatabaseField
     private float saturatedFat;
+    @DatabaseField
     private float saturatedFatValue;
+    @DatabaseField
     private float saturatedFat100G;
+    @DatabaseField
     private float saturatedFatServing;
+    @DatabaseField
     private String saturatedFatUnit;
+    @DatabaseField
     private float sodium;
+    @DatabaseField
     private float sodiumValue;
+    @DatabaseField
     private float sodium100G;
+    @DatabaseField
     private float sodiumServing;
+    @DatabaseField
     private String sodiumUnit;
+    @DatabaseField
     private float sugars;
+    @DatabaseField
     private float sugarsValue;
+    @DatabaseField
     private float sugars100G;
+    @DatabaseField
     private float sugarsServing;
+    @DatabaseField
     private String sugarsUnit;
+    @DatabaseField
     private float transFat;
+    @DatabaseField
     private float transFatValue;
+    @DatabaseField
     private float transFat100G;
+    @DatabaseField
     private float transFatServing;
+    @DatabaseField
     private String transFatUnit;
+    @DatabaseField
     private float vitaminA;
+    @DatabaseField
     private float vitaminAValue;
+    @DatabaseField
     private float vitaminA100G;
+    @DatabaseField
     private float vitaminAServing;
+    @DatabaseField
     private String vitaminAUnit;
+    @DatabaseField
     private float vitaminC;
+    @DatabaseField
     private float vitaminCValue;
+    @DatabaseField
     private float vitaminC100G;
+    @DatabaseField
     private float vitaminCServing;
+    @DatabaseField
     private String vitaminCUnit;
+    @DatabaseField
     private float vitaminD;
+    @DatabaseField
     private float vitaminDValue;
+    @DatabaseField
     private float vitaminD100G;
+    @DatabaseField
     private float vitaminDServing;
+    @DatabaseField
     private String vitaminDUnit;
 
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public float getCalcium() {
         return calcium;

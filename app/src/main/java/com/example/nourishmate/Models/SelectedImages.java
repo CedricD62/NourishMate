@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 import java.util.Iterator;
 
-@DatabaseTable
+
 public class SelectedImages {
 
     private SelectedImageItem front;

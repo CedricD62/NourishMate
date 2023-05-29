@@ -9,7 +9,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@DatabaseTable
 public class Images {
 
     Map<String,Object> other = new LinkedHashMap<>();
