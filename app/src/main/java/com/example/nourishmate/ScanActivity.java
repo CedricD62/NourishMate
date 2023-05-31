@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.example.nourishmate.DatabaseHelper.DatabaseManager;
 import com.example.nourishmate.Factory.IntentFactory;
+import com.example.nourishmate.Models.AdditivesTags;
 import com.example.nourishmate.Models.CaptureAct;
 import com.example.nourishmate.Models.Nutriments;
 import com.example.nourishmate.Models.Product;
@@ -186,9 +187,9 @@ public class ScanActivity extends AppCompatActivity {
         data = productRequestResult.getProduct().getAdditivesN() > 0 ? productRequestResult.getProduct().getAdditivesN() + " additifs" : "Pas d'additifs";
         row.addView(setColumnValues(data));
         data = "";
-        for (String ingredient : productRequestResult.getProduct().getAdditivesTags()) {
-            if (ingredient.startsWith("fr:") || ingredient.startsWith("en:"))
-                data += ingredient.split(":")[1] + "\n";
+        for (AdditivesTags ingredient : productRequestResult.getProduct().getAdditivesTags()) {
+            if (ingredient.getLabel().startsWith("fr:") || ingredient.getLabel().startsWith("en:"))
+                data += ingredient.getLabel().split(":")[1] + "\n";
         }
         /*for (int i = 0; i < productRequestResult.getProduct().getAdditivesTags().size(); i++) {
             if (productRequestResult.getProduct().getAdditivesTags().(i).startsWith("fr:") || productRequestResult.getProduct().getAdditivesTags().get(i).startsWith("en:"))

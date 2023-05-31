@@ -2,12 +2,30 @@ package com.example.nourishmate.Models;
 
 import com.j256.ormlite.field.DatabaseField;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 public class LastEditDatesTags {    @DatabaseField(generatedId = true)
 private int id;
     @DatabaseField
     private String label;
     @DatabaseField(foreign = true, canBeNull = false,foreignAutoCreate = true, foreignColumnName = "primayKey")
     private Product product;
+
+    public static Collection<LastEditDatesTags> pupolateCollection(JSONArray last_edit_dates_tags, Product product) {
+        Collection<LastEditDatesTags> values = new ArrayList<>();
+        for (int i = 0; i < last_edit_dates_tags.length(); i++) {
+            try {
+                values.add(new LastEditDatesTags(last_edit_dates_tags.get(i).toString(), product));
+            } catch (JSONException exception) {
+
+            }
+        }
+        return values;
+    }
 
     public Product getProduct() {return product;}
 

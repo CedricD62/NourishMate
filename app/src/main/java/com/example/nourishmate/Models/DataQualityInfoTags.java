@@ -2,6 +2,12 @@ package com.example.nourishmate.Models;
 
 import com.j256.ormlite.field.DatabaseField;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 public class DataQualityInfoTags {
     public DataQualityInfoTags(String label, Product product) {
         this.label = label;
@@ -14,6 +20,18 @@ public class DataQualityInfoTags {
     private String label;
     @DatabaseField(foreign = true, canBeNull = false,foreignAutoCreate = true, foreignColumnName = "primayKey")
     private Product product;
+
+    public static Collection<DataQualityInfoTags> pupolateCollection(JSONArray data_quality_info_tags, Product product) {
+        Collection<DataQualityInfoTags> values = new ArrayList<>();
+        for (int i = 0; i < data_quality_info_tags.length(); i++) {
+            try {
+                values.add(new DataQualityInfoTags(data_quality_info_tags.get(i).toString(), product));
+            } catch (JSONException exception) {
+
+            }
+        }
+        return values;
+    }
 
     public Product getProduct() {return product;}
 

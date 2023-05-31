@@ -2,12 +2,30 @@ package com.example.nourishmate.Models;
 
 import com.j256.ormlite.field.DatabaseField;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 public class NovaGroupsTags {    @DatabaseField(generatedId = true)
 private int id;
     @DatabaseField
     private String label;
     @DatabaseField(foreign = true, canBeNull = false,foreignAutoCreate = true, foreignColumnName = "primayKey")
     private Product product;
+
+    public static Collection<NovaGroupsTags> pupolateCollection(JSONArray nova_groups_tags, Product product) {
+        Collection<NovaGroupsTags> values = new ArrayList<>();
+        for (int i = 0; i < nova_groups_tags.length(); i++) {
+            try {
+                values.add(new NovaGroupsTags(nova_groups_tags.get(i).toString(), product));
+            } catch (JSONException exception) {
+
+            }
+        }
+        return values;
+    }
 
     public Product getProduct() {return product;}
 
