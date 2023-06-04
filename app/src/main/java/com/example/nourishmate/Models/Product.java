@@ -2028,7 +2028,7 @@ public class Product {
                 product.ingredients = Ingredient.populateIngredients(obj.getJSONArray("ingredients"));
             if (obj.has("nutrient_levels"))
                 product.nutrientLevels = NutrientLevels.populateNutrientLevels(obj.getJSONObject("nutrient_levels"));
-            if (obj.has("nutrient_levels"))
+            if (obj.has("nutriments"))
                 product.nutriments = Nutriments.populateNutriments(obj.getJSONObject("nutriments"));
             if (obj.has("selected_images"))
                 product.selectedImages = SelectedImages.populateSelectedImages(obj.getJSONObject("selected_images"));

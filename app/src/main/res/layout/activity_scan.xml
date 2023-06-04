@@ -11,46 +11,55 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Scan"
+        app:flow_horizontalAlign="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023" />
 
     <ImageView
         android:id="@+id/ProductImage"
-        android:layout_width="381dp"
-        android:layout_height="146dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.133" />
+        app:layout_constraintVertical_bias="0.113" />
 
     <TextView
         android:id="@+id/ProductName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TEST"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/Scanbutton"
-        app:layout_constraintHorizontal_bias="0.408"
+        app:layout_constraintBottom_toBottomOf="@+id/ProductImage"
+        app:layout_constraintEnd_toStartOf="@+id/ProductImage"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.047" />
+        app:layout_constraintTop_toTopOf="@+id/ProductImage" />
 
     <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="494dp"
+        android:id="@+id/ProductTable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ProductImage"
-        android:id="@+id/ProductTable">
-    </TableLayout>
+        app:layout_constraintVertical_bias="0.039"></TableLayout>
+
+    <TableLayout
+        android:id="@+id/SuggestedProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ProductTable"
+        app:layout_constraintVertical_bias="0.036"
+        android:orientation="horizontal"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
