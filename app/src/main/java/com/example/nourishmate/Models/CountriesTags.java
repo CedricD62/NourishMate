@@ -1,6 +1,5 @@
 package com.example.nourishmate.Models;
 
-import com.j256.ormlite.field.DatabaseField;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -9,33 +8,24 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class CountriesTags {
-    public CountriesTags(String label, Product product) {
+    public CountriesTags(String label) {
         this.label = label;
-        this.product = product;
     }
 
-    @DatabaseField(generatedId = true)
     private int id;
-    @DatabaseField
     private String label;
-    @DatabaseField(foreign = true, canBeNull = false,foreignAutoCreate = true, foreignColumnName = "primayKey")
-    private Product product;
 
-    public static Collection<CountriesTags> pupolateCollection(JSONArray countries_tags, Product product) {
+    public static Collection<CountriesTags> pupolateCollection(JSONArray countries_tags) {
         Collection<CountriesTags> values = new ArrayList<>();
         for (int i = 0; i < countries_tags.length(); i++) {
             try {
-                values.add(new CountriesTags(countries_tags.get(i).toString(), product));
+                values.add(new CountriesTags(countries_tags.get(i).toString()));
             } catch (JSONException exception) {
 
             }
         }
         return values;
     }
-
-    public Product getProduct() {return product;}
-
-    public void setProduct(Product product) {this.product = product;}
 
     public int getId() {
         return id;

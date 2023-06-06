@@ -209,10 +209,6 @@ public class ScanActivity extends AppCompatActivity {
             if (ingredient.getLabel().startsWith("fr:") || ingredient.getLabel().startsWith("en:"))
                 data += ingredient.getLabel().split(":")[1] + "\n";
         }
-        /*for (int i = 0; i < productRequestResult.getProduct().getAdditivesTags().size(); i++) {
-            if (productRequestResult.getProduct().getAdditivesTags().(i).startsWith("fr:") || productRequestResult.getProduct().getAdditivesTags().get(i).startsWith("en:"))
-                data += productRequestResult.getProduct().getAdditivesTags().get(i).split(":")[1] + "\n";
-        }*/
         row.addView(setColumnValues(data));
         return row;
     }
@@ -264,9 +260,9 @@ public class ScanActivity extends AppCompatActivity {
         rowGrasSature.setHorizontalGravity(Gravity.CENTER_HORIZONTAL);
 
         rowSel.addView(setColumnValues("Sel"));
-        data = p.getSaturatedFat100G() == 0 ? "Aucun impact" :
-                p.getSaturatedFat100G() < 2 ? "Faible impact" :
-                        p.getSaturatedFat100G() > 2 && p.getSaturatedFat100G() < 5 ? "impact normal" :
+        data = p.getSalt100G() == 0 ? "Aucun impact" :
+                p.getSalt100G() < 2 ? "Faible impact" :
+                        p.getSalt100G() > 2 && p.getSalt100G() < 5 ? "impact normal" :
                                 "Fort impact";
         rowSel.addView(setColumnValues(data));
         rowSel.addView(setColumnValues(p.getSalt100G() + p.getSaltUnit()));
@@ -317,19 +313,6 @@ public class ScanActivity extends AppCompatActivity {
             row.addView(imageViewArrayList.get(i));
             suggestedTable.addView(row);
         }
-
-       /* for (Product product : productArrayList) {
-            TableRow row = new TableRow(this);
-            row.addView(setColumnValues(product.getProductName()));
-            Bitmap map = getImage(product, "fr");
-            if (map == null) {
-                map = getImage(product, "en");
-            }
-            ImageView img = new ImageView(this);
-            img.setImageBitmap(map);
-            row.addView(img);
-            suggestedTable.addView(row);
-        }*/
 
     }
     private void getImageViewArray(){

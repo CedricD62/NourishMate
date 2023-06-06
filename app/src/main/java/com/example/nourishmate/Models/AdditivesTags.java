@@ -1,43 +1,30 @@
 package com.example.nourishmate.Models;
 
-import com.j256.ormlite.field.DatabaseField;
-
 import org.json.JSONArray;
 import org.json.JSONException;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class AdditivesTags {
-
-    public AdditivesTags(String label, Product product) {
+    public AdditivesTags(String label) {
         this.label = label;
-        this.product = product;
     }
 
-    @DatabaseField(generatedId = true)
     private int id;
-    @DatabaseField
-    private String label;
-    @DatabaseField(foreign = true, canBeNull = false,foreignAutoCreate = true, foreignColumnName = "primayKey")
-    private Product product;
 
-    public static Collection<AdditivesTags> pupolateCollection(JSONArray additives_tags, Product product) {
+    private String label;
+
+    public static Collection<AdditivesTags> pupolateCollection(JSONArray additives_tags) {
         Collection<AdditivesTags> values = new ArrayList<>();
         for (int i = 0; i < additives_tags.length(); i++) {
             try {
-                values.add(new AdditivesTags(additives_tags.get(i).toString(), product));
+                values.add(new AdditivesTags(additives_tags.get(i).toString()));
             } catch (JSONException exception) {
 
             }
         }
         return values;
     }
-
-    public Product getProduct() {return product;}
-
-    public void setProduct(Product product) {this.product = product;}
-
     public int getId() {
         return id;
     }

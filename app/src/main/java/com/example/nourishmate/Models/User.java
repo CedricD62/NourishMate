@@ -1,24 +1,18 @@
 package com.example.nourishmate.Models;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
+import java.util.ArrayList;
 
-@DatabaseTable
 public class User {
-    public User(String pseudo, String login, String email) {
+    public User(String pseudo, String login) {
         this.pseudo = pseudo;
         Login = login;
-        this.email = email;
     }
 
-    @DatabaseField(generatedId = true)
     private int id;
-    @DatabaseField
     private String pseudo;
-    @DatabaseField
     private String Login;
-    @DatabaseField
-    private String email;
+
+    private ArrayList<AllergensTags> allergensTags;
 
     public int getId() {
         return id;
@@ -27,6 +21,7 @@ public class User {
     public void setId(int id) {
         this.id = id;
     }
+
     public String getPseudo() {
         return pseudo;
     }
@@ -43,12 +38,11 @@ public class User {
         Login = login;
     }
 
-    public String getEmail() {
-        return email;
+    public ArrayList<AllergensTags> getAllergensTags() {
+        return allergensTags;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setAllergensTags(ArrayList<AllergensTags> allergensTags) {
+        this.allergensTags = allergensTags;
     }
-
 }

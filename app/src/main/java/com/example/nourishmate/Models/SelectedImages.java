@@ -1,15 +1,8 @@
 package com.example.nourishmate.Models;
 
-import androidx.annotation.NonNull;
-
-import com.j256.ormlite.table.DatabaseTable;
-
-import org.jetbrains.annotations.Contract;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.Iterator;
-
 
 public class SelectedImages {
 
@@ -37,8 +30,6 @@ public class SelectedImages {
         return packaging;
     }
 
-    @NonNull
-    @Contract("_ -> new")
     public static SelectedImages populateSelectedImages(JSONObject selected_images) {
         SelectedImages selectedImages = new SelectedImages();
 

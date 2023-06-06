@@ -1,24 +1,14 @@
 package com.example.nourishmate.Models;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Iterator;
-@DatabaseTable
 public class LanguagesCodes {
 
-
-    @DatabaseField(generatedId = true)
     private int id;
-    @DatabaseField
     private String en;
-    @DatabaseField
     private String fr;
-    @DatabaseField
     private String pl;
 
 

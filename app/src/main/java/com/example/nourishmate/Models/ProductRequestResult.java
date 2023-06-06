@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 @DatabaseTable
 public class ProductRequestResult {
@@ -84,13 +85,53 @@ public class ProductRequestResult {
                 for (int i = 0; i < array.length(); i++){
                     products.add(Product.populateProduct(array.getJSONObject(i)));
                 }
-                /*productRequestResult = new ProductRequestResult(json.getString("code"), json.getInt("status"), json.getString("status_verbose"));
-                JSONObject p = json.getJSONObject("product");
-                productRequestResult.product = Product.populateProduct(p);*/
             }
         } catch (JSONException e) {
             String error = "";
         }
         return products;
+    }
+
+    public static HashSet<AllergensTags> getAllergenList(){
+        HashSet<AllergensTags> allergens = new HashSet<>();
+        HashSet<String> allergenNames = new HashSet<>();
+        HttpHandler httpHandler = new HttpHandler();
+        String url = "https://world.openfoodfacts.org/api/v2/search?tagtype_0=allergens&fields=allergens&page_size=1000";
+        try {
+            JSONObject json = new JSONObject(httpHandler.makeServiceCall(url));
+            JSONArray array = json.getJSONArray("products");
+            if (json != null) {
+                for (int i = 0; i < array.length(); i++){
+                    try{
+                        JSONObject obj = array.getJSONObject(i);
+                        if (obj.has("allergens")){
+                            String allergenString = obj.getString("allergens");
+                            if(allergenString != null && allergenString.length() >0){
+                                String [] allergenTab = allergenString.split(",");
+                                for (int j = 0; j < allergenTab.length; j++){
+                                    try{
+                                        if(allergenTab[j].startsWith("en") || allergenTab[j].startsWith("fr")){
+                                            String allergenSplitted = allergenTab[j].split(":")[1].toLowerCase();
+                                            if(!allergenNames.contains(allergenSplitted)){
+                                                allergenNames.add(allergenSplitted);
+                                                allergens.add(new AllergensTags(allergenSplitted));
+                                            }
+                                        }
+                                    }catch(Exception ex){
+                                        String error = "";
+                                    }
+                                }
+                            }
+                        }
+                    }catch (Exception ex){
+                        String error = "";
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            String error = "";
+        }
+        return allergens;
+
     }
 }

@@ -1,19 +1,10 @@
 package com.example.nourishmate.Models;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.j256.ormlite.table.DatabaseTable;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class SelectedImageItemLink {
 
