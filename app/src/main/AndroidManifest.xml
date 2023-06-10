@@ -14,7 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NourishMate"
         tools:targetApi="31">
-        
+        <activity
+            android:name=".PersonnalInformation"
+            android:exported="false" />
+        <activity
+            android:name=".SuggestedProductDetails"
+            android:exported="false" />
         <activity
             android:name=".History"
             android:exported="false" />
@@ -24,10 +29,6 @@
         <activity
             android:name=".Login"
             android:exported="false" />
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login" />
         <activity
             android:name=".ScanActivity"
             android:exported="false" />
@@ -40,10 +41,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Models.CaptureAct"
+        <activity
+            android:name=".Models.CaptureAct"
             android:screenOrientation="portrait"
             android:stateNotNeeded="true"
-            android:theme="@style/zxing_CaptureTheme"/>
+            android:theme="@style/zxing_CaptureTheme" />
     </application>
 
 </manifest>

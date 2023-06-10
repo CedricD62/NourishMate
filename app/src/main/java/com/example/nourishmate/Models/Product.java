@@ -20,7 +20,6 @@ public class Product {
     private int additivesN;
     private Collection<AdditivesTags> additivesTags;
     private Collection<CountriesTags> countriesTags;
-
     private String code;
 
     public int getId() {
@@ -165,7 +164,7 @@ public class Product {
                 product.allergensFromIngredients = obj.getString("allergens_from_ingredients");
             if (obj.has("allergens_from_user"))
                 product.allergensFromUser = obj.getString("allergens_from_user");
-            if (obj.has("allergens_hierarchy"))
+            if (obj.has("allergens_lc"))
                 product.allergensLc = obj.getString("allergens_lc");
             if (obj.has("allergens_tags"))
                 product.allergensTags = AllergensTags.pupolateCollection(obj.getJSONArray("allergens_tags"));
@@ -175,6 +174,8 @@ public class Product {
                 product.nutritionGrades = obj.getString("nutrition_grades");
             if (obj.has("product_name"))
                 product.productName = obj.getString("product_name");
+            if (obj.has("code"))
+                product.code = obj.getString("code");
           } catch (JSONException e) {
             String error = "";
         }

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.nourishmate.DatabaseHelper.Database;
 import com.example.nourishmate.DatabaseHelper.DatabaseManager;
 import com.example.nourishmate.Factory.IntentFactory;
 import com.example.nourishmate.Models.AllergensTags;
@@ -21,16 +22,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("");
         setContentView(R.layout.activity_main);
-
+/*
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                //HashSet<AllergensTags> allergens = ProductRequestResult.getAllergenList();
+                HashSet<AllergensTags> allergens = ProductRequestResult.getAllergenList();
+
+                for (AllergensTags allergen : allergens) {
+                    Database database = new Database(MainActivity.this);
+                    if(!allergen.create(database)){
+
+                    }
+                }
 
             }
         });
-        t.start();
+        t.start();*/
 
     }
 

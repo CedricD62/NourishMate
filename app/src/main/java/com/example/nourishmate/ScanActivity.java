@@ -71,21 +71,22 @@ public class ScanActivity extends AppCompatActivity {
     private ArrayList<Product> productArrayList;
     private ArrayList<ImageView> imageViewArrayList;
     private Bitmap bmp;
+    private Intent intent;
+    private Product product;
     ActivityResultLauncher<ScanOptions> activityResultLauncher = registerForActivityResult(new ScanContract(), result -> {
         GetActivityResult(result);
     });
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
         initControls();
+
         scanButton.setOnClickListener(v ->
         {
             scanCode();
         });
-
     }
 
     @Override
@@ -93,15 +94,14 @@ public class ScanActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.scan_menu, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent = IntentFactory.getIntentFactory(item, ScanActivity.this);
         if (intent != null)
             startActivity(intent);
-
         return true;
     }
+
 
     private void initControls() {
         scanButton = findViewById(R.id.Scanbutton);
@@ -180,9 +180,6 @@ public class ScanActivity extends AppCompatActivity {
 
         if (product.getNutriments() != null)
             setNutrimentsRows(product);
-
-        // DatabaseManager databaseManager = new DatabaseManager(this);
-        //boolean result = productRequestResult.getProduct().create(databaseManager);
 
     }
 
@@ -306,7 +303,7 @@ public class ScanActivity extends AppCompatActivity {
         productArrayList = ProductRequestResult.getBestAlternaviveProducts(product.getCode(), countryTags, categoriesTags);
     }
 
-    private void displayBestProductDatas() {
+    /*private void displayBestProductDatas() {
         for (int i = 0; i < productArrayList.size(); i++){
             TableRow row = new TableRow(this);
             row.addView(setColumnValues(productArrayList.get(i).getProductName()));
@@ -314,8 +311,44 @@ public class ScanActivity extends AppCompatActivity {
             suggestedTable.addView(row);
         }
 
+    }*/
+
+    /*private void displayBestProductDatas() {
+        TableRow row = new TableRow(this);
+        for (int i = 0; i < productArrayList.size(); i++) {
+            row.addView(setColumnValues(productArrayList.get(i).getProductName()));
+            row.addView(imageViewArrayList.get(i));
+        }
+        suggestedTable.addView(row);
+    }*/
+
+    private void displayBestProductDatas() {
+        TableRow titleRow = new TableRow(this);
+        TableRow imageRow = new TableRow(this);
+
+        for (int i = 0; i < productArrayList.size(); i++) {
+            product = productArrayList.get(i);
+            titleRow.addView(setColumnValues(product.getProductName()));
+
+            ImageView img = imageViewArrayList.get(i);
+            img.setId(i);
+            img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    product = productArrayList.get(v.getId());
+                    intent = new Intent(ScanActivity.this, SuggestedProductDetails.class);
+                    intent.putExtra("code", product.getCode());
+                    startActivity(intent);
+                }
+            });
+            imageRow.addView(imageViewArrayList.get(i));
+        }
+
+        suggestedTable.addView(titleRow);
+        suggestedTable.addView(imageRow);
     }
-    private void getImageViewArray(){
+
+    private void getImageViewArray() {
         imageViewArrayList = new ArrayList<>();
         for (Product product : productArrayList) {
             Bitmap map = getImage(product, "fr");
