@@ -30,7 +30,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         initControl();
-        getUserLoginData();
+        buttonsListenner();
     }
 
     @Override
@@ -54,35 +54,44 @@ public class Login extends AppCompatActivity {
         connexion = findViewById(R.id.loginButton);
     }
 
-    private void getUserLoginData() {
+
+    private void buttonsListenner() {
+        createAccount.setOnClickListener(v -> {
+            Intent intent = new Intent(Login.this, PersonnalInformation.class);
+            startActivity(intent);
+        });
+
         connexion.setOnClickListener(v -> {
             Database database = new Database(Login.this);
-            user = User.getAllUserData(database, pseudo.getText().toString(), login.getText().toString());
 
-            if (user == null) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                alert.setTitle("Création de compte");
-                alert.setMessage("Voulez vous enregistrer vos informations ? ");
-                alert.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+            String p = pseudo.getText().toString();
+            String l = login.getText().toString() ;
 
-                    }
-                });
-                alert.setNegativeButton("Non", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+            if ( p.isEmpty()  == false && l.isEmpty() == false) {
+                user = User.getAllUserData(database, pseudo.getText().toString(), login.getText().toString());
 
-                    }
-                });
-                alert.create().show();
+                if (user == null) {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                    alert.setTitle("Création de compte");
+                    alert.setMessage("Voulez vous enregistrer vos informations ? ");
+                    alert.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent = new Intent(Login.this, PersonnalInformation.class);
+                            startActivity(intent);
+                        }
+                    });
+                    alert.setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            finish();
+                        }
+                    });
+                    alert.create().show();
+                }
+            }else{
+                Toast.makeText(this, "Veuillez saisir votre identifiant et mot de passe", Toast.LENGTH_LONG).show();
             }
-        });
-    }
-
-    private void createUserAccount() {
-        createAccount.setOnClickListener(v -> {
-
         });
     }
 }

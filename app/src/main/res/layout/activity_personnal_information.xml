@@ -7,6 +7,22 @@
     tools:context=".PersonnalInformation"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/btnUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="Update Information"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="Delete Information"
+        android:textSize="18sp" />
+
     <TextView
         android:id="@+id/tvPseudo"
         android:layout_width="match_parent"
@@ -56,21 +72,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingBottom="16dp" />
-
-    <Button
-        android:id="@+id/btnUpdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Update Information"
-        android:textSize="18sp"
-        android:padding="8dp" />
-
-    <Button
-        android:id="@+id/btnDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete Information"
-        android:textSize="18sp"
-        android:padding="8dp" />
 
 </LinearLayout>

@@ -66,7 +66,7 @@ public class AllergensTags {
 
     }
 
-    public ArrayList<AllergensTags> GetAllByUserId(Database dataBase, User user){
+    public static ArrayList<AllergensTags> GetAllByUserId(Database dataBase, User user){
 
         if(user == null)
             return null;
@@ -77,6 +77,21 @@ public class AllergensTags {
         String query = "SELECT * FROM "+ dataBase.ALLERGENE_TABLE_NAME +
                        " INNER JOIN " + dataBase.ALLERGEN_USER_TABLE_NAME + " ON " + dataBase.USER_COLUMN_ID + " = " + dataBase.ALLERGEN_USER_COLUMN_USER_ID +
                        " WHERE "+ dataBase.ALLERGEN_USER_COLUMN_USER_ID + " = " + user.getId();
+        Cursor cursor = db.rawQuery(query,null);
+
+        while (cursor.moveToNext()){
+            allergensTagsList.add(new AllergensTags(cursor.getInt(0), cursor.getString(1)));
+        }
+
+        return allergensTagsList;
+    }
+
+    public static ArrayList<AllergensTags> GetAll(Database dataBase){
+
+        ArrayList<AllergensTags> allergensTagsList = new ArrayList<AllergensTags>();
+        SQLiteDatabase db = dataBase.getWritableDatabase();
+
+        String query = "SELECT * FROM "+ dataBase.ALLERGENE_TABLE_NAME;
         Cursor cursor = db.rawQuery(query,null);
 
         while (cursor.moveToNext()){
