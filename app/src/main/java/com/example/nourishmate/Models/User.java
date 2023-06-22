@@ -1,5 +1,6 @@
 package com.example.nourishmate.Models;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -64,6 +65,37 @@ public class User {
         this.allergensTags = allergensTags;
     }
 
+    public boolean create(Database dataBase){
+        try{
+            SQLiteDatabase db = dataBase.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(dataBase.USER_COLUMN_LOGIN, this.Login);
+            contentValues.put(dataBase.USER_COLUMN_PSEUDO, this.pseudo);
+
+            return db.insert(dataBase.USER_TABLE_NAME, null, contentValues) != -1 ;
+        }catch (Exception ex ){
+            String value = "";
+            return false;
+        }
+
+    }
+
+    public boolean getUserId(Database database){
+
+        SQLiteDatabase db = database.getWritableDatabase();
+        String query = "SELECT "+ database.USER_COLUMN_ID +" FROM " + database.USER_TABLE_NAME +
+                " WHERE " + database.USER_COLUMN_PSEUDO + " = " + "'"+this.pseudo +"'"+
+                " AND " + database.USER_COLUMN_LOGIN + " = " + "'"+this.Login+"'";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        while (cursor.moveToNext()) {
+            this.id = cursor.getInt(0);
+        }
+
+        return this.id == 0;
+    }
+
     public static User getAllUserData(Database database, String pseudoTxt, String loginTxt) {
         User user = null;
         try {
@@ -84,7 +116,8 @@ public class User {
             user.allergensTags = new ArrayList<>();
             db = database.getWritableDatabase();
             query = "SELECT * FROM " + database.ALLERGENE_TABLE_NAME +
-                    " INNER JOIN " + database.ALLERGEN_USER_TABLE_NAME + " on " + database.ALLERGEN_USER_COLUMN_USER_ID + " = " + user.getId();
+                    " WHERE " + database.ALLERGENE_COLUMN_ID + " in ( SELECT "+ database.ALLERGEN_USER_COLUMN_ALLERGEN_TAG_ID +" FROM "+
+                     database.ALLERGEN_USER_TABLE_NAME + " WHERE " +  database.ALLERGEN_USER_COLUMN_USER_ID + " = " + user.getId()  + ")";
 
             cursor = db.rawQuery(query, null);
 

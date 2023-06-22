@@ -59,9 +59,7 @@ public class PersonnalInformation extends AppCompatActivity {
 
         int columnCount = 3;
         int currentColumn = 0;
-
         LinearLayout currentRow = null;
-
         LinearLayout allergenContainer = new LinearLayout(this);
         allergenContainer.setOrientation(LinearLayout.VERTICAL);
 
@@ -75,29 +73,26 @@ public class PersonnalInformation extends AppCompatActivity {
                 allergenContainer.addView(currentRow);
             }
 
-
             Button allergenText = new Button(this);
             allergenText.setText(allergen.getLabel());
             allergenText.setId(allergen.getId());
 
-
             allergenText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   Boolean hasBeenTag = allergensTagsMap.get(allergensTags.get(v.getId()));
+                    int id = (int)v.getId() - 1;
+                   Boolean hasBeenTag = allergensTagsMap.get(allergensTags.get(id));
 
                     if(!hasBeenTag){
                         allergenText.setTextColor(Color.BLUE);
                         allergenText.setBackgroundColor(Color.MAGENTA);
-                        allergensTagsRegistered.add(allergensTags.get(v.getId()));
-                        allergensTagsMap.replace(allergensTags.get(v.getId()), false, true);
-
-
+                        allergensTagsRegistered.add(allergensTags.get(id));
+                        allergensTagsMap.replace(allergensTags.get(id), false, true);
                     }else{
                         allergenText.setTextColor(Color.BLACK);
                         allergenText.setBackgroundColor(Color.LTGRAY);
-                        allergensTagsRegistered.remove(allergensTags.get(v.getId()));
-                        allergensTagsMap.replace(allergensTags.get(v.getId()), true, false);
+                        allergensTagsRegistered.remove(allergensTags.get(id));
+                        allergensTagsMap.replace(allergensTags.get(id), true, false);
                     }
                 }
             });
@@ -115,4 +110,6 @@ public class PersonnalInformation extends AppCompatActivity {
 
         layoutAllergensTags.addView(scrollView);
     }
+
+
 }

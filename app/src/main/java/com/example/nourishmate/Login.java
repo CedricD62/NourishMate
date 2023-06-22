@@ -41,7 +41,7 @@ public class Login extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Intent intent = IntentFactory.getIntentFactory(item, Login.this);
+        intent = IntentFactory.getIntentFactory(item, Login.this);
         if (intent != null)
             startActivity(intent);
         return true;
@@ -94,4 +94,5 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+
 }
