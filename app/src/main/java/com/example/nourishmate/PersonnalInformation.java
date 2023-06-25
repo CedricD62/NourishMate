@@ -11,14 +11,18 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nourishmate.DatabaseHelper.Database;
+import com.example.nourishmate.Models.AlertDialogs;
+import com.example.nourishmate.Models.AllergenTagsUser;
 import com.example.nourishmate.Models.AllergensTags;
 import com.example.nourishmate.Models.User;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class PersonnalInformation extends AppCompatActivity {
 
@@ -27,22 +31,32 @@ public class PersonnalInformation extends AppCompatActivity {
     private Button update, delete;
     private Intent intent;
     private ArrayList<AllergensTags> allergensTags;
-    private ArrayList<AllergensTags> allergensTagsRegistered;
-    private Map<AllergensTags,Boolean> allergensTagsMap;
+    private Map<AllergensTags, Boolean> allergensTagsMap;
+    private Database database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("");
         setContentView(R.layout.activity_personnal_information);
+
         initControls();
-        Database database = new Database(this);
+        database = new Database(this);
         allergensTags = AllergensTags.GetAll(database);
-        allergensTagsRegistered = new ArrayList<>();
         allergensTagsMap = new LinkedHashMap<>();
+
+        if (Login.user == null)
+            Login.user = new User();
+        else{
+            login.setText(Login.user.getLogin());
+            pseudo.setText(Login.user.getPseudo());
+        }
+
         populateEditTextLayout();
+        buttonsListenners();
     }
 
-    private void initControls(){
+    private void initControls() {
         login = findViewById(R.id.etLogin);
         pseudo = findViewById(R.id.etPseudo);
         layoutAllergensTags = findViewById(R.id.layoutAllergensTags);
@@ -50,7 +64,66 @@ public class PersonnalInformation extends AppCompatActivity {
         delete = findViewById(R.id.btnDelete);
     }
 
-    private void populateEditTextLayout(){
+    private void buttonsListenners() {
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!login.getText().toString().isEmpty() && !pseudo.getText().toString().isEmpty()) {
+                    Login.user.setLogin(login.getText().toString());
+                    Login.user.setPseudo(pseudo.getText().toString());
+                    if(!Login.user.getLoggedOn()){
+                        if (Login.user.create(database)) {
+                            Login.user.setUserId(database);
+                            if (Login.user.getAllergensTagsCount() > 0) {
+                                registerAllergenTagsUserInBdd();
+                                AlertDialogs.displayInformationToUser( false, true, "Mise à jour de compte", "le compte a bien été mis à jour", Optional.empty(), Optional.empty(), Optional.empty());
+
+                            }
+                        } else {
+                            AlertDialogs.displayInformationToUser( false, true, "Création de compte", "Echec de création de compte impossible, contacter l'administrateur", Optional.empty(), Optional.empty(), Optional.empty());
+                        }
+                    }else{
+                        if (Login.user.getAllergensTagsCount() > 0) {
+                            if(AllergenTagsUser.Delete(database)){
+                                registerAllergenTagsUserInBdd();
+                                AlertDialogs.displayInformationToUser( false, true, "Mise à jour de compte", "le compte a bien été mis à jour", Optional.empty(), Optional.empty(), Optional.empty());
+                            }else{
+                                AlertDialogs.displayInformationToUser( false, true, "Mise à jour allergène", "Echec de mise à jour de la liste des allergènes, contacter l'administrateur", Optional.empty(), Optional.empty(), Optional.empty());
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               if(AllergenTagsUser.Delete(database)){
+                   if(Login.user.delete(database)){
+                       AlertDialogs.displayInformationToUser( false, true, "Suppression de compte", "Suppression du compte effectuée", Optional.empty(), Optional.empty(), Optional.empty());
+                   }else{
+                       AlertDialogs.displayInformationToUser(true,  false, "Suppression de compte", "echec de suppression de compte", Optional.empty(), Optional.empty(), Optional.empty());
+                   }
+
+               }else{
+                   AlertDialogs.displayInformationToUser( false, true, "Suppression de compte", "echec de suppression de compte", Optional.empty(), Optional.empty(), Optional.empty());
+               }
+            }
+        });
+    }
+
+    private void registerAllergenTagsUserInBdd() {
+        for (AllergensTags al : Login.user.getAllergensTags()) {
+            AllergenTagsUser allergenTagsUser = new AllergenTagsUser(Login.user.getId(), al.getId());
+            if (!allergenTagsUser.create(database)) {
+                AlertDialogs.displayInformationToUser(true, true, "Ajout allergène", "Echec de l'ajoût de l'allergène, contacter l'administrateur, contacter l'administrateur", Optional.empty(), Optional.empty(), Optional.empty());
+                break;
+            }
+        }
+    }
+
+    private void populateEditTextLayout() {
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -76,22 +149,22 @@ public class PersonnalInformation extends AppCompatActivity {
             Button allergenText = new Button(this);
             allergenText.setText(allergen.getLabel());
             allergenText.setId(allergen.getId());
-
+            allergenRegistered(allergenText, allergensTagsMap, allergen);
             allergenText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int id = (int)v.getId() - 1;
-                   Boolean hasBeenTag = allergensTagsMap.get(allergensTags.get(id));
+                    int id = (int) v.getId() - 1;
+                    Boolean hasBeenTag = allergensTagsMap.get(allergensTags.get(id));
 
-                    if(!hasBeenTag){
-                        allergenText.setTextColor(Color.BLUE);
-                        allergenText.setBackgroundColor(Color.MAGENTA);
-                        allergensTagsRegistered.add(allergensTags.get(id));
-                        allergensTagsMap.replace(allergensTags.get(id), false, true);
-                    }else{
+                    if (!hasBeenTag) {
+                            allergenText.setTextColor(Color.BLUE);
+                            allergenText.setBackgroundColor(Color.MAGENTA);
+                            Login.user.setAllergensTags(allergensTags.get(id));
+                            allergensTagsMap.replace(allergensTags.get(id), false, true);
+                    } else {
                         allergenText.setTextColor(Color.BLACK);
                         allergenText.setBackgroundColor(Color.LTGRAY);
-                        allergensTagsRegistered.remove(allergensTags.get(id));
+                        Login.user.removeAllergensTags(allergensTags.get(id));
                         allergensTagsMap.replace(allergensTags.get(id), true, false);
                     }
                 }
@@ -109,6 +182,14 @@ public class PersonnalInformation extends AppCompatActivity {
         scrollView.addView(allergenContainer);
 
         layoutAllergensTags.addView(scrollView);
+    }
+
+    private void allergenRegistered(Button allergenText, Map<AllergensTags, Boolean> allergensTagsMap, AllergensTags allergen) {
+        if(Login.user.getAllergensTags().stream().filter(o->o.getLabel().equals(allergen.getLabel())).findFirst().isPresent()){
+            allergensTagsMap.replace(allergensTags.get(allergen.getId() - 1), false, true);
+            allergenText.setTextColor(Color.BLUE);
+            allergenText.setBackgroundColor(Color.MAGENTA);
+        }
     }
 
 

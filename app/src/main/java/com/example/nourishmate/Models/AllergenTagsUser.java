@@ -5,16 +5,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.nourishmate.DatabaseHelper.Database;
+import com.example.nourishmate.Login;
 
 import java.util.ArrayList;
 
 public class AllergenTagsUser {
-
-    public AllergenTagsUser(int id, int userId, int allergenTagId) {
-        this.id = id;
-        this.userId = userId;
-        this.allergenTagId = allergenTagId;
-    }
 
     public AllergenTagsUser(int userId, int allergenTagId) {
         this.userId = userId;
@@ -59,28 +54,10 @@ public class AllergenTagsUser {
         return sqLiteDatabase.insert(database.ALLERGEN_USER_TABLE_NAME, null, cv) != -1;
     }
 
-    public boolean Update(Database database){
-
-        SQLiteDatabase db = database.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(database.ALLERGEN_USER_COLUMN_ALLERGEN_TAG_ID,this.allergenTagId);
-        contentValues.put(database.ALLERGEN_USER_COLUMN_USER_ID,this.userId);
-        String whereClause = database.ALLERGEN_USER_COLUMN_ID + " = " + this.id;
-
-        try
-        {
-            db.update(database.ALLERGEN_USER_TABLE_NAME, contentValues, whereClause,null);
-            return true;
-        }
-        catch(Exception ex){
-            return false;
-        }
-    }
-
-    public boolean Delete(Database dataBase){
+    public static boolean Delete(Database dataBase){
         SQLiteDatabase db = dataBase.getWritableDatabase();
         String query = "DELETE FROM " + dataBase.ALLERGEN_USER_TABLE_NAME +" WHERE " +
-                dataBase.ALLERGEN_USER_COLUMN_ID + " = " +  this.id ;
+                dataBase.ALLERGEN_USER_COLUMN_USER_ID + " = " + Login.user.getId() ;
         try
         {
             db.execSQL(query);

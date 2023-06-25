@@ -26,6 +26,8 @@ import android.widget.TextView;
 import com.example.nourishmate.DatabaseHelper.DatabaseManager;
 import com.example.nourishmate.Factory.IntentFactory;
 import com.example.nourishmate.Models.AdditivesTags;
+import com.example.nourishmate.Models.AlertDialogs;
+import com.example.nourishmate.Models.AllergensTags;
 import com.example.nourishmate.Models.CaptureAct;
 import com.example.nourishmate.Models.CategoriesTags;
 import com.example.nourishmate.Models.CountriesTags;
@@ -47,6 +49,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -81,6 +84,7 @@ public class ScanActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
+        setTitle("");
         initControls();
 
         scanButton.setOnClickListener(v ->
@@ -94,6 +98,7 @@ public class ScanActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.scan_menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent = IntentFactory.getIntentFactory(item, ScanActivity.this);
@@ -150,6 +155,8 @@ public class ScanActivity extends AppCompatActivity {
                                     if (productArrayList != null && productArrayList.size() > 0) {
                                         displayBestProductDatas();
                                     }
+                                    if (Login.user != null && Login.user.getLoggedOn())
+                                        displayAllergenWarnings(productRequestResult.getProduct());
                                 }
                             });
                         }
@@ -159,6 +166,26 @@ public class ScanActivity extends AppCompatActivity {
             );
             t.start();
         }
+    }
+
+    private void displayAllergenWarnings(Product product) {
+
+        String allergens = "";
+
+        for (AllergensTags all : product.getAllergensTags()) {
+            if (all.getLabel().split(":")[0].equals("en") || all.getLabel().split(":")[0].equals("fr")){
+                if(Login.user.getAllergensTagsCount() > 0){
+                    if(Login.user.getAllergensTags().stream().filter(o->o.getLabel().equals(all.getLabel().split(":")[1])).findAny().isPresent()){
+                        allergens += Login.user.getAllergensTags().stream().filter(o->o.getLabel().equals(all.getLabel().split(":")[1])).findFirst().get().getLabel() + ", ";
+                    }
+                }
+            }
+        }
+
+        if(!allergens.isEmpty() && allergens.length() > 2){
+            allergens = allergens.substring(0, allergens.length()-2);
+        }
+        AlertDialogs.displayInformationToUser( false, true, "allergènes", "présence de substances allergène : " + allergens, Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     private void displayProductInformation(Product product) {
@@ -294,33 +321,15 @@ public class ScanActivity extends AppCompatActivity {
                 break;
             }
         }
-        categoriesTags = "pates-a-tartiner";
-        for (CategoriesTags catTags : product.getCategoriesTags()) {
-
-
+        for (CategoriesTags cat : product.getCategoriesTags()) {
+            if (cat.getLabel().split(":")[0].equals("fr")) {
+                categoriesTags = cat.getLabel().split(":")[1];
+                break;
+            }
         }
 
         productArrayList = ProductRequestResult.getBestAlternaviveProducts(product.getCode(), countryTags, categoriesTags);
     }
-
-    /*private void displayBestProductDatas() {
-        for (int i = 0; i < productArrayList.size(); i++){
-            TableRow row = new TableRow(this);
-            row.addView(setColumnValues(productArrayList.get(i).getProductName()));
-            row.addView(imageViewArrayList.get(i));
-            suggestedTable.addView(row);
-        }
-
-    }*/
-
-    /*private void displayBestProductDatas() {
-        TableRow row = new TableRow(this);
-        for (int i = 0; i < productArrayList.size(); i++) {
-            row.addView(setColumnValues(productArrayList.get(i).getProductName()));
-            row.addView(imageViewArrayList.get(i));
-        }
-        suggestedTable.addView(row);
-    }*/
 
     private void displayBestProductDatas() {
         TableRow titleRow = new TableRow(this);
