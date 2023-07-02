@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.nourishmate.DatabaseHelper.Database;
-import com.example.nourishmate.DatabaseHelper.DatabaseManager;
 import com.example.nourishmate.Factory.IntentFactory;
 import com.example.nourishmate.Models.AllergensTags;
 import com.example.nourishmate.Models.ProductRequestResult;

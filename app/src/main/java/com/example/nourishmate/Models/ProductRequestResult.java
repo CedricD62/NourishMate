@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Optional;
 
 @DatabaseTable
 public class ProductRequestResult {
@@ -59,16 +60,23 @@ public class ProductRequestResult {
     public static ProductRequestResult getProductByCodeScan(String code) {
         ProductRequestResult productRequestResult = null;
         HttpHandler httpHandler = new HttpHandler();
-        String url = "https://world.openfoodfacts.org/api/v2/product/" + code + "?fields=categories_tags,countries_tags,product_name,nutriscore_data,nutriments,nutrition_grades,allergens_imported,nutrient_levels,code,allergens,allergens_from_ingredients,allergens_from_user,allergens_hierarchy,allergens_imported,allergens_lc,allergens_tags,selected_images";
+        String url = "https://world.openfoodfacts.org/api/v2/product/" + code +
+                "?fields=categories_tags,countries_tags,product_name,nutriscore_data,nutriments,nutrition_grades," +
+                "allergens_imported,nutrient_levels,code,allergens,allergens_from_ingredients,allergens_from_user," +
+                "allergens_hierarchy,allergens_imported,allergens_lc,allergens_tags,selected_images";
         try {
             JSONObject json = new JSONObject(httpHandler.makeServiceCall(url));
             if (json != null) {
-                productRequestResult = new ProductRequestResult(json.getString("code"), json.getInt("status"), json.getString("status_verbose"));
+                productRequestResult = new ProductRequestResult(json.getString("code"), json.getInt("status"),
+                                                                json.getString("status_verbose"));
                 JSONObject p = json.getJSONObject("product");
                 productRequestResult.product = Product.populateProduct(p);
             }
         } catch (JSONException e) {
-            String error = "";
+            AlertDialogs.displayInformationToUser( false, true,
+                    "Parse JSON",
+                    "Une erreur est survenue lors de la lecture du fichier JSON pour le Code Barre du produit scanné",
+                    Optional.empty(), Optional.empty(), Optional.empty());
         }
         return productRequestResult;
     }
@@ -77,7 +85,8 @@ public class ProductRequestResult {
         ProductRequestResult productRequestResult = null;
         ArrayList<Product> products = new ArrayList<>();
         HttpHandler httpHandler = new HttpHandler();
-        String url = "https://world.openfoodfacts.org/api/v2/search?countries_tags=" + countryTag + "&categories_tags="+ categoryTags + "&fields=product_name,code,selected_images";
+        String url = "https://world.openfoodfacts.org/api/v2/search?countries_tags=" + countryTag +
+                "&categories_tags="+ categoryTags + "&fields=product_name,code,selected_images";
         try {
             JSONObject json = new JSONObject(httpHandler.makeServiceCall(url));
             JSONArray array = json.getJSONArray("products");
@@ -87,7 +96,11 @@ public class ProductRequestResult {
                 }
             }
         } catch (JSONException e) {
-            String error = "";
+            AlertDialogs.displayInformationToUser( false, true,
+                    "Parse JSON",
+                    "Une erreur est survenue lors de la lecture du fichier JSON lors " +
+                            "de la récupération de la liste de produit suggérés",
+                    Optional.empty(), Optional.empty(), Optional.empty());
         }
         return products;
     }
@@ -115,23 +128,22 @@ public class ProductRequestResult {
                                             if(!allergenNames.contains(allergenSplitted)){
                                                 allergenNames.add(allergenSplitted);
                                                 allergens.add(new AllergensTags(allergenSplitted));
-                                            }
-                                        }
-                                    }catch(Exception ex){
-                                        String error = "";
-                                    }
-                                }
-                            }
-                        }
-                    }catch (Exception ex){
-                        String error = "";
-                    }
-                }
-            }
-        } catch (JSONException e) {
-            String error = "";
+                                            }}}catch(Exception ex){
+                                        AlertDialogs.displayInformationToUser( false, true,
+                                                "Récupération liste allergène",
+                                                "Une erreur est survenue lors de l'ajoût des allergènes à la liste",
+                                                Optional.empty(), Optional.empty(), Optional.empty());
+                                    }}} }}catch (Exception ex){
+                        AlertDialogs.displayInformationToUser( false, true,
+                                "Récupération liste allergène",
+                                "Une erreur est survenue lors de la récupération d'un objet dans la liste des allergènes",
+                                Optional.empty(), Optional.empty(), Optional.empty());
+                    }}}} catch (JSONException e) {
+            AlertDialogs.displayInformationToUser( false, true,
+                    "Récupération liste allergène",
+                    "Une erreur est survenue lors de la lecture du fichier JSON contenant la liste des allergènes",
+                    Optional.empty(), Optional.empty(), Optional.empty());
         }
         return allergens;
-
     }
 }

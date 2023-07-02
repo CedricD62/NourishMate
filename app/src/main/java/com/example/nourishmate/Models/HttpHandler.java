@@ -11,6 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.Optional;
 
 public class HttpHandler {
     private static final String TAG = HttpHandler.class.getSimpleName();
@@ -23,20 +24,31 @@ public class HttpHandler {
             URL url = new URL(reqUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-// read the response
             InputStream in = new BufferedInputStream(conn.getInputStream());
             response = convertStreamToString(in);
         } catch (MalformedURLException e) {
-            Log.e(TAG, "MalformedURLException: " + e.getMessage());
+            AlertDialogs.displayInformationToUser( false, true,
+            "Récupération informations produit", "Une erreur liée à la requête API a eut lieu",
+                    Optional.empty(), Optional.empty(), Optional.empty());
         } catch (ProtocolException e) {
-            Log.e(TAG, "ProtocolException: " + e.getMessage());
+            AlertDialogs.displayInformationToUser( false, true,
+            "Récupération informations produit",
+             "Une erreur liée au protocol d'appel API est survenue lors de la récupération des informations ",
+                    Optional.empty(), Optional.empty(), Optional.empty());
         } catch (IOException e) {
-            Log.e(TAG, "IOException: " + e.getMessage());
+            AlertDialogs.displayInformationToUser( false, true,
+                    "Récupération informations produit",
+                    "Une erreur liée au système Android survenue lors de la récupération des informations ",
+                    Optional.empty(), Optional.empty(), Optional.empty());
         } catch (Exception e) {
-            Log.e(TAG, "Exception: " + e.getMessage());
+            AlertDialogs.displayInformationToUser( false, true,
+                    "Récupération informations produit",
+                    "Une erreur inconnue à eut lieu : " + e.getMessage(),
+                    Optional.empty(), Optional.empty(), Optional.empty());
         }
         return response;
     }
+
     private String convertStreamToString(InputStream is) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();
@@ -46,12 +58,18 @@ public class HttpHandler {
                 sb.append(line).append('\n');
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            AlertDialogs.displayInformationToUser( false, true,
+                    "Récupération informations produit",
+                    "Une erreur est survenue lors de la récupération des informations ",
+                    Optional.empty(), Optional.empty(), Optional.empty());
         } finally {
             try {
                 is.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                AlertDialogs.displayInformationToUser( false, true,
+                        "Récupération informations produit",
+                        "Une erreur est survenue lors de la récupération des informations ",
+                        Optional.empty(), Optional.empty(), Optional.empty());
             }
         }
         return sb.toString();

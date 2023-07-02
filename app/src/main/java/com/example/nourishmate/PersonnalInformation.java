@@ -76,48 +76,54 @@ public class PersonnalInformation extends AppCompatActivity {
                             Login.user.setUserId(database);
                             if (Login.user.getAllergensTagsCount() > 0) {
                                 registerAllergenTagsUserInBdd();
-                                AlertDialogs.displayInformationToUser( false, true, "Mise à jour de compte", "le compte a bien été mis à jour", Optional.empty(), Optional.empty(), Optional.empty());
-
+                                AlertDialogs.displayInformationToUser( false, true,
+                                        "Mise à jour de compte", "le compte a bien été mis à jour",
+                                        Optional.empty(), Optional.empty(), Optional.empty());
                             }
                         } else {
-                            AlertDialogs.displayInformationToUser( false, true, "Création de compte", "Echec de création de compte impossible, contacter l'administrateur", Optional.empty(), Optional.empty(), Optional.empty());
+                            AlertDialogs.displayInformationToUser( false, true,
+                                    "Création de compte", "Echec de création de compte impossible, contacter l'administrateur",
+                                    Optional.empty(), Optional.empty(), Optional.empty());
                         }
                     }else{
                         if (Login.user.getAllergensTagsCount() > 0) {
                             if(AllergenTagsUser.Delete(database)){
                                 registerAllergenTagsUserInBdd();
-                                AlertDialogs.displayInformationToUser( false, true, "Mise à jour de compte", "le compte a bien été mis à jour", Optional.empty(), Optional.empty(), Optional.empty());
+                                AlertDialogs.displayInformationToUser( false, true, "Mise à jour de compte",
+                                        "le compte a bien été mis à jour", Optional.empty(),
+                                        Optional.empty(), Optional.empty());
                             }else{
-                                AlertDialogs.displayInformationToUser( false, true, "Mise à jour allergène", "Echec de mise à jour de la liste des allergènes, contacter l'administrateur", Optional.empty(), Optional.empty(), Optional.empty());
+                                AlertDialogs.displayInformationToUser( false, true, "Mise à jour allergène",
+                                        "Echec de mise à jour de la liste des allergènes, contacter l'administrateur",
+                                        Optional.empty(), Optional.empty(), Optional.empty());
                             }
-                        }
-                    }
-                }
-            }
-        });
-
+                        }}}}});
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                if(AllergenTagsUser.Delete(database)){
                    if(Login.user.delete(database)){
-                       AlertDialogs.displayInformationToUser( false, true, "Suppression de compte", "Suppression du compte effectuée", Optional.empty(), Optional.empty(), Optional.empty());
+                       AlertDialogs.displayInformationToUser( false, true, "Suppression de compte",
+                               "Suppression du compte effectuée", Optional.empty(),
+                               Optional.empty(), Optional.empty());
                    }else{
-                       AlertDialogs.displayInformationToUser(true,  false, "Suppression de compte", "echec de suppression de compte", Optional.empty(), Optional.empty(), Optional.empty());
+                       AlertDialogs.displayInformationToUser(true,  false, "Suppression de compte",
+                               "echec de suppression de compte", Optional.empty(), Optional.empty(),
+                               Optional.empty());
                    }
-
                }else{
-                   AlertDialogs.displayInformationToUser( false, true, "Suppression de compte", "echec de suppression de compte", Optional.empty(), Optional.empty(), Optional.empty());
-               }
-            }
-        });
-    }
+                   AlertDialogs.displayInformationToUser( false, true, "Suppression de compte",
+                           "echec de suppression de compte", Optional.empty(), Optional.empty(),
+                           Optional.empty());
+               }}});}
 
     private void registerAllergenTagsUserInBdd() {
         for (AllergensTags al : Login.user.getAllergensTags()) {
             AllergenTagsUser allergenTagsUser = new AllergenTagsUser(Login.user.getId(), al.getId());
             if (!allergenTagsUser.create(database)) {
-                AlertDialogs.displayInformationToUser(true, true, "Ajout allergène", "Echec de l'ajoût de l'allergène, contacter l'administrateur, contacter l'administrateur", Optional.empty(), Optional.empty(), Optional.empty());
+                AlertDialogs.displayInformationToUser(true, true, "Ajout allergène",
+                        "Echec de l'ajoût de l'allergène, contacter l'administrateur, contacter l'administrateur",
+                        Optional.empty(), Optional.empty(), Optional.empty());
                 break;
             }
         }
@@ -166,9 +172,7 @@ public class PersonnalInformation extends AppCompatActivity {
                         allergenText.setBackgroundColor(Color.LTGRAY);
                         Login.user.removeAllergensTags(allergensTags.get(id));
                         allergensTagsMap.replace(allergensTags.get(id), true, false);
-                    }
-                }
-            });
+                    }}});
 
             currentRow = (LinearLayout) allergenContainer.getChildAt(allergenContainer.getChildCount() - 1);
             currentRow.addView(allergenText, layoutParams);
@@ -180,7 +184,6 @@ public class PersonnalInformation extends AppCompatActivity {
         }
         ScrollView scrollView = new ScrollView(this);
         scrollView.addView(allergenContainer);
-
         layoutAllergensTags.addView(scrollView);
     }
 

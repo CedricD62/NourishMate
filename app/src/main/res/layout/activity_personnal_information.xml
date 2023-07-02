@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:text="Update Information"
+        android:text="Enregistrer"
         android:textSize="18sp" />
 
     <Button
@@ -20,51 +20,51 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:text="Delete Information"
+        android:text="Supprimer le compte"
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/tvPseudo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pseudo:"
+        android:paddingBottom="8dp"
+        android:text="Identifiant :"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:paddingBottom="8dp" />
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/etPseudo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter pseudo here"
-        android:textSize="18sp"
-        android:paddingBottom="16dp" />
+        android:hint="saisissez votre identifiant ici"
+        android:paddingBottom="16dp"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/tvLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login:"
+        android:paddingBottom="8dp"
+        android:text="Mot de passe :"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:paddingBottom="8dp" />
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/etLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter login here"
-        android:textSize="18sp"
-        android:paddingBottom="16dp" />
+        android:hint="saisissez votre mot de passe ici"
+        android:paddingBottom="16dp"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/tvAllergens"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Allergens:"
+        android:paddingBottom="8dp"
+        android:text="Tags des produits allergiques :"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:paddingBottom="8dp" />
+        android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/layoutAllergensTags"

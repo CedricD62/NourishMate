@@ -80,41 +80,23 @@ public class Login extends AppCompatActivity {
 
                 if (user == null) {
                     Intent intentToYestAction = new Intent(Login.this, PersonnalInformation.class);
-                    AlertDialogs.displayInformationToUser( true, false, "Création de compte", "Utilisateur non reconnu, Voulez vous enregistrer vos informations ?", Optional.of(intentToYestAction), Optional.empty(), Optional.of(Login.this));
+                    AlertDialogs.displayInformationToUser( true, false,
+                            "Création de compte", "Utilisateur non reconnu, Voulez vous enregistrer vos informations ?",
+                            Optional.of(intentToYestAction), Optional.empty(), Optional.of(Login.this));
                 }else{
                     user.setLoggedOn(true);
                     user.setUserId(database);
-                    AlertDialogs.displayInformationToUser( true, false, " Authentification", "Connection effectuée, redirection vers l'accueil", Optional.of(new Intent(Login.this, MainActivity.class)), Optional.of(new Intent(Login.this, PersonnalInformation.class)), Optional.of(Login.this));
+                    AlertDialogs.displayInformationToUser( true, false, " Authentification",
+                            "Connection effectuée, redirection vers l'accueil",
+                            Optional.of(new Intent(Login.this, MainActivity.class)),
+                            Optional.of(new Intent(Login.this, PersonnalInformation.class)), Optional.of(Login.this));
 
                 }
             }else{
-                AlertDialogs.displayInformationToUser( false, true, "Echec d'authentification", "Veuillez saisir votre identifiant et mot de passe", Optional.empty(), Optional.empty(),Optional.empty());
+                AlertDialogs.displayInformationToUser( false, true, "Echec d'authentification",
+                        "Veuillez saisir votre identifiant et mot de passe", Optional.empty(),
+                        Optional.empty(),Optional.empty());
             }
         });
     }
-
-    private void createAccount(){
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Création de compte");
-        alert.setMessage("");
-        alert.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Intent intent = new Intent(Login.this, PersonnalInformation.class);
-                startActivity(intent);
-            }
-        });
-        alert.setNegativeButton("Non", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                finish();
-            }
-        });
-        alert.create().show();
-    }
-
-
-
-
-
 }
