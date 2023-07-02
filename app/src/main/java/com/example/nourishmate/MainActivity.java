@@ -13,6 +13,7 @@ import com.example.nourishmate.Models.AllergensTags;
 import com.example.nourishmate.Models.ProductRequestResult;
 
 import java.util.HashSet;
+import java.util.Optional;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                HashSet<AllergensTags> allergens = ProductRequestResult.getAllergenList();
+                HashSet<AllergensTags> allergens = ProductRequestResult.getAllergenList(Optional.of(MainActivity.this));
             }
         });
         t.start();

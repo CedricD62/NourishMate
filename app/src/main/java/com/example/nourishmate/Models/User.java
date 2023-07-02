@@ -25,7 +25,7 @@ public class User {
     private int id;
     private String pseudo;
     private String Login;
-    private Boolean loggedOn;
+    private boolean loggedOn;
     private ArrayList<AllergensTags> allergensTags;
 
     public int getId() {

@@ -1,5 +1,7 @@
 package com.example.nourishmate.Models;
 
+import android.content.Context;
+
 import com.j256.ormlite.table.DatabaseTable;
 
 import org.json.JSONArray;
@@ -57,7 +59,7 @@ public class ProductRequestResult {
     }
 
 
-    public static ProductRequestResult getProductByCodeScan(String code) {
+    public static ProductRequestResult getProductByCodeScan(String code, Optional<Context> activity) {
         ProductRequestResult productRequestResult = null;
         HttpHandler httpHandler = new HttpHandler();
         String url = "https://world.openfoodfacts.org/api/v2/product/" + code +
@@ -65,7 +67,7 @@ public class ProductRequestResult {
                 "allergens_imported,nutrient_levels,code,allergens,allergens_from_ingredients,allergens_from_user," +
                 "allergens_hierarchy,allergens_imported,allergens_lc,allergens_tags,selected_images";
         try {
-            JSONObject json = new JSONObject(httpHandler.makeServiceCall(url));
+            JSONObject json = new JSONObject(httpHandler.makeServiceCall(url, activity));
             if (json != null) {
                 productRequestResult = new ProductRequestResult(json.getString("code"), json.getInt("status"),
                                                                 json.getString("status_verbose"));
@@ -76,19 +78,19 @@ public class ProductRequestResult {
             AlertDialogs.displayInformationToUser( false, true,
                     "Parse JSON",
                     "Une erreur est survenue lors de la lecture du fichier JSON pour le Code Barre du produit scanné",
-                    Optional.empty(), Optional.empty(), Optional.empty());
+                    Optional.empty(), Optional.empty(), activity);
         }
         return productRequestResult;
     }
 
-    public static ArrayList<Product>  getBestAlternaviveProducts(String code, String countryTag, String categoryTags) {
+    public static ArrayList<Product>  getBestAlternaviveProducts(String code, String countryTag, String categoryTags, Optional<Context> activity) {
         ProductRequestResult productRequestResult = null;
         ArrayList<Product> products = new ArrayList<>();
         HttpHandler httpHandler = new HttpHandler();
         String url = "https://world.openfoodfacts.org/api/v2/search?countries_tags=" + countryTag +
                 "&categories_tags="+ categoryTags + "&fields=product_name,code,selected_images";
         try {
-            JSONObject json = new JSONObject(httpHandler.makeServiceCall(url));
+            JSONObject json = new JSONObject(httpHandler.makeServiceCall(url, activity));
             JSONArray array = json.getJSONArray("products");
             if (json != null) {
                 for (int i = 0; i < array.length(); i++){
@@ -100,18 +102,18 @@ public class ProductRequestResult {
                     "Parse JSON",
                     "Une erreur est survenue lors de la lecture du fichier JSON lors " +
                             "de la récupération de la liste de produit suggérés",
-                    Optional.empty(), Optional.empty(), Optional.empty());
+                    Optional.empty(), Optional.empty(), activity);
         }
         return products;
     }
 
-    public static HashSet<AllergensTags> getAllergenList(){
+    public static HashSet<AllergensTags> getAllergenList(Optional<Context> activity){
         HashSet<AllergensTags> allergens = new HashSet<>();
         HashSet<String> allergenNames = new HashSet<>();
         HttpHandler httpHandler = new HttpHandler();
         String url = "https://world.openfoodfacts.org/api/v2/search?tagtype_0=allergens&fields=allergens&page_size=1000";
         try {
-            JSONObject json = new JSONObject(httpHandler.makeServiceCall(url));
+            JSONObject json = new JSONObject(httpHandler.makeServiceCall(url, activity));
             JSONArray array = json.getJSONArray("products");
             if (json != null) {
                 for (int i = 0; i < array.length(); i++){
@@ -132,17 +134,17 @@ public class ProductRequestResult {
                                         AlertDialogs.displayInformationToUser( false, true,
                                                 "Récupération liste allergène",
                                                 "Une erreur est survenue lors de l'ajoût des allergènes à la liste",
-                                                Optional.empty(), Optional.empty(), Optional.empty());
+                                                Optional.empty(), Optional.empty(), activity);
                                     }}} }}catch (Exception ex){
                         AlertDialogs.displayInformationToUser( false, true,
                                 "Récupération liste allergène",
                                 "Une erreur est survenue lors de la récupération d'un objet dans la liste des allergènes",
-                                Optional.empty(), Optional.empty(), Optional.empty());
+                                Optional.empty(), Optional.empty(), activity);
                     }}}} catch (JSONException e) {
             AlertDialogs.displayInformationToUser( false, true,
                     "Récupération liste allergène",
                     "Une erreur est survenue lors de la lecture du fichier JSON contenant la liste des allergènes",
-                    Optional.empty(), Optional.empty(), Optional.empty());
+                    Optional.empty(), Optional.empty(), activity);
         }
         return allergens;
     }

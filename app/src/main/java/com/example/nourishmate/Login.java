@@ -95,7 +95,7 @@ public class Login extends AppCompatActivity {
             }else{
                 AlertDialogs.displayInformationToUser( false, true, "Echec d'authentification",
                         "Veuillez saisir votre identifiant et mot de passe", Optional.empty(),
-                        Optional.empty(),Optional.empty());
+                        Optional.empty(),Optional.of(Login.this));
             }
         });
     }

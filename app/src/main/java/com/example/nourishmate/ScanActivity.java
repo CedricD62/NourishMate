@@ -117,7 +117,7 @@ public class ScanActivity extends AppCompatActivity {
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    productRequestResult = ProductRequestResult.getProductByCodeScan(result.getContents());
+                    productRequestResult = ProductRequestResult.getProductByCodeScan(result.getContents(), Optional.of(ScanActivity.this));
                     if (productRequestResult.getStatus() == 1) {
                         bmp = getImage(productRequestResult.getProduct(), "fr");
                         if (bmp == null) {
@@ -158,8 +158,9 @@ public class ScanActivity extends AppCompatActivity {
 
         if(!allergens.isEmpty() && allergens.length() > 2){
             allergens = allergens.substring(0, allergens.length()-2);
+            AlertDialogs.displayInformationToUser( false, true, "allergènes", "présence de substances allergène : " + allergens, Optional.empty(), Optional.empty(), Optional.of(ScanActivity.this));
+
         }
-        AlertDialogs.displayInformationToUser( false, true, "allergènes", "présence de substances allergène : " + allergens, Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     private void displayProductInformation(Product product) {
@@ -302,7 +303,7 @@ public class ScanActivity extends AppCompatActivity {
             }
         }
 
-        productArrayList = ProductRequestResult.getBestAlternaviveProducts(product.getCode(), countryTags, categoriesTags);
+        productArrayList = ProductRequestResult.getBestAlternaviveProducts(product.getCode(), countryTags, categoriesTags, Optional.of(ScanActivity.this));
     }
 
     private void displayBestProductDatas() {

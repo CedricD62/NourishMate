@@ -49,6 +49,7 @@ public class AlertDialogs {
     }
 
     private static void okDialog(String title, String message, Optional<Context> activity) {
+        Context c = activity.orElse(null);
         AlertDialog.Builder builder = new AlertDialog.Builder(activity.orElse(null));
         builder.setTitle(title);
         builder.setMessage(message);

@@ -78,12 +78,12 @@ public class PersonnalInformation extends AppCompatActivity {
                                 registerAllergenTagsUserInBdd();
                                 AlertDialogs.displayInformationToUser( false, true,
                                         "Mise à jour de compte", "le compte a bien été mis à jour",
-                                        Optional.empty(), Optional.empty(), Optional.empty());
+                                        Optional.empty(), Optional.empty(), Optional.of(PersonnalInformation.this));
                             }
                         } else {
                             AlertDialogs.displayInformationToUser( false, true,
                                     "Création de compte", "Echec de création de compte impossible, contacter l'administrateur",
-                                    Optional.empty(), Optional.empty(), Optional.empty());
+                                    Optional.empty(), Optional.empty(), Optional.of(PersonnalInformation.this));
                         }
                     }else{
                         if (Login.user.getAllergensTagsCount() > 0) {
@@ -91,11 +91,11 @@ public class PersonnalInformation extends AppCompatActivity {
                                 registerAllergenTagsUserInBdd();
                                 AlertDialogs.displayInformationToUser( false, true, "Mise à jour de compte",
                                         "le compte a bien été mis à jour", Optional.empty(),
-                                        Optional.empty(), Optional.empty());
+                                        Optional.empty(), Optional.of(PersonnalInformation.this));
                             }else{
                                 AlertDialogs.displayInformationToUser( false, true, "Mise à jour allergène",
                                         "Echec de mise à jour de la liste des allergènes, contacter l'administrateur",
-                                        Optional.empty(), Optional.empty(), Optional.empty());
+                                        Optional.empty(), Optional.empty(), Optional.of(PersonnalInformation.this));
                             }
                         }}}}});
         delete.setOnClickListener(new View.OnClickListener() {
@@ -109,12 +109,12 @@ public class PersonnalInformation extends AppCompatActivity {
                    }else{
                        AlertDialogs.displayInformationToUser(true,  false, "Suppression de compte",
                                "echec de suppression de compte", Optional.empty(), Optional.empty(),
-                               Optional.empty());
+                               Optional.of(PersonnalInformation.this));
                    }
                }else{
                    AlertDialogs.displayInformationToUser( false, true, "Suppression de compte",
                            "echec de suppression de compte", Optional.empty(), Optional.empty(),
-                           Optional.empty());
+                           Optional.of(PersonnalInformation.this));
                }}});}
 
     private void registerAllergenTagsUserInBdd() {
@@ -123,7 +123,7 @@ public class PersonnalInformation extends AppCompatActivity {
             if (!allergenTagsUser.create(database)) {
                 AlertDialogs.displayInformationToUser(true, true, "Ajout allergène",
                         "Echec de l'ajoût de l'allergène, contacter l'administrateur, contacter l'administrateur",
-                        Optional.empty(), Optional.empty(), Optional.empty());
+                        Optional.empty(), Optional.empty(), Optional.of(PersonnalInformation.this));
                 break;
             }
         }

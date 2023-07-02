@@ -24,6 +24,7 @@ import com.journeyapps.barcodescanner.ScanIntentResult;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Optional;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -58,7 +59,7 @@ public class SuggestedProductDetails extends AppCompatActivity {
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    ProductRequestResult productRequestResult = ProductRequestResult.getProductByCodeScan(suggestedProductCode);
+                    ProductRequestResult productRequestResult = ProductRequestResult.getProductByCodeScan(suggestedProductCode, Optional.of(SuggestedProductDetails.this));
                     if (productRequestResult.getStatus() == 1) {
                          bmp = getImage(productRequestResult.getProduct(), "fr");
                         if (bmp == null) {
